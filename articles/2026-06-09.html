@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Apple unveils an upgraded Siri voice assistant with new AI features at its annual conference</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    padding: 0;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 16px 120px;
+    background: #fff;
+    min-height: 100vh;
+  }
+  .article-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e8e8e8;
+  }
+  .article-header h1 {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+  }
+  .article-header .title-cn {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .article-header .meta {
+    font-size: 13px;
+    color: #999;
+  }
+  .article-header .meta span {
+    margin-right: 12px;
+  }
+  .section-title {
+    font-size: 17px;
+    color: #1a1a1a;
+    margin: 24px 0 4px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .section-title-cn {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .para-group {
+    margin-bottom: 20px;
+  }
+  .en-text {
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 6px;
+    color: #222;
+  }
+  .cn-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #888;
+    padding-left: 12px;
+    border-left: 3px solid #e0e0e0;
+    margin-bottom: 4px;
+  }
+  .word {
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.15s;
+    display: inline;
+  }
+  .word:hover {
+    background: #e3f2fd;
+  }
+  .word.active {
+    background: #bbdefb;
+  }
+
+  /* 底部查词面板 */
+  .lookup-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0 20px 24px;
+  }
+  .lookup-panel.show {
+    transform: translateY(0);
+  }
+  .lookup-panel .handle {
+    width: 36px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 2px;
+    margin: 10px auto 16px;
+  }
+  .lookup-panel .word-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lookup-panel .phonetic {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .lookup-panel .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lookup-panel .play-btn:hover {
+    background: #1565c0;
+  }
+  .lookup-panel .definitions {
+    margin-top: 12px;
+  }
+  .lookup-panel .pos {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .lookup-panel .def-item {
+    font-size: 14px;
+    color: #444;
+    padding: 4px 0 4px 12px;
+    line-height: 1.6;
+  }
+  .lookup-panel .error-msg {
+    color: #e53935;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+  .lookup-panel .loading {
+    color: #999;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  .original-link {
+    display: block;
+    text-align: center;
+    margin-top: 32px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .original-link:hover {
+    background: #e8e8e8;
+  }
+
+  .tip {
+    text-align: center;
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+<div class='container'>
+  <div class='article-header'>
+    <h1>Apple unveils an upgraded Siri voice assistant with new AI features at its annual conference</h1>
+    <div class='title-cn'>苹果在年度开发者大会上发布全新 Siri 语音助手及 AI 新功能</div>
+    <div class='meta'>
+      <span>📰 Associated Press (AP News)</span>
+      <span>✍️ Barbara Ortutay</span>
+      <span>📅 June 8, 2026</span>
+    </div>
+  </div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='cupertino'>CUPERTINO</span>, <span class='word' data-word='calif'>Calif</span>. (<span class='word' data-word='ap'>AP</span>) — <span class='word' data-word='apple'>Apple</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='monday'>Monday</span> <span class='word' data-word='unveiled'>unveiled</span> <span class='word' data-word='new'>new</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='advances'>advances</span> <span class='word' data-word='including'>including</span> <span class='word' data-word='upgrades'>upgrades</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='siri'>Siri</span> <span class='word' data-word='assistant'>assistant</span>, <span class='word' data-word='emphasizing'>emphasizing</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='focus'>focus</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='privacy'>privacy</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='day'>day</span>-<span class='word' data-word='to'>to</span>-<span class='word' data-word='day'>day</span> <span class='word' data-word='use'>use</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='iphone'>iPhone</span> <span class='word' data-word='maker'>maker</span> <span class='word' data-word='tries'>tries</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='catch'>catch</span> <span class='word' data-word='up'>up</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='rivals'>rivals</span> <span class='word' data-word='when'>when</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='comes'>comes</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='ai'>AI</span>.</p>
+          <p class='cn-text'>【译】本周一，苹果公司发布了一系列人工智能新进展，包括对 Siri 助手的升级更新。在追赶 AI 竞争对手的过程中，苹果着重强调以隐私保护和日常使用场景为核心。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='siri'>Siri</span> <span class='word' data-word='ai'>AI</span>, <span class='word' data-word='which'>which</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='introduced'>introduced</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='start'>start</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='apple's'>Apple's</span> <span class='word' data-word='annual'>annual</span> <span class='word' data-word='world'>World</span> <span class='word' data-word='wide'>Wide</span> <span class='word' data-word='developers'>Developers</span> <span class='word' data-word='conference'>Conference</span>, <span class='word' data-word='has'>has</span> <span class='word' data-word='been'>been</span> <span class='word' data-word='highly'>highly</span> <span class='word' data-word='anticipated'>anticipated</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='users'>users</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='developers'>developers</span>. <span class='word' data-word='while'>While</span> <span class='word' data-word='siri'>Siri</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='launched'>launched</span> <span class='word' data-word='in'>in</span> 2011, <span class='word' data-word='it'>it</span> <span class='word' data-word='fell'>fell</span> <span class='word' data-word='behind'>behind</span> <span class='word' data-word='other'>other</span> <span class='word' data-word='voice'>voice</span> <span class='word' data-word='assistants'>assistants</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='derided'>derided</span> <span class='word' data-word='even'>even</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='apple'>Apple</span> <span class='word' data-word='fans'>fans</span>.</p>
+          <p class='cn-text'>【译】新版 Siri AI 在苹果年度全球开发者大会（WWDC）开幕时正式亮相，备受用户与开发者期待。Siri 于 2011 年推出，但此后逐渐落后于其他语音助手，甚至遭到苹果忠实粉丝的嘲笑。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='it'>It</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='last'>last</span> <span class='word' data-word='wwdc'>WWDC</span> <span class='word' data-word='featuring'>featuring</span> <span class='word' data-word='ceo'>CEO</span> <span class='word' data-word='tim'>Tim</span> <span class='word' data-word='cook'>Cook</span> <span class='word' data-word='before'>before</span> <span class='word' data-word='he'>he</span> <span class='word' data-word='turns'>turns</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='post'>post</span> <span class='word' data-word='over'>over</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='john'>John</span> <span class='word' data-word='ternus'>Ternus</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='september'>September</span>. <span class='word' data-word='cook'>Cook</span> <span class='word' data-word='received'>received</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='extended'>extended</span> <span class='word' data-word='standing'>standing</span> <span class='word' data-word='ovation'>ovation</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='told'>told</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='audience'>audience</span> <span class='word' data-word='he'>he</span> <span class='word' data-word='is'>is</span> "<span class='word' data-word='deeply'>deeply</span> <span class='word' data-word='grateful'>grateful</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='been'>been</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='journey'>journey</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='you'>you</span>" <span class='word' data-word='and'>and</span> <span class='word' data-word='said'>said</span> "<span class='word' data-word='the'>the</span> <span class='word' data-word='energy'>energy</span> <span class='word' data-word='around'>around</span> <span class='word' data-word='apple'>Apple</span> <span class='word' data-word='platforms'>platforms</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='never'>never</span> <span class='word' data-word='been'>been</span> <span class='word' data-word='stronger'>stronger</span>."</p>
+          <p class='cn-text'>【译】这也是 Tim Cook 以 CEO 身份出席的最后一届 WWDC，他将于今年 9 月将职位交接给 John Ternus。Cook 在现场获得了长时间的起立鼓掌，他对观众表示"能与大家同行，我深感荣幸"，并说"苹果平台的活力从未如此强劲"。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='conference'>conference</span>, <span class='word' data-word='which'>which</span> <span class='word' data-word='drew'>drew</span> <span class='word' data-word='developers'>developers</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='some'>some</span> 65 <span class='word' data-word='countries'>countries</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='apple's'>Apple's</span> <span class='word' data-word='silicon'>Silicon</span> <span class='word' data-word='valley'>Valley</span> <span class='word' data-word='headquarters'>headquarters</span>, <span class='word' data-word='focuses'>focuses</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='software'>software</span>, <span class='word' data-word='in'>in</span> <span class='word' data-word='contrast'>contrast</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='fall'>fall</span> <span class='word' data-word='unveiling'>unveiling</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='latest'>latest</span> <span class='word' data-word='iphones'>iPhones</span>.</p>
+          <p class='cn-text'>【译】此次大会吸引了来自约 65 个国家的开发者齐聚苹果硅谷总部，聚焦软件领域，有别于秋季新款 iPhone 的发布活动。</p>
+        </div>
+        <h2 class='section-title'>APPLE STEPS UP ITS AI GAME</h2>
+        <h3 class='section-title-cn'>苹果全力进军人工智能</h3>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='apple'>Apple</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='sought'>sought</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='distinguish'>distinguish</span> <span class='word' data-word='itself'>itself</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='peers'>peers</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='stressing'>stressing</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='privacy'>privacy</span>-<span class='word' data-word='centered'>centered</span> <span class='word' data-word='approach'>approach</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='integrating'>integrating</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='across'>across</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='devices'>devices</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='apps'>apps</span>. <span class='word' data-word='there'>There</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='no'>no</span> <span class='word' data-word='mention'>mention</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='superintelligence'>superintelligence</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='companion'>companion</span> <span class='word' data-word='chatbots'>chatbots</span>. <span class='word' data-word='rather'>Rather</span>, <span class='word' data-word='apple'>Apple</span> <span class='word' data-word='sought'>sought</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='demonstrate'>demonstrate</span> <span class='word' data-word='how'>how</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='tools'>tools</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='make'>make</span> <span class='word' data-word='life'>life</span> <span class='word' data-word='easier'>easier</span>.</p>
+          <p class='cn-text'>【译】苹果力图通过强调以隐私为核心的理念，并将 AI 深度融入旗下设备与应用，来与竞争对手区别开来。发布会上没有提及 AI 超级智能或伴侣聊天机器人，而是着力展示 AI 工具如何让生活更便捷。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='apple'>Apple</span> <span class='word' data-word='software'>software</span> <span class='word' data-word='chief'>chief</span> <span class='word' data-word='craig'>Craig</span> <span class='word' data-word='federighi'>Federighi</span> <span class='word' data-word='took'>took</span> <span class='word' data-word='some'>some</span> <span class='word' data-word='swipes'>swipes</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='companies'>companies</span> — <span class='word' data-word='without'>without</span> <span class='word' data-word='naming'>naming</span> <span class='word' data-word='them'>them</span> — <span class='word' data-word='that'>that</span> <span class='word' data-word='seem'>seem</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> "<span class='word' data-word='pursuing'>pursuing</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='sake'>sake</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='ai'>AI</span>" <span class='word' data-word='without'>without</span> <span class='word' data-word='clear'>clear</span> <span class='word' data-word='regard'>regard</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='supposed'>supposed</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='serve'>serve</span>. <span class='word' data-word='at'>At</span> <span class='word' data-word='apple'>Apple</span>, <span class='word' data-word='he'>he</span> <span class='word' data-word='said'>said</span>, "<span class='word' data-word='we'>we</span> <span class='word' data-word='believe'>believe</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='truly'>truly</span> <span class='word' data-word='helpful'>helpful</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='should'>should</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='centered'>centered</span> <span class='word' data-word='around'>around</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='your'>your</span> <span class='word' data-word='needs'>needs</span>," <span class='word' data-word='which'>which</span> <span class='word' data-word='means'>means</span> <span class='word' data-word='integrating'>integrating</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='into'>into</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='products'>products</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='use'>use</span> <span class='word' data-word='every'>every</span> <span class='word' data-word='day'>day</span>, <span class='word' data-word='with'>with</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='focus'>focus</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='privacy'>privacy</span>.</p>
+          <p class='cn-text'>【译】苹果软件主管 Craig Federighi 不点名地批评了一些 AI 公司，称它们似乎在"为了 AI 而做 AI"，对真正需要服务的用户缺乏关注。他表示，苹果相信"真正有用的 AI 应以你和你的需求为中心"，即将 AI 融入人们每天使用的产品，并将隐私保护置于首位。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='conference'>conference</span> <span class='word' data-word='unveiled'>unveiled</span> <span class='word' data-word='updates'>updates</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='apple'>Apple</span> <span class='word' data-word='intelligence'>Intelligence</span>, <span class='word' data-word='which'>which</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='first'>first</span> <span class='word' data-word='announced'>announced</span> <span class='word' data-word='in'>in</span> 2024. <span class='word' data-word='it'>It</span> <span class='word' data-word='now'>now</span> <span class='word' data-word='uses'>uses</span> <span class='word' data-word='google's'>Google's</span> <span class='word' data-word='gemini'>Gemini</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='model'>model</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='power'>power</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='features'>features</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='processes'>processes</span> <span class='word' data-word='users'>users</span>' <span class='word' data-word='requests'>requests</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='interactions'>interactions</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='own'>own</span> <span class='word' data-word='device'>device</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='privately'>privately</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='cloud'>cloud</span>, <span class='word' data-word='making'>making</span> <span class='word' data-word='them'>them</span> <span class='word' data-word='inaccessible'>inaccessible</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='anyone'>anyone</span> <span class='word' data-word='else'>else</span>.</p>
+          <p class='cn-text'>【译】大会还公布了 Apple Intelligence 的更新——该功能于 2024 年首次亮相，现已接入谷歌 Gemini AI 模型来强化功能。用户的请求与交互将在本地设备或私有云端处理，任何第三方均无法访问。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='at'>At</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='center'>center</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='new'>new</span> <span class='word' data-word='siri'>Siri</span>, <span class='word' data-word='which'>which</span> <span class='word' data-word='apple'>Apple</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='now'>now</span> <span class='word' data-word='a'>a</span> "<span class='word' data-word='much'>much</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='capable'>capable</span> <span class='word' data-word='assistant'>assistant</span>" <span class='word' data-word='that'>that</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='users'>users</span> <span class='word' data-word='find'>find</span> <span class='word' data-word='what'>what</span> <span class='word' data-word='they'>they</span> <span class='word' data-word='need'>need</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='get'>get</span> <span class='word' data-word='things'>things</span> <span class='word' data-word='done'>done</span> <span class='word' data-word='across'>across</span> <span class='word' data-word='various'>various</span> <span class='word' data-word='apple'>Apple</span> <span class='word' data-word='devices'>devices</span>. <span class='word' data-word='for'>For</span> <span class='word' data-word='instance'>instance</span>, <span class='word' data-word='it'>it</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='create'>create</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='menu'>menu</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='gather'>gather</span> <span class='word' data-word='recipes'>recipes</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='web'>web</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='your'>your</span> <span class='word' data-word='own'>own</span> <span class='word' data-word='text'>text</span> <span class='word' data-word='messages'>messages</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='world'>World</span> <span class='word' data-word='cup'>Cup</span> <span class='word' data-word='viewing'>viewing</span> <span class='word' data-word='party'>party</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='invite'>invite</span> <span class='word' data-word='friends'>friends</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='group'>group</span> <span class='word' data-word='chat'>chat</span>. <span class='word' data-word='siri'>Siri</span> <span class='word' data-word='mode'>mode</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='your'>your</span> <span class='word' data-word='camera'>camera</span>, <span class='word' data-word='meanwhile'>meanwhile</span>, <span class='word' data-word='can'>can</span> <span class='word' data-word='tell'>tell</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='what'>what</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='looking'>looking</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='give'>give</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='relevant'>relevant</span> <span class='word' data-word='information'>information</span>, <span class='word' data-word='such'>such</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='nutritional'>nutritional</span> <span class='word' data-word='details'>details</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='plate'>plate</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='food'>food</span>.</p>
+          <p class='cn-text'>【译】其核心是全新的 Siri。苹果称，新 Siri 已是一款"能力大幅提升的助手"，可帮助用户在各类苹果设备上查找所需内容并完成任务。例如，它能从网页或你的短信记录中收集食谱、为世界杯观赛派对制定菜单，并邀请群聊中的朋友参加。此外，相机中的 Siri 模式还能识别你所看到的事物并提供相关信息，比如一盘食物的营养成分详情。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='siri's'>Siri's</span> <span class='word' data-word='visual'>visual</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='works'>works</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='images'>images</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='your'>your</span> <span class='word' data-word='screen'>screen</span>. <span class='word' data-word='for'>For</span> <span class='word' data-word='example'>example</span>, <span class='word' data-word='it'>it</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='tell'>tell</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='whether'>whether</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='backpack'>backpack</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='thinking'>thinking</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='getting'>getting</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='work'>work</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='carry'>carry</span>-<span class='word' data-word='on'>on</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='flight'>flight</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='whether'>whether</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='pair'>pair</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='bulky'>bulky</span> <span class='word' data-word='hiking'>hiking</span> <span class='word' data-word='boots'>boots</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='fit'>fit</span> <span class='word' data-word='inside'>inside</span> <span class='word' data-word='it'>it</span>.</p>
+          <p class='cn-text'>【译】Siri 的视觉智能同样适用于屏幕上的图片。例如，它可以告诉你正在考虑购买的背包是否符合航班随身行李要求，或者一双厚重的登山靴能否塞进去。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='apple'>Apple</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='announced'>announced</span> <span class='word' data-word='improvements'>improvements</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='popular'>popular</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='photo'>photo</span> <span class='word' data-word='editing'>editing</span> <span class='word' data-word='tools'>tools</span>, <span class='word' data-word='including'>including</span> <span class='word' data-word='spatial'>spatial</span> <span class='word' data-word='reframing'>reframing</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='lets'>lets</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='adjust'>adjust</span> <span class='word' data-word='how'>how</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='photo'>photo</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='framed'>framed</span> <span class='word' data-word='after'>after</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='taken'>taken</span> — <span class='word' data-word='as'>as</span> <span class='word' data-word='if'>if</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='had'>had</span> <span class='word' data-word='moved'>moved</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='camera'>camera</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='better'>better</span> <span class='word' data-word='position'>position</span> <span class='word' data-word='while'>while</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='were'>were</span> <span class='word' data-word='snapping'>snapping</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='picture'>picture</span>.</p>
+          <p class='cn-text'>【译】苹果还宣布了对其广受欢迎的 AI 照片编辑工具的改进，包括"空间重构"功能——允许你在拍摄完成后重新调整画面构图，就好像当时将相机移到了更佳位置一样。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='a'>A</span> <span class='word' data-word='standalone'>standalone</span> <span class='word' data-word='siri'>Siri</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='app'>app</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='launch'>launch</span> <span class='word' data-word='later'>later</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='year'>year</span>, <span class='word' data-word='though'>though</span> <span class='word' data-word='apple'>Apple</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='initially'>initially</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='available'>available</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='europe'>Europe</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='won't'>won't</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='available'>available</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='china'>China</span> <span class='word' data-word='while'>while</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='works'>works</span> <span class='word' data-word='out'>out</span> <span class='word' data-word='regulatory'>regulatory</span> <span class='word' data-word='issues'>issues</span>.</p>
+          <p class='cn-text'>【译】一款独立的 Siri AI 应用将于今年晚些时候推出，但苹果表示该应用初期不会在欧洲上线，同时因监管问题也暂不向中国用户开放。</p>
+        </div>
+        <h2 class='section-title'>TIM COOK'S LAST WWDC</h2>
+        <h3 class='section-title-cn'>Tim Cook 的最后一届 WWDC</h3>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='cook'>Cook</span> <span class='word' data-word='announced'>announced</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='retirement'>retirement</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='april'>April</span>, <span class='word' data-word='ending'>ending</span> <span class='word' data-word='a'>a</span> 15-<span class='word' data-word='year'>year</span> <span class='word' data-word='run'>run</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='saw'>saw</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company's'>company's</span> <span class='word' data-word='market'>market</span> <span class='word' data-word='value'>value</span> <span class='word' data-word='soar'>soar</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='than'>than</span> $4 <span class='word' data-word='trillion'>trillion</span> <span class='word' data-word='during'>during</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='iphone'>iPhone</span>-<span class='word' data-word='fueled'>fueled</span> <span class='word' data-word='era'>era</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='prosperity'>prosperity</span>. <span class='word' data-word='ternus'>Ternus</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='been'>been</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='apple'>Apple</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='past'>past</span> <span class='word' data-word='quarter'>quarter</span> <span class='word' data-word='century'>century</span>, <span class='word' data-word='including'>including</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='past'>past</span> <span class='word' data-word='five'>five</span> <span class='word' data-word='years'>years</span> <span class='word' data-word='overseeing'>overseeing</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='engineering'>engineering</span> <span class='word' data-word='underlying'>underlying</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='iphone'>iPhone</span>, <span class='word' data-word='ipad'>iPad</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='mac'>Mac</span> — <span class='word' data-word='a'>a</span> <span class='word' data-word='role'>role</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='made'>made</span> <span class='word' data-word='him'>him</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='prime'>prime</span> <span class='word' data-word='candidate'>candidate</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='succeed'>succeed</span> <span class='word' data-word='cook'>Cook</span>.</p>
+          <p class='cn-text'>【译】Cook 于今年 4 月宣布退休，结束了长达 15 年的任期。在此期间，苹果市值在 iPhone 引领的繁荣时代飙升逾 4 万亿美元。Ternus 在苹果效力已有 25 年，过去五年主导了 iPhone、iPad 和 Mac 的底层工程工作，这一经历使他成为接班人的不二人选。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='transition'>transition</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='new'>new</span> <span class='word' data-word='ceo'>CEO</span> <span class='word' data-word='comes'>comes</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='pivotal'>pivotal</span> <span class='word' data-word='time'>time</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='apple'>Apple</span>. <span class='word' data-word='artificial'>Artificial</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='unleashed'>unleashed</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='most'>most</span> <span class='word' data-word='upheaval'>upheaval</span> <span class='word' data-word='within'>within</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='industry'>industry</span> <span class='word' data-word='since'>since</span> <span class='word' data-word='jobs'>Jobs</span> <span class='word' data-word='unveiled'>unveiled</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='first'>first</span> <span class='word' data-word='iphone'>iPhone</span> <span class='word' data-word='in'>in</span> 2007. <span class='word' data-word='apple'>Apple</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='gotten'>gotten</span> <span class='word' data-word='off'>off</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='rough'>rough</span> <span class='word' data-word='start'>start</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='after'>after</span> <span class='word' data-word='stumbling'>stumbling</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='efforts'>efforts</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='deliver'>deliver</span> <span class='word' data-word='new'>new</span> <span class='word' data-word='features'>features</span> <span class='word' data-word='built'>built</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='technology'>technology</span>, <span class='word' data-word='as'>as</span> <span class='word' data-word='promised'>promised</span> <span class='word' data-word='nearly'>nearly</span> <span class='word' data-word='two'>two</span> <span class='word' data-word='years'>years</span> <span class='word' data-word='ago'>ago</span>.</p>
+          <p class='cn-text'>【译】此次 CEO 交接发生在苹果的关键节点。自 2007 年乔布斯发布首款 iPhone 以来，人工智能正在引发业界最剧烈的变革。苹果在 AI 领域起步坎坷，在兑现近两年前承诺的 AI 新功能方面屡遇挫折。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='cook'>Cook</span> <span class='word' data-word='called'>called</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='time'>time</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='apple'>Apple</span> "<span class='word' data-word='the'>the</span> <span class='word' data-word='honor'>honor</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='lifetime'>lifetime</span>."</p>
+          <p class='cn-text'>【译】Cook 将自己在苹果的岁月称为"此生之荣耀"。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='i'>I</span> <span class='word' data-word='truly'>truly</span> <span class='word' data-word='believe'>believe</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='best'>best</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='still'>still</span> <span class='word' data-word='ahead'>ahead</span>."</p>
+          <p class='cn-text'>【译】"我真心相信，最好的时光还在前方。"</p>
+        </div>
+
+
+  <a class='original-link' href='https://apnews.com/article/apple-siri-wwdc-iphone-aa25d07c06d366ec5b62643a1f5b0db9' target='_blank'>📖 阅读原文 (AP News)</a>
+  <div class='tip'>💡 点击任意英文单词，查看读音和释义 | Tap any English word for definition</div>
+</div>
+
+<div class='lookup-panel' id='lookupPanel'>
+  <div class='handle'></div>
+  <div id='lookupContent'>
+    <div class='loading'>加载中...</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const panel = document.getElementById('lookupPanel');
+  const content = document.getElementById('lookupContent');
+  let currentWord = '';
+  const cache = {};
+
+  // 点击单词
+  document.addEventListener('click', function(e) {
+    const wordEl = e.target.closest('.word');
+    if (!wordEl) {
+      // 点击面板外部关闭
+      if (!e.target.closest('.lookup-panel')) {
+        panel.classList.remove('show');
+        document.querySelectorAll('.word.active').forEach(w => w.classList.remove('active'));
+      }
+      return;
+    }
+
+    const word = wordEl.dataset.word;
+    if (!word) return;
+
+    // 高亮当前单词
+    document.querySelectorAll('.word.active').forEach(w => w.classList.remove('active'));
+    wordEl.classList.add('active');
+
+    currentWord = word;
+    showPanel(word);
+  });
+
+  function showPanel(word) {
+    panel.classList.add('show');
+    if (cache[word]) {
+      renderResult(word, cache[word]);
+      return;
+    }
+    content.innerHTML = '<div class="loading">🔍 查询中...</div>';
+    fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(word))
+      .then(r => r.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          cache[word] = data[0];
+          if (currentWord === word) renderResult(word, data[0]);
+        } else {
+          if (currentWord === word) {
+            content.innerHTML = '<div class="word-title">' + esc(word) + '</div><div class="error-msg">未找到该词的释义</div>';
+          }
+        }
+      })
+      .catch(() => {
+        if (currentWord === word) {
+          content.innerHTML = '<div class="word-title">' + esc(word) + '</div><div class="error-msg">查询失败，请稍后重试</div>';
+        }
+      });
+  }
+
+  function renderResult(word, data) {
+    let html = '<div class="word-title">' + esc(word);
+    // 音标
+    let phonetic = '';
+    let audioUrl = '';
+    if (data.phonetic) phonetic = data.phonetic;
+    if (data.phonetics) {
+      for (const p of data.phonetics) {
+        if (!phonetic && p.text) phonetic = p.text;
+        if (!audioUrl && p.audio) audioUrl = p.audio;
+      }
+    }
+    if (phonetic) html += '<span class="phonetic">' + esc(phonetic) + '</span>';
+    html += '</div>';
+
+    // 播放按钮
+    if (audioUrl) {
+      html += '<button class="play-btn" onclick="playAudio(\'' + audioUrl + '\')">🔊 播放发音</button>';
+    } else {
+      html += '<button class="play-btn" onclick="speakWord(\'' + esc(word) + '\')">🔊 TTS 朗读</button>';
+    }
+
+    // 释义
+    if (data.meanings && data.meanings.length > 0) {
+      html += '<div class="definitions">';
+      for (const m of data.meanings) {
+        html += '<div class="pos">' + esc(m.partOfSpeech) + '</div>';
+        const defs = m.definitions.slice(0, 3);
+        for (let i = 0; i < defs.length; i++) {
+          html += '<div class="def-item">' + (i+1) + '. ' + esc(defs[i].definition) + '</div>';
+        }
+      }
+      html += '</div>';
+    }
+
+    content.innerHTML = html;
+  }
+
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  // 播放音频
+  window.playAudio = function(url) {
+    new Audio(url).play();
+  };
+
+  // TTS 朗读
+  window.speakWord = function(word) {
+    if ('speechSynthesis' in window) {
+      const u = new SpeechSynthesisUtterance(word);
+      u.lang = 'en-US';
+      u.rate = 0.85;
+      speechSynthesis.speak(u);
+    }
+  };
+
+  // 下滑关闭面板
+  let startY = 0;
+  panel.addEventListener('touchstart', function(e) {
+    startY = e.touches[0].clientY;
+  });
+  panel.addEventListener('touchend', function(e) {
+    const diff = e.changedTouches[0].clientY - startY;
+    if (diff > 60) {
+      panel.classList.remove('show');
+      document.querySelectorAll('.word.active').forEach(w => w.classList.remove('active'));
+    }
+  });
+})();
+</script>
+</body>
+</html>
