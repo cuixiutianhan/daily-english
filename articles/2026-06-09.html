@@ -355,11 +355,12 @@
     if (phonetic) html += '<span class="phonetic">' + esc(phonetic) + '</span>';
     html += '</div>';
 
-    // 播放按钮
+    // 播放按钮 - 全部使用音频文件，不用浏览器 TTS
     if (audioUrl) {
       html += '<button class="play-btn" onclick="playAudio(\'' + audioUrl + '\')">🔊 播放发音</button>';
     } else {
-      html += '<button class="play-btn" onclick="speakWord(\'' + esc(word) + '\')">🔊 TTS 朗读</button>';
+      var gtUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(word) + '&tl=en&client=tw-ob';
+      html += '<button class="play-btn" onclick="playAudio(\'' + esc(gtUrl) + '\')">🔊 播放发音</button>';
     }
 
     // 释义
@@ -384,19 +385,22 @@
     return d.innerHTML;
   }
 
-  // 播放音频
+  // 播放音频（统一入口）
   window.playAudio = function(url) {
-    new Audio(url).play();
-  };
-
-  // TTS 朗读
-  window.speakWord = function(word) {
-    if ('speechSynthesis' in window) {
-      const u = new SpeechSynthesisUtterance(word);
-      u.lang = 'en-US';
-      u.rate = 0.85;
-      speechSynthesis.speak(u);
-    }
+    var a = new Audio(url);
+    a.onerror = function() {
+      // 音频加载失败时，尝试 Google Translate TTS
+      var word = currentWord;
+      if (word) {
+        var gtUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(word) + '&tl=en&client=tw-ob';
+        var b = new Audio(gtUrl);
+        b.onerror = function() {
+          alert('发音加载失败，请稍后重试');
+        };
+        b.play();
+      }
+    };
+    a.play();
   };
 
   // 下滑关闭面板
