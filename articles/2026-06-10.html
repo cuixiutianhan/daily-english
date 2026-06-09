@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>'Synthetic performers' in ads must be identified as AI as new New York law takes effect</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    padding: 0;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 16px 120px;
+    background: #fff;
+    min-height: 100vh;
+  }
+  .article-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e8e8e8;
+  }
+  .article-header h1 {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+  }
+  .article-header .title-cn {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .article-header .meta {
+    font-size: 13px;
+    color: #999;
+  }
+  .article-header .meta span {
+    margin-right: 12px;
+  }
+  .section-title {
+    font-size: 17px;
+    color: #1a1a1a;
+    margin: 24px 0 4px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .section-title-cn {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .para-group {
+    margin-bottom: 20px;
+  }
+  .en-text {
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 6px;
+    color: #222;
+  }
+  .cn-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #888;
+    padding-left: 12px;
+    border-left: 3px solid #e0e0e0;
+    margin-bottom: 4px;
+  }
+  .word {
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.15s;
+    display: inline;
+  }
+  .word:hover {
+    background: #e3f2fd;
+  }
+  .word.active {
+    background: #bbdefb;
+  }
+
+  /* 底部查词面板 */
+  .lookup-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0 20px 24px;
+  }
+  .lookup-panel.show {
+    transform: translateY(0);
+  }
+  .lookup-panel .handle {
+    width: 36px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 2px;
+    margin: 10px auto 16px;
+  }
+  .lookup-panel .word-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lookup-panel .phonetic {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .lookup-panel .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lookup-panel .play-btn:hover {
+    background: #1565c0;
+  }
+  .lookup-panel .definitions {
+    margin-top: 12px;
+  }
+  .lookup-panel .pos {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .lookup-panel .def-item {
+    font-size: 14px;
+    color: #444;
+    padding: 4px 0 4px 12px;
+    line-height: 1.6;
+  }
+  .lookup-panel .error-msg {
+    color: #e53935;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+  .lookup-panel .loading {
+    color: #999;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  .original-link {
+    display: block;
+    text-align: center;
+    margin-top: 32px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .original-link:hover {
+    background: #e8e8e8;
+  }
+
+  .tip {
+    text-align: center;
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+<div class='container'>
+  <div class='article-header'>
+    <h1>'Synthetic performers' in ads must be identified as AI as new New York law takes effect</h1>
+    <div class='title-cn'>纽约新法生效：广告中的AI"合成表演者"必须标注身份</div>
+    <div class='meta'>
+      <span>📰 Associated Press (AP News)</span>
+      <span>✍️ Kaitlyn Huamani</span>
+      <span>📅 June 9, 2026</span>
+    </div>
+  </div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='any'>Any</span> <span class='word' data-word='advertisements'>advertisements</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='new'>New</span> <span class='word' data-word='york'>York</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='feature'>feature</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span>-<span class='word' data-word='generated'>generated</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='place'>place</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='actors'>actors</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='now'>now</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='violating'>violating</span> <span class='word' data-word='state'>state</span> <span class='word' data-word='law'>law</span> <span class='word' data-word='if'>if</span> <span class='word' data-word='they'>they</span> <span class='word' data-word='don't'>don't</span> <span class='word' data-word='clearly'>clearly</span> <span class='word' data-word='label'>label</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='they'>they</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='used'>used</span> <span class='word' data-word='a'>a</span> "<span class='word' data-word='synthetic'>synthetic</span> <span class='word' data-word='performer'>performer</span>."</p>
+          <p class='cn-text'>【译】现在，纽约州任何使用人工智能生成的人物替代真人演员的广告，如果没有明确标注使用了"合成表演者"，就违反了州法律。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='law'>law</span>, <span class='word' data-word='signed'>signed</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='gov'>Gov</span>. <span class='word' data-word='kathy'>Kathy</span> <span class='word' data-word='hochul'>Hochul</span> <span class='word' data-word='last'>last</span> <span class='word' data-word='december'>December</span>, <span class='word' data-word='took'>took</span> <span class='word' data-word='effect'>effect</span> <span class='word' data-word='tuesday'>Tuesday</span>. <span class='word' data-word='her'>Her</span> <span class='word' data-word='office'>office</span> <span class='word' data-word='called'>called</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='the'>the</span> "<span class='word' data-word='first'>first</span> <span class='word' data-word='law'>law</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='kind'>kind</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='nation'>nation</span>" <span class='word' data-word='that'>that</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='increase'>increase</span> <span class='word' data-word='transparency'>transparency</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='ai'>AI</span>-<span class='word' data-word='generated'>generated</span> <span class='word' data-word='performers'>performers</span> <span class='word' data-word='appear'>appear</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='various'>various</span> <span class='word' data-word='forms'>forms</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='media'>media</span>, <span class='word' data-word='including'>including</span> <span class='word' data-word='social'>social</span> <span class='word' data-word='platforms'>platforms</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='digital'>digital</span> <span class='word' data-word='ads'>ads</span>.</p>
+          <p class='cn-text'>【译】这项由州长凯西·霍楚尔（Kathy Hochul）去年12月签署的法律于周二正式生效。她的办公室称这是"全美首部此类法律"，在当前AI生成的表演者出现在包括社交平台和数字广告在内的各种媒体形式中的背景下，将提高透明度。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='synthetic'>Synthetic</span> <span class='word' data-word='performers'>performers</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='defined'>defined</span> <span class='word' data-word='under'>under</span> <span class='word' data-word='state'>state</span> <span class='word' data-word='law'>law</span> <span class='word' data-word='as'>as</span> "<span class='word' data-word='digitally'>digitally</span>-<span class='word' data-word='created'>created</span> <span class='word' data-word='media'>media</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='appear'>appear</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='real'>real</span> <span class='word' data-word='person'>person</span>." <span class='word' data-word='the'>The</span> <span class='word' data-word='law'>law</span> <span class='word' data-word='applies'>applies</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='ads'>ads</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='any'>any</span> <span class='word' data-word='medium'>medium</span>.</p>
+          <p class='cn-text'>【译】根据州法律，合成表演者被定义为"看起来像真人的数字创建媒体"。该法律适用于任何媒介的广告。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='in'>In</span> <span class='word' data-word='new'>New</span> <span class='word' data-word='york'>York</span>, <span class='word' data-word='we'>we</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='setting'>setting</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='rules'>rules</span> <span class='word' data-word='rather'>rather</span> <span class='word' data-word='than'>than</span> <span class='word' data-word='letting'>letting</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='call'>call</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='shots'>shots</span>," <span class='word' data-word='hochul'>Hochul</span>, <span class='word' data-word='a'>a</span> <span class='word' data-word='democrat'>Democrat</span>, <span class='word' data-word='said'>said</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='statement'>statement</span>. <span class='word' data-word='the'>The</span> "<span class='word' data-word='simple'>simple</span>, <span class='word' data-word='honest'>honest</span> <span class='word' data-word='disclosure'>disclosure</span>" <span class='word' data-word='required'>required</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='law'>law</span> "<span class='word' data-word='protects'>protects</span> <span class='word' data-word='consumers'>consumers</span>, <span class='word' data-word='respects'>respects</span> <span class='word' data-word='our'>our</span> <span class='word' data-word='creative'>creative</span> <span class='word' data-word='workforce'>workforce</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='keeps'>keeps</span> <span class='word' data-word='new'>New</span> <span class='word' data-word='york'>York</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='forefront'>forefront</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='responsible'>responsible</span> <span class='word' data-word='innovation'>innovation</span>," <span class='word' data-word='she'>she</span> <span class='word' data-word='said'>said</span>.</p>
+          <p class='cn-text'>【译】"在纽约，我们正在制定规则，而不是让人工智能主导一切，"民主党人霍楚尔在一份声明中说。该法律要求的"简单、诚实的披露""保护了消费者，尊重了我们的创意劳动力，并使纽约保持在负责任创新的前沿，"她说。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='any'>Any</span> <span class='word' data-word='ad'>ad</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='fails'>fails</span> <span class='word' data-word='to'>to</span> "<span class='word' data-word='conspicuously'>conspicuously</span> <span class='word' data-word='disclose'>disclose</span>" <span class='word' data-word='the'>the</span> <span class='word' data-word='use'>use</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='synthetic'>synthetic</span> <span class='word' data-word='performer'>performer</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='fined'>fined</span> $1,000 <span class='word' data-word='for'>for</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='first'>first</span> <span class='word' data-word='violation'>violation</span> <span class='word' data-word='and'>and</span> $5,000 <span class='word' data-word='for'>for</span> <span class='word' data-word='each'>each</span> <span class='word' data-word='subsequent'>subsequent</span> <span class='word' data-word='violation'>violation</span>.</p>
+          <p class='cn-text'>【译】凡是未"显著披露"使用了合成表演者的广告，首次违规将被处以1000美元罚款，后续每次违规罚款5000美元。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='specific'>Specific</span> <span class='word' data-word='exemptions'>exemptions</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='laid'>laid</span> <span class='word' data-word='out'>out</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='law'>law</span>, <span class='word' data-word='namely'>namely</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='ads'>ads</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='movies'>movies</span>, <span class='word' data-word='tv'>TV</span> <span class='word' data-word='shows'>shows</span>, <span class='word' data-word='streaming'>streaming</span> <span class='word' data-word='content'>content</span>, <span class='word' data-word='video'>video</span> <span class='word' data-word='games'>games</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='other'>other</span> <span class='word' data-word='works'>works</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='which'>which</span> <span class='word' data-word='synthetic'>synthetic</span> <span class='word' data-word='performers'>performers</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='used'>used</span> <span class='word' data-word='throughout'>throughout</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='entire'>entire</span> <span class='word' data-word='work'>work</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='exempt'>exempt</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='labeling'>labeling</span>. <span class='word' data-word='the'>The</span> <span class='word' data-word='law'>law</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='does'>does</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='apply'>apply</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='audio'>audio</span>-<span class='word' data-word='only'>only</span> <span class='word' data-word='ads'>ads</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='ads'>ads</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='which'>which</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='only'>only</span> <span class='word' data-word='used'>used</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='language'>language</span> <span class='word' data-word='translation'>translation</span>.</p>
+          <p class='cn-text'>【译】法律中列出了具体的豁免情形，即电影、电视节目、流媒体内容、视频游戏以及其他整部作品都使用合成表演者的广告可免于标注。该法律也不适用于纯音频广告，或仅将AI用于语言翻译的广告。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='last'>Last</span> <span class='word' data-word='year'>year</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='legislation'>legislation</span> <span class='word' data-word='moved'>moved</span> <span class='word' data-word='through'>through</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='state'>state</span> <span class='word' data-word='legislature'>Legislature</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='american'>American</span> <span class='word' data-word='association'>Association</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='advertising'>Advertising</span> <span class='word' data-word='agencies'>Agencies</span> — <span class='word' data-word='better'>better</span> <span class='word' data-word='known'>known</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='4a's'>4A's</span> — <span class='word' data-word='and'>and</span> <span class='word' data-word='several'>several</span> <span class='word' data-word='other'>other</span> <span class='word' data-word='advertising'>advertising</span> <span class='word' data-word='organizations'>organizations</span> <span class='word' data-word='put'>put</span> <span class='word' data-word='out'>out</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='statement'>statement</span> <span class='word' data-word='strongly'>strongly</span> <span class='word' data-word='opposing'>opposing</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='law'>law</span>.</p>
+          <p class='cn-text'>【译】去年这项法律在州议会推进时，美国广告公司协会（简称4A's）和其他几个广告组织发表了强烈反对该法律的声明。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='it'>It</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='blog'>blog</span> <span class='word' data-word='post'>post</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='would'>would</span> <span class='word' data-word='hurt'>hurt</span> <span class='word' data-word='advertisers'>advertisers</span> <span class='word' data-word='by'>by</span> "<span class='word' data-word='injecting'>injecting</span> <span class='word' data-word='compliance'>compliance</span> <span class='word' data-word='uncertainty'>uncertainty</span> <span class='word' data-word='into'>into</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='advertising'>advertising</span> <span class='word' data-word='process'>process</span>, <span class='word' data-word='imposing'>imposing</span> <span class='word' data-word='burdens'>burdens</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='brands'>brands</span> (<span class='word' data-word='and'>and</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='agencies'>agencies</span>) <span class='word' data-word='advertising'>advertising</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='new'>New</span> <span class='word' data-word='york'>York</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='undermining'>undermining</span> <span class='word' data-word='creative'>creative</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='technological'>technological</span> <span class='word' data-word='innovation'>innovation</span>."</p>
+          <p class='cn-text'>【译】该协会在一篇博文中表示，这将损害广告商的利益，因为"给广告流程注入了合规性不确定性，给在纽约投放广告的品牌（及其代理机构）带来负担，并且破坏了创意和技术创新。"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='other'>Other</span> <span class='word' data-word='groups'>groups</span>, <span class='word' data-word='like'>like</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='new'>New</span> <span class='word' data-word='york'>York</span> <span class='word' data-word='state'>State</span> <span class='word' data-word='broadcasters'>Broadcasters</span> <span class='word' data-word='association'>Association</span>, <span class='word' data-word='said'>said</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='statements'>statements</span> <span class='word' data-word='released'>released</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='legislation'>legislation</span> <span class='word' data-word='became'>became</span> <span class='word' data-word='law'>law</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='they'>they</span> <span class='word' data-word='were'>were</span> <span class='word' data-word='grateful'>grateful</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='certain'>certain</span> <span class='word' data-word='exemptions'>exemptions</span> <span class='word' data-word='created'>created</span> <span class='word' data-word='through'>through</span> <span class='word' data-word='amendments'>amendments</span>, <span class='word' data-word='but'>but</span> <span class='word' data-word='still'>still</span> <span class='word' data-word='had'>had</span> <span class='word' data-word='concerns'>concerns</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='broad'>broad</span> <span class='word' data-word='definition'>definition</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='synthetic'>synthetic</span> <span class='word' data-word='performer'>performer</span>.</p>
+          <p class='cn-text'>【译】其他组织，如纽约州广播协会，在该立法成为法律的过程中发表的公开声明中表示，他们对通过修正案创建的某些豁免感到欣慰，但仍然对合成表演者的宽泛定义感到担忧。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='law'>law</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='biggest'>biggest</span> <span class='word' data-word='supporter'>supporter</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='sag'>SAG</span>-<span class='word' data-word='aftra'>AFTRA</span> <span class='word' data-word='actors'>actors</span>' <span class='word' data-word='union'>union</span>, <span class='word' data-word='which'>which</span> <span class='word' data-word='recently'>recently</span> <span class='word' data-word='approved'>approved</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='new'>new</span> <span class='word' data-word='contract'>contract</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='studios'>studios</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='streaming'>streaming</span> <span class='word' data-word='platforms'>platforms</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='says'>says</span> <span class='word' data-word='provides'>provides</span> <span class='word' data-word='even'>even</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='protections'>protections</span> <span class='word' data-word='against'>against</span> <span class='word' data-word='synthetic'>synthetic</span> <span class='word' data-word='performers'>performers</span>.</p>
+          <p class='cn-text'>【译】该法律的最大支持者是演员工会SAG-AFTRA，该工会最近与制片厂和流媒体平台批准了一项新合同，称该合同为进一步防范合成表演者提供了更多保护。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='law'>law</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='one'>one</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='many'>many</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='been'>been</span> <span class='word' data-word='proposed'>proposed</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='enacted'>enacted</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='states'>states</span> <span class='word' data-word='across'>across</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='u.s.'>U.S.</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='increase'>increase</span> <span class='word' data-word='job'>job</span> <span class='word' data-word='security'>security</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='real'>real</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='rein'>rein</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='potential'>potential</span> <span class='word' data-word='privacy'>privacy</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='security'>security</span> <span class='word' data-word='risks'>risks</span> <span class='word' data-word='posed'>posed</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='ai'>AI</span>.</p>
+          <p class='cn-text'>【译】这项法律是美国多个州提出或颁布的多项法律之一，其目的是提高真人的工作保障，或遏制人工智能带来的潜在隐私和安全风险。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='existing'>Existing</span> <span class='word' data-word='state'>state</span> <span class='word' data-word='laws'>laws</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='passed'>passed</span> <span class='word' data-word='include'>include</span> <span class='word' data-word='prohibiting'>prohibiting</span> <span class='word' data-word='deepfakes'>deepfakes</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='certain'>certain</span> <span class='word' data-word='contexts'>contexts</span>, <span class='word' data-word='limiting'>limiting</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='collection'>collection</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='some'>some</span> <span class='word' data-word='personal'>personal</span> <span class='word' data-word='data'>data</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='requiring'>requiring</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='transparency'>transparency</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='companies'>companies</span>.</p>
+          <p class='cn-text'>【译】已经通过的现有州法律包括禁止特定情况下的深度伪造、限制收集某些个人信息，以及要求企业提高透明度。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='just'>Just</span> <span class='word' data-word='after'>after</span> <span class='word' data-word='hochul'>Hochul</span> <span class='word' data-word='signed'>signed</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='synthetic'>synthetic</span> <span class='word' data-word='performers'>performers</span> <span class='word' data-word='law'>law</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='december'>December</span>, <span class='word' data-word='president'>President</span> <span class='word' data-word='donald'>Donald</span> <span class='word' data-word='trump'>Trump</span> <span class='word' data-word='signed'>signed</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='executive'>executive</span> <span class='word' data-word='order'>order</span> <span class='word' data-word='pressuring'>pressuring</span> <span class='word' data-word='states'>states</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='regulate'>regulate</span> <span class='word' data-word='ai'>AI</span>. <span class='word' data-word='the'>The</span> <span class='word' data-word='move'>move</span> <span class='word' data-word='came'>came</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='concerns'>concerns</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='patchwork'>patchwork</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='state'>state</span> <span class='word' data-word='regulations'>regulations</span> <span class='word' data-word='would'>would</span> <span class='word' data-word='stifle'>stifle</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='companies'>companies</span>' <span class='word' data-word='growth'>growth</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='allow'>allow</span> <span class='word' data-word='china'>China</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='catch'>catch</span> <span class='word' data-word='up'>up</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='u.s.'>U.S.</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='race'>race</span>. <span class='word' data-word='critics'>Critics</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='executive'>executive</span> <span class='word' data-word='order'>order</span> <span class='word' data-word='argued'>argued</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='would'>would</span> <span class='word' data-word='allow'>allow</span> <span class='word' data-word='tech'>tech</span> <span class='word' data-word='companies'>companies</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='operate'>operate</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='virtually'>virtually</span> <span class='word' data-word='no'>no</span> <span class='word' data-word='oversight'>oversight</span>.</p>
+          <p class='cn-text'>【译】就在霍楚尔去年12月签署合成表演者相关法律后，特朗普总统签署了一项行政命令，向各州施压，要求它们不要监管人工智能。此举是出于担心各州零散的监管会阻碍人工智能公司的增长，让中国在人工智能竞赛中赶上美国。该行政命令的批评者认为，这将使科技公司几乎可以在没有任何监督的情况下运营。</p>
+        </div>
+
+  <a class='original-link' href='https://apnews.com/article/new-york-ai-law-hochul-synthetic-performers-e433625bfb61c8abeab0d619869192ed' target='_blank'>📖 Read Original (AP News)</a>
+  <div class='tip'>💡 Click any English word for definition and pronunciation | 点击任意英文单词查看读音和释义</div>
+</div>
+
+<div class='lookup-panel' id='lookupPanel'>
+  <div class='handle'></div>
+  <div id='lookupContent'>
+    <div class='loading'>Loading...</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const panel = document.getElementById('lookupPanel');
+  const content = document.getElementById('lookupContent');
+  let currentWord = '';
+  const cache = {};
+
+  // Click word
+  document.addEventListener('click', function(e) {
+    const wordEl = e.target.closest('.word');
+    if (!wordEl) {
+      // Close panel when clicking outside
+      if (!e.target.closest('.lookup-panel')) {
+        panel.classList.remove('show');
+        document.querySelectorAll('.word.active').forEach(w => w.classList.remove('active'));
+      }
+      return;
+    }
+
+    const word = wordEl.dataset.word;
+    if (!word) return;
+
+    // Highlight current word
+    document.querySelectorAll('.word.active').forEach(w => w.classList.remove('active'));
+    wordEl.classList.add('active');
+
+    currentWord = word;
+    showPanel(word);
+  });
+
+  function showPanel(word) {
+    panel.classList.add('show');
+    if (cache[word]) {
+      renderResult(word, cache[word]);
+      return;
+    }
+    content.innerHTML = '<div class="loading">Looking up...</div>';
+    fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(word))
+      .then(r => r.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          cache[word] = data[0];
+          if (currentWord === word) renderResult(word, data[0]);
+        } else {
+          if (currentWord === word) {
+            content.innerHTML = '<div class="word-title">' + esc(word) + '</div><div class="error-msg">Definition not found</div>';
+          }
+        }
+      })
+      .catch(() => {
+        if (currentWord === word) {
+          content.innerHTML = '<div class="word-title">' + esc(word) + '</div><div class="error-msg">Lookup failed, please try again later</div>';
+        }
+      });
+  }
+
+  function renderResult(word, data) {
+    let html = '<div class="word-title">' + esc(word);
+    // Phonetic
+    let phonetic = '';
+    let audioUrl = '';
+    if (data.phonetic) phonetic = data.phonetic;
+    if (data.phonetics) {
+      for (const p of data.phonetics) {
+        if (!phonetic && p.text) phonetic = p.text;
+        if (!audioUrl && p.audio) audioUrl = p.audio;
+      }
+    }
+    if (phonetic) html += '<span class="phonetic">' + esc(phonetic) + '</span>';
+    html += '</div>';
+
+    // Play button - use audio file, not browser TTS
+    if (audioUrl) {
+      html += '<button class="play-btn" onclick="playAudio(\'' + audioUrl + '\')">🔊 Play</button>';
+    } else {
+      var gtUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(word) + '&tl=en&client=tw-ob';
+      html += '<button class="play-btn" onclick="playAudio(\'' + esc(gtUrl) + '\')">🔊 Play</button>';
+    }
+
+    // Definitions
+    if (data.meanings && data.meanings.length > 0) {
+      html += '<div class="definitions">';
+      for (const m of data.meanings) {
+        html += '<div class="pos">' + esc(m.partOfSpeech) + '</div>';
+        const defs = m.definitions.slice(0, 3);
+        for (let i = 0; i < defs.length; i++) {
+          html += '<div class="def-item">' + (i+1) + '. ' + esc(defs[i].definition) + '</div>';
+        }
+      }
+      html += '</div>';
+    }
+
+    content.innerHTML = html;
+  }
+
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  // Play audio (unified entry)
+  window.playAudio = function(url) {
+    var a = new Audio(url);
+    a.onerror = function() {
+      // Fallback to Google Translate TTS on audio load failure
+      var word = currentWord;
+      if (word) {
+        var gtUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(word) + '&tl=en&client=tw-ob';
+        var b = new Audio(gtUrl);
+        b.onerror = function() {
+          alert('Audio playback failed, please try again later');
+        };
+        b.play();
+      }
+    };
+    a.play();
+  };
+
+  // Swipe down to close panel
+  let startY = 0;
+  panel.addEventListener('touchstart', function(e) {
+    startY = e.touches[0].clientY;
+  });
+  panel.addEventListener('touchend', function(e) {
+    const diff = e.changedTouches[0].clientY - startY;
+    if (diff > 60) {
+      panel.classList.remove('show');
+      document.querySelectorAll('.word.active').forEach(w => w.classList.remove('active'));
+    }
+  });
+})();
+</script>
+</body>
+</html>
