@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>5 human skills that still matter as workplaces embrace AI</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    padding: 0;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 16px 120px;
+    background: #fff;
+    min-height: 100vh;
+  }
+  .article-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e8e8e8;
+  }
+  .article-header h1 {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+  }
+  .article-header .title-cn {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .article-header .meta {
+    font-size: 13px;
+    color: #999;
+  }
+  .article-header .meta span {
+    margin-right: 12px;
+  }
+  .section-title {
+    font-size: 17px;
+    color: #1a1a1a;
+    margin: 24px 0 4px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .section-title-cn {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .para-group {
+    margin-bottom: 20px;
+  }
+  .en-text {
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 6px;
+    color: #222;
+  }
+  .cn-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #888;
+    padding-left: 12px;
+    border-left: 3px solid #e0e0e0;
+    margin-bottom: 4px;
+  }
+  .word {
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.15s;
+    display: inline;
+  }
+  .word:hover {
+    background: #e3f2fd;
+  }
+  .word.active {
+    background: #bbdefb;
+  }
+
+  /* 底部查词面板 */
+  .lookup-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0 20px 24px;
+  }
+  .lookup-panel.show {
+    transform: translateY(0);
+  }
+  .lookup-panel .handle {
+    width: 36px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 2px;
+    margin: 10px auto 16px;
+  }
+  .lookup-panel .word-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lookup-panel .phonetic {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .lookup-panel .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lookup-panel .play-btn:hover {
+    background: #1565c0;
+  }
+  .lookup-panel .definitions {
+    margin-top: 12px;
+  }
+  .lookup-panel .pos {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .lookup-panel .def-item {
+    font-size: 14px;
+    color: #444;
+    padding: 4px 0 4px 12px;
+    line-height: 1.6;
+  }
+  .lookup-panel .error-msg {
+    color: #e53935;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+  .lookup-panel .loading {
+    color: #999;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  .original-link {
+    display: block;
+    text-align: center;
+    margin-top: 32px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .original-link:hover {
+    background: #e8e8e8;
+  }
+
+  .tip {
+    text-align: center;
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+<div class='container'>
+  <div class='article-header'>
+    <h1>5 human skills that still matter as workplaces embrace AI</h1>
+    <div class='title-cn'>职场拥抱AI时代，人类仍优于AI的5项技能</div>
+    <div class='meta'>
+      <span>Associated Press (AP News)</span>
+      <span>Cathy Bussewitz</span>
+      <span>June 11, 2026</span>
+    </div>
+  </div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='new'>NEW</span> <span class='word' data-word='york'>YORK</span> (<span class='word' data-word='ap'>AP</span>) — <span class='word' data-word='many'>Many</span> <span class='word' data-word='workers'>workers</span> <span class='word' data-word='fear'>fear</span> <span class='word' data-word='machines'>machines</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='supplant'>supplant</span> <span class='word' data-word='them'>them</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='adoption'>adoption</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='accelerates'>accelerates</span>.</p>
+          <p class='cn-text'>【译】纽约（美联社）——随着人工智能的加速普及，许多劳动者担心机器会取代他们。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='but'>But</span> <span class='word' data-word='what'>what</span> <span class='word' data-word='if'>if</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='qualities'>qualities</span> <span class='word' data-word='both'>both</span> <span class='word' data-word='unmistakably'>unmistakably</span> <span class='word' data-word='human'>human</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='essential'>essential</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='career'>career</span> <span class='word' data-word='success'>success</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='could'>could</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='easily'>easily</span> <span class='word' data-word='replace'>replace</span> <span class='word' data-word='them'>them</span>?</p>
+          <p class='cn-text'>【译】但如果人类拥有那些既无可辩驳地属于人类、又对职业成功至关重要、AI难以轻易取代的特质呢？</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='some'>Some</span> <span class='word' data-word='workplace'>workplace</span> <span class='word' data-word='experts'>experts</span> <span class='word' data-word='argue'>argue</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='businesses'>businesses</span> <span class='word' data-word='adopting'>adopting</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='tools'>tools</span>, <span class='word' data-word='soft'>soft</span> <span class='word' data-word='skills'>skills</span> <span class='word' data-word='such'>such</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='empathy'>empathy</span>, <span class='word' data-word='critical'>critical</span> <span class='word' data-word='thinking'>thinking</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='ethical'>ethical</span> <span class='word' data-word='decision'>decision</span>-<span class='word' data-word='making'>making</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='worth'>worth</span> <span class='word' data-word='cultivating'>cultivating</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='employees'>employees</span> <span class='word' data-word='become'>become</span> <span class='word' data-word='indispensible'>indispensible</span>.</p>
+          <p class='cn-text'>【译】一些职场专家认为，随着越来越多的企业采用AI工具，像同理心、批判性思维和道德决策这样的软技能值得培养，以帮助员工变得不可或缺。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='across'>Across</span> <span class='word' data-word='industries'>industries</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='occupations'>occupations</span>, "<span class='word' data-word='the'>the</span> <span class='word' data-word='skills'>skills</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='most'>most</span> <span class='word' data-word='resistant'>resistant</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='displacement'>displacement</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='ones'>ones</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='most'>most</span> <span class='word' data-word='distinctly'>distinctly</span> <span class='word' data-word='human'>human</span>," <span class='word' data-word='maria'>Maria</span> <span class='word' data-word='flynn'>Flynn</span>, <span class='word' data-word='president'>president</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='ceo'>CEO</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='jobs'>Jobs</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='future'>Future</span>, <span class='word' data-word='a'>a</span> <span class='word' data-word='nonprofit'>nonprofit</span> <span class='word' data-word='focused'>focused</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='workforce'>workforce</span> <span class='word' data-word='development'>development</span>, <span class='word' data-word='said'>said</span>. "<span class='word' data-word='some'>Some</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='those'>those</span> <span class='word' data-word='things'>things</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='relationship'>relationship</span> <span class='word' data-word='building'>building</span>, <span class='word' data-word='conflict'>conflict</span> <span class='word' data-word='resolution'>resolution</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='ability'>ability</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='guide'>guide</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='motivate'>motivate</span> <span class='word' data-word='other'>other</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='ethical'>ethical</span> <span class='word' data-word='judgment'>judgment</span>."</p>
+          <p class='cn-text'>【译】"在各行各业中，最不容易被AI取代的技能正是那些最具有人类特色的技能，"专注于劳动力发展的非营利组织"未来工作"（Jobs for the Future）总裁兼CEO玛丽亚·弗林（Maria Flynn）表示。"其中包括关系建设、冲突解决、引导和激励他人的能力，以及道德判断。"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='even'>Even</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='job'>job</span> <span class='word' data-word='listings'>listings</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='technical'>technical</span> <span class='word' data-word='roles'>roles</span> <span class='word' data-word='such'>such</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='it'>IT</span> <span class='word' data-word='support'>support</span>, <span class='word' data-word='organizations'>organizations</span> <span class='word' data-word='say'>say</span> <span class='word' data-word='they'>they</span>'<span class='word' data-word='re'>re</span> <span class='word' data-word='looking'>looking</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='candidates'>candidates</span> <span class='word' data-word='who'>who</span> <span class='word' data-word='communicate'>communicate</span> <span class='word' data-word='well'>well</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='take'>take</span> <span class='word' data-word='leadership'>leadership</span> <span class='word' data-word='initiative'>initiative</span>, <span class='word' data-word='flynn'>Flynn</span> <span class='word' data-word='said'>said</span>.</p>
+          <p class='cn-text'>【译】弗林说，即便在IT支持等技术岗位的招聘中，企业也表示他们在寻找善于沟通、能主动承担领导职责的候选人。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='we'>We</span> <span class='word' data-word='started'>started</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='use'>use</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='term'>term</span> '<span class='word' data-word='durable'>durable</span> <span class='word' data-word='skills'>skills</span>' <span class='word' data-word='and'>and</span> <span class='word' data-word='think'>think</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='them'>them</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='capabilities'>capabilities</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='really'>really</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='durable'>durable</span>, <span class='word' data-word='in'>in</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='they'>they</span> <span class='word' data-word='hold'>hold</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='value'>value</span> <span class='word' data-word='across'>across</span> <span class='word' data-word='economic'>economic</span> <span class='word' data-word='shifts'>shifts</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='technological'>technological</span> <span class='word' data-word='change'>change</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='labor'>labor</span> <span class='word' data-word='market'>market</span> <span class='word' data-word='disruption'>disruption</span>," <span class='word' data-word='she'>she</span> <span class='word' data-word='said'>said</span>. "<span class='word' data-word='and'>And</span> <span class='word' data-word='we'>we</span> <span class='word' data-word='think'>think</span>, <span class='word' data-word='especially'>especially</span> <span class='word' data-word='now'>now</span>, <span class='word' data-word='in'>in</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='time'>time</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='advancement'>advancement</span>, <span class='word' data-word='that'>that</span> <span class='word' data-word='it'>it</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='durable'>durable</span> <span class='word' data-word='skills'>skills</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='really'>really</span> <span class='word' data-word='make'>make</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='worker'>worker</span> <span class='word' data-word='genuinely'>genuinely</span> <span class='word' data-word='valuable'>valuable</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='work'>work</span>, <span class='word' data-word='regardless'>regardless</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='what'>what</span> <span class='word' data-word='tools'>tools</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='technology'>technology</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='available'>available</span>."</p>
+          <p class='cn-text'>【译】"我们开始使用'持久技能'（durable skills）这个词，把它们看作是真正持久的——能在经济变迁、技术变革和劳动力市场动荡中保值的能力，"她说。"而且我们认为，尤其是在AI飞速发展的当下，正是这些持久技能让一个员工在工作中真正有价值，无论有什么工具和技术可用。"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='here'>Here</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='five'>five</span> <span class='word' data-word='skills'>skills</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='cultivate'>cultivate</span> <span class='word' data-word='based'>based</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='areas'>areas</span> <span class='word' data-word='where'>where</span> <span class='word' data-word='experts'>experts</span> <span class='word' data-word='say'>say</span> <span class='word' data-word='humans'>humans</span> <span class='word' data-word='still'>still</span> <span class='word' data-word='hold'>hold</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='edge'>edge</span> <span class='word' data-word='over'>over</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span>.</p>
+          <p class='cn-text'>【译】以下是专家认为人类仍然优于人工智能的五个领域，也是值得培养的五项技能。</p>
+        </div>
+
+  <div class='section-title'>EMPATHY</div>
+  <div class='section-title-cn'>同理心</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='interpreting'>Interpreting</span> <span class='word' data-word='body'>body</span> <span class='word' data-word='language'>language</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='reading'>reading</span> <span class='word' data-word='between'>between</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='lines'>lines</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='decipher'>decipher</span> <span class='word' data-word='what'>what</span> <span class='word' data-word='wasn'>wasn</span>'<span class='word' data-word='t'>t</span> <span class='word' data-word='explicitly'>explicitly</span> <span class='word' data-word='communicated'>communicated</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='skills'>skills</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='many'>many</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='find'>find</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='best'>best</span> <span class='word' data-word='performed'>performed</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='humans'>humans</span>. <span class='word' data-word='they'>They</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='inform'>inform</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='ability'>ability</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='show'>show</span> <span class='word' data-word='empathy'>empathy</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='being'>being</span> <span class='word' data-word='sensitive'>sensitive</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='feelings'>feelings</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='others'>others</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='sought'>sought</span>-<span class='word' data-word='after'>after</span> <span class='word' data-word='trait'>trait</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='workers'>workers</span>.</p>
+          <p class='cn-text'>【译】解读肢体语言、听出弦外之音——理解那些没有明确说出来的东西——这些是很多人认为最适合由人类来完成的技能。这些技能也构成了展现同理心的基础，而对他人感受的敏感度正是职场中备受追捧的品质。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='marco'>Marco</span> <span class='word' data-word='iansiti'>Iansiti</span>, <span class='word' data-word='a'>a</span> <span class='word' data-word='professor'>professor</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='business'>business</span> <span class='word' data-word='administration'>administration</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='harvard'>Harvard</span> <span class='word' data-word='business'>Business</span> <span class='word' data-word='school'>School</span>, <span class='word' data-word='said'>said</span> <span class='word' data-word='he'>he</span> <span class='word' data-word='saw'>saw</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='firsthand'>firsthand</span> <span class='word' data-word='during'>during</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='hospital'>hospital</span> <span class='word' data-word='stay'>stay</span>.</p>
+          <p class='cn-text'>【译】哈佛商学院工商管理教授马可·伊安西蒂（Marco Iansiti）说，他在住院期间亲身体会到了这一点。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='a'>A</span> <span class='word' data-word='nurse'>nurse</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='incredibly'>incredibly</span> <span class='word' data-word='human'>human</span> <span class='word' data-word='impacts'>impacts</span>. <span class='word' data-word='feeling'>Feeling</span>, <span class='word' data-word='relating'>relating</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='patient'>patient</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='type'>type</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='care'>care</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='so'>so</span> <span class='word' data-word='important'>important</span>," <span class='word' data-word='iansiti'>Iansiti</span> <span class='word' data-word='said'>said</span>. "<span class='word' data-word='i'>I</span> <span class='word' data-word='remember'>remember</span> <span class='word' data-word='times'>times</span> <span class='word' data-word='when'>when</span> <span class='word' data-word='i'>I</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='sick'>sick</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='hospital'>hospital</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='nurse'>nurse</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='like'>like</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='godsend'>godsend</span>. <span class='word' data-word='would'>Would</span> <span class='word' data-word='i'>I</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='let'>let</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='robot'>robot</span> <span class='word' data-word='do'>do</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='same'>same</span> <span class='word' data-word='thing'>thing</span>? <span class='word' data-word='no'>No</span>. <span class='word' data-word='there'>There</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='human'>human</span> <span class='word' data-word='connection'>connection</span> <span class='word' data-word='there'>there</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='i'>I</span> <span class='word' data-word='found'>found</span> <span class='word' data-word='very'>very</span> <span class='word' data-word='valuable'>valuable</span>."</p>
+          <p class='cn-text'>【译】"护士具有令人难以置信的人性化影响力。去感受病人、与病人建立情感连接，这种关怀至关重要，"伊安西蒂说。"我记得生病住院时，护士就像天赐的救星。我会让机器人来做同样的事吗？不会。那里有一种我觉得非常珍贵的人际连接。"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='where'>Where</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='could'>could</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='helpful'>helpful</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='hospital'>hospital</span> <span class='word' data-word='setting'>setting</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='taking'>taking</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='mundane'>mundane</span> <span class='word' data-word='tasks'>tasks</span> <span class='word' data-word='such'>such</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='paperwork'>paperwork</span>, <span class='word' data-word='freeing'>freeing</span> <span class='word' data-word='up'>up</span> <span class='word' data-word='time'>time</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='nurses'>nurses</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='provide'>provide</span> <span class='word' data-word='compassionate'>compassionate</span> <span class='word' data-word='patient'>patient</span> <span class='word' data-word='care'>care</span>, <span class='word' data-word='he'>he</span> <span class='word' data-word='said'>said</span>.</p>
+          <p class='cn-text'>【译】他说，AI在医院环境中的用武之地是承担文书工作等日常琐事，从而解放护士的时间，让她们能够提供富有同情心的患者护理。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='there'>There</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='lot'>lot</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='systems'>systems</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='being'>being</span> <span class='word' data-word='deployed'>deployed</span> <span class='word' data-word='now'>now</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='i'>I</span> <span class='word' data-word='think'>think</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='very'>very</span> <span class='word' data-word='effective'>effective</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='doing'>doing</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='essentially'>essentially</span> <span class='word' data-word='release'>release</span> <span class='word' data-word='healthcare'>healthcare</span> <span class='word' data-word='workers'>workers</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='do'>do</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='things'>things</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='they'>they</span> <span class='word' data-word='should'>should</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='doing'>doing</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='do'>do</span> <span class='word' data-word='best'>best</span>."</p>
+          <p class='cn-text'>【译】"现在有很多正在部署的系统，我认为它们在这一点上非常有效——本质上就是把医护人员解放出来，让他们去做他们应该做的、最擅长的事情。"</p>
+        </div>
+
+  <div class='section-title'>NURTURING RELATIONSHIPS</div>
+  <div class='section-title-cn'>培养人际关系</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='building'>Building</span> <span class='word' data-word='strong'>strong</span> <span class='word' data-word='personal'>personal</span> <span class='word' data-word='ties'>ties</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='colleagues'>colleagues</span>, <span class='word' data-word='clients'>clients</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='stakeholders'>stakeholders</span> <span class='word' data-word='remains'>remains</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='prized'>prized</span> <span class='word' data-word='skill'>skill</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='experts'>experts</span> <span class='word' data-word='say'>say</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='models'>models</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='difficulty'>difficulty</span> <span class='word' data-word='replicating'>replicating</span>. <span class='word' data-word='salespeople'>Salespeople</span>, <span class='word' data-word='for'>for</span> <span class='word' data-word='example'>example</span>, <span class='word' data-word='have'>have</span> <span class='word' data-word='files'>files</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='databases'>databases</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='information'>information</span> <span class='word' data-word='they'>they</span>'<span class='word' data-word='ve'>ve</span> <span class='word' data-word='learned'>learned</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='clients'>clients</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='interacting'>interacting</span> <span class='word' data-word='face'>face</span>-<span class='word' data-word='to'>to</span>-<span class='word' data-word='face'>face</span>.</p>
+          <p class='cn-text'>【译】与同事、客户和利益相关者建立牢固的个人关系，仍然是一项珍贵技能，专家认为AI模型难以复制。例如，销售人员有记录着通过与客户面对面交流获取信息的档案或数据库。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='you'>You</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='trusted'>trusted</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='bought'>bought</span> <span class='word' data-word='products'>products</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='last'>last</span> 10 <span class='word' data-word='years'>years</span>. <span class='word' data-word='that'>That</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='value'>value</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='that'>that</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='hard'>hard</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='transfer'>transfer</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span>," <span class='word' data-word='iansiti'>Iansiti</span> <span class='word' data-word='said'>said</span>.</p>
+          <p class='cn-text'>【译】"你有一些信任你、在过去10年里一直购买你产品的人。这是有价值的，而且这种价值很难转移给人工智能，"伊安西蒂说。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='interpersonal'>Interpersonal</span> <span class='word' data-word='skills'>skills</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='invaluable'>invaluable</span> <span class='word' data-word='when'>when</span> <span class='word' data-word='conflicts'>conflicts</span> <span class='word' data-word='arise'>arise</span>. "<span class='word' data-word='having'>Having</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='human'>human</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='loop'>loop</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='manage'>manage</span> <span class='word' data-word='those'>those</span> <span class='word' data-word='expectations'>expectations</span>, <span class='word' data-word='to'>to</span> <span class='word' data-word='ease'>ease</span> <span class='word' data-word='any'>any</span> <span class='word' data-word='ruffled'>ruffled</span> <span class='word' data-word='feathers'>feathers</span>, <span class='word' data-word='to'>to</span> <span class='word' data-word='build'>build</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='type'>type</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='relationships'>relationships</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='needed'>needed</span>, <span class='word' data-word='to'>to</span> <span class='word' data-word='expedite'>expedite</span> <span class='word' data-word='good'>good</span> <span class='word' data-word='work'>work</span>, <span class='word' data-word='is'>is</span> <span class='word' data-word='still'>still</span> <span class='word' data-word='going'>going</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='critical'>critical</span>," <span class='word' data-word='flynn'>Flynn</span> <span class='word' data-word='said'>said</span>.</p>
+          <p class='cn-text'>【译】当冲突发生时，人际交往能力也同样无价。"让人类参与其中来管理预期、安抚情绪、建立所需的关系、推动良好工作——这仍将是至关重要的，"弗林说。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='conflict'>Conflict</span> <span class='word' data-word='resolution'>resolution</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='must'>must</span>-<span class='word' data-word='have'>have</span> <span class='word' data-word='quality'>quality</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='managers'>managers</span>, <span class='word' data-word='said'>said</span> <span class='word' data-word='colleen'>Colleen</span> <span class='word' data-word='adler'>Adler</span>, <span class='word' data-word='director'>director</span> <span class='word' data-word='analyst'>analyst</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='human'>human</span> <span class='word' data-word='resources'>resources</span> <span class='word' data-word='practice'>practice</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='gartner'>Gartner</span> <span class='word' data-word='consulting'>consulting</span> <span class='word' data-word='firm'>firm</span>.</p>
+          <p class='cn-text'>【译】冲突解决能力是管理者的必备品质，咨询公司Gartner人力资源实践部门的总监分析师科琳·阿德勒（Colleen Adler）表示。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='people'>People</span> <span class='word' data-word='do'>do</span> <span class='word' data-word='still'>still</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='managers'>managers</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='managers'>managers</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='leaders'>leaders</span> <span class='word' data-word='impact'>impact</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='way'>way</span> <span class='word' data-word='they'>they</span> <span class='word' data-word='feel'>feel</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='co'>co</span>-<span class='word' data-word='workers'>workers</span> <span class='word' data-word='impact'>impact</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='ways'>ways</span> <span class='word' data-word='we'>we</span> <span class='word' data-word='feel'>feel</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='well'>well</span>," <span class='word' data-word='adler'>Adler</span> <span class='word' data-word='said'>said</span>. "<span class='word' data-word='there'>There</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='still'>still</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='tone'>tone</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='does'>does</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='yet'>yet</span> <span class='word' data-word='mimic'>mimic</span> <span class='word' data-word='human'>human</span> <span class='word' data-word='connection'>connection</span>. <span class='word' data-word='that'>That</span> <span class='word' data-word='could'>could</span> <span class='word' data-word='change'>change</span>; <span class='word' data-word='i'>I</span> <span class='word' data-word='don'>don</span>'<span class='word' data-word='t'>t</span> <span class='word' data-word='think'>think</span> <span class='word' data-word='we'>we</span>'<span class='word' data-word='re'>re</span> <span class='word' data-word='there'>there</span> <span class='word' data-word='yet'>yet</span>."</p>
+          <p class='cn-text'>【译】"人们仍然有管理者，而管理者和领导者会影响他们的感受，同事也会影响我们的感受，"阿德勒说。"AI的语气仍然无法模拟人类之间的连接。这种情况可能会改变，但我觉得我们还没到那一步。"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='work'>Work</span> <span class='word' data-word='environments'>environments</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='rapidly'>rapidly</span> <span class='word' data-word='changing'>changing</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='many'>many</span> <span class='word' data-word='employees'>employees</span> <span class='word' data-word='feel'>feel</span> <span class='word' data-word='like'>like</span> <span class='word' data-word='they'>they</span>'<span class='word' data-word='re'>re</span> <span class='word' data-word='lurching'>lurching</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='one'>one</span> <span class='word' data-word='difficult'>difficult</span> <span class='word' data-word='dynamic'>dynamic</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='another'>another</span>, <span class='word' data-word='adler'>Adler</span> <span class='word' data-word='said'>said</span>. <span class='word' data-word='while'>While</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='agents'>agents</span> <span class='word' data-word='can'>can</span>'<span class='word' data-word='t'>t</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='workers'>workers</span> <span class='word' data-word='feel'>feel</span> <span class='word' data-word='better'>better</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='uncertainty'>uncertainty</span>, <span class='word' data-word='strong'>strong</span> <span class='word' data-word='leaders'>leaders</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='teams'>teams</span>, <span class='word' data-word='she'>she</span> <span class='word' data-word='added'>added</span>.</p>
+          <p class='cn-text'>【译】阿德勒说，工作环境正在快速变化，许多员工感觉自己正从一个困难的局面跌跌撞撞地走向另一个。虽然AI代理无法帮助员工缓解这种不确定性带来的焦虑，但强有力的领导者可以帮助他们的团队，她补充道。</p>
+        </div>
+
+  <div class='section-title'>CRITICAL THINKING</div>
+  <div class='section-title-cn'>批判性思维</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='artificial'>Artificial</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='models'>models</span> <span class='word' data-word='collect'>collect</span> <span class='word' data-word='information'>information</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='produce'>produce</span> <span class='word' data-word='responses'>responses</span> <span class='word' data-word='but'>but</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='generate'>generate</span> <span class='word' data-word='inaccuracies'>inaccuracies</span>, <span class='word' data-word='so'>so</span> <span class='word' data-word='it'>it</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='important'>important</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='second'>second</span>-<span class='word' data-word='guess'>guess</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='output'>output</span>. <span class='word' data-word='developing'>Developing</span> <span class='word' data-word='deep'>deep</span> <span class='word' data-word='knowledge'>knowledge</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='your'>your</span> <span class='word' data-word='field'>field</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='notice'>notice</span> <span class='word' data-word='when'>when</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='ai'>AI</span>-<span class='word' data-word='generated'>generated</span> <span class='word' data-word='results'>results</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='topics'>topics</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='your'>your</span> <span class='word' data-word='industry'>industry</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='incorrect'>incorrect</span>, <span class='word' data-word='said'>said</span> <span class='word' data-word='amalia'>Amalia</span> <span class='word' data-word='kaufman'>Kaufman</span>, <span class='word' data-word='course'>course</span> <span class='word' data-word='developer'>developer</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='instructor'>instructor</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='university'>University</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='california'>California</span>, <span class='word' data-word='irvine'>Irvine</span> <span class='word' data-word='division'>Division</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='continuing'>Continuing</span> <span class='word' data-word='education'>Education</span>.</p>
+          <p class='cn-text'>【译】人工智能模型收集信息并生成回复，但可能产生不准确的结果，因此质疑其输出非常重要。加州大学欧文分校继续教育学院的课程开发者和讲师阿玛莉亚·考夫曼（Amalia Kaufman）说，对你的领域建立深厚的知识储备，可以帮助你在AI生成的行业相关结果有误时察觉出来。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='you'>You</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='cognition'>cognition</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='critical'>critical</span> <span class='word' data-word='thinking'>thinking</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='subject'>subject</span> <span class='word' data-word='matter'>matter</span> <span class='word' data-word='expertise'>expertise</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='make'>make</span> <span class='word' data-word='sense'>sense</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='it'>it</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='know'>know</span> <span class='word' data-word='when'>when</span> <span class='word' data-word='it'>it</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='wrong'>wrong</span>," <span class='word' data-word='kaufman'>Kaufman</span> <span class='word' data-word='said'>said</span>. "<span class='word' data-word='you'>You</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='check'>check</span> <span class='word' data-word='your'>your</span> <span class='word' data-word='facts'>facts</span>."</p>
+          <p class='cn-text'>【译】"你必须具备认知能力、批判性思维和专业知识来理解它，并知道它什么时候是错的，"考夫曼说。"你必须核实事实。"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='in'>In</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='study'>study</span> <span class='word' data-word='published'>published</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='journal'>journal</span> <span class='word' data-word='science'>Science</span>, <span class='word' data-word='researchers'>researchers</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='stanford'>Stanford</span> <span class='word' data-word='tested'>tested</span> 11 <span class='word' data-word='popular'>popular</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='systems'>systems</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='found'>found</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='chatbots'>chatbots</span> <span class='word' data-word='were'>were</span> <span class='word' data-word='prone'>prone</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='flattering'>flattering</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='validating'>validating</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='feelings'>feelings</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='users'>users</span>, <span class='word' data-word='affirming'>affirming</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='user'>user</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='actions'>actions</span> 49% <span class='word' data-word='more'>more</span> <span class='word' data-word='often'>often</span> <span class='word' data-word='than'>than</span> <span class='word' data-word='humans'>humans</span> <span class='word' data-word='did'>did</span>. <span class='word' data-word='taking'>Taking</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='step'>step</span> <span class='word' data-word='back'>back</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='applying'>applying</span> <span class='word' data-word='critical'>critical</span> <span class='word' data-word='thinking'>thinking</span> <span class='word' data-word='skills'>skills</span> <span class='word' data-word='when'>when</span> <span class='word' data-word='reading'>reading</span> <span class='word' data-word='results'>results</span> <span class='word' data-word='generated'>generated</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='combat'>combat</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='tendency'>tendency</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='overly'>overly</span> <span class='word' data-word='agreeable'>agreeable</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='users'>users</span>.</p>
+          <p class='cn-text'>【译】在《科学》杂志发表的一项研究中，斯坦福大学的研究人员测试了11个流行的AI系统，发现AI聊天机器人倾向于奉承和验证用户的感受，肯定用户行为的频率比人类高出49%。在阅读AI生成的结果时退一步运用批判性思维技能，有助于对抗AI对用户过度迎合的倾向。</p>
+        </div>
+
+  <div class='section-title'>HAVING A CONSCIENCE</div>
+  <div class='section-title-cn'>拥有良知</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='ability'>ability</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='distinguish'>distinguish</span> <span class='word' data-word='right'>right</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='wrong'>wrong</span>, <span class='word' data-word='or'>or</span> <span class='word' data-word='listen'>listen</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='one'>one</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='inner'>inner</span> <span class='word' data-word='conscience'>conscience</span>, <span class='word' data-word='is'>is</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='skill'>skill</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='innately'>innately</span> <span class='word' data-word='human'>human</span>, <span class='word' data-word='experts'>experts</span> <span class='word' data-word='said'>said</span>.</p>
+          <p class='cn-text'>【译】区分对错的能力，或者说倾听内心良知的能力，是一项人类与生俱来的技能，专家们说。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='sometimes'>Sometimes</span>, <span class='word' data-word='people'>people</span> <span class='word' data-word='rely'>rely</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='sensations'>sensations</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='bodies'>bodies</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='guide'>guide</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='decision'>decision</span>-<span class='word' data-word='making'>making</span>. "<span class='word' data-word='gut'>Gut</span> <span class='word' data-word='feelings'>feelings</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='something'>something</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='feel'>feel</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='your'>your</span> <span class='word' data-word='gut'>gut</span>," <span class='word' data-word='iansiti'>Iansiti</span> <span class='word' data-word='said'>said</span>. "<span class='word' data-word='it'>It</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='just'>just</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='pattern'>pattern</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='information'>information</span> <span class='word' data-word='that'>that</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='going'>going</span> <span class='word' data-word='through'>through</span> <span class='word' data-word='your'>your</span> <span class='word' data-word='brain'>brain</span>. <span class='word' data-word='it'>It</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='actually'>actually</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='emotional'>emotional</span> <span class='word' data-word='reaction'>reaction</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='intrinsically'>intrinsically</span> <span class='word' data-word='different'>different</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='way'>way</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='operates'>operates</span>. <span class='word' data-word='at'>At</span> <span class='word' data-word='least'>least</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='generation'>generation</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='ai'>AI</span>."</p>
+          <p class='cn-text'>【译】有时，人们依靠身体的感觉来帮助指导决策。"直觉是你从内心深处感受到的东西，"伊安西蒂说。"它不只是流经你大脑的信息模式。它实际上是一种情感反应，其本质与AI的运作方式截然不同。至少对目前这一代AI来说是如此。"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='when'>When</span> <span class='word' data-word='life'>life</span>-<span class='word' data-word='or'>or</span>-<span class='word' data-word='death'>death</span> <span class='word' data-word='decisions'>decisions</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='made'>made</span>, <span class='word' data-word='such'>such</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='when'>when</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='use'>use</span> <span class='word' data-word='lethal'>lethal</span> <span class='word' data-word='military'>military</span> <span class='word' data-word='force'>force</span>, "<span class='word' data-word='do'>do</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='want'>want</span> <span class='word' data-word='something'>something</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='does'>does</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='human'>human</span> <span class='word' data-word='emotion'>emotion</span>, <span class='word' data-word='it'>it</span> <span class='word' data-word='does'>does</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='body'>body</span> <span class='word' data-word='attached'>attached</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='intelligence'>intelligence</span>?" <span class='word' data-word='iansiti'>Iansiti</span> <span class='word' data-word='asked'>asked</span>. "<span class='word' data-word='ai'>AI</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='fake'>fake</span> <span class='word' data-word='having'>having</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='conscience'>conscience</span> <span class='word' data-word='because'>because</span> <span class='word' data-word='it'>it</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='read'>read</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='what'>what</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='conscience'>conscience</span> <span class='word' data-word='is'>is</span>, <span class='word' data-word='but'>but</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='doesn'>doesn</span>'<span class='word' data-word='t'>t</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='conscience'>conscience</span>."</p>
+          <p class='cn-text'>【译】当做关生死的决定时，比如何时使用致命武力，"你希望由没有人类情感、没有与智能相连的肉体的东西来做决定吗？"伊安西蒂问道。"AI可以假装有良知，因为它读过什么是良知，但它并没有良知。"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='people'>People</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='build'>build</span> <span class='word' data-word='parameters'>parameters</span>, <span class='word' data-word='or'>or</span> <span class='word' data-word='guardrails'>guardrails</span>, <span class='word' data-word='into'>into</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='models'>models</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='agents'>agents</span> <span class='word' data-word='make'>make</span> <span class='word' data-word='ethical'>ethical</span> <span class='word' data-word='decisions'>decisions</span>, <span class='word' data-word='he'>he</span> <span class='word' data-word='said'>said</span>. <span class='word' data-word='but'>But</span> <span class='word' data-word='human'>human</span> <span class='word' data-word='input'>input</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='still'>still</span> <span class='word' data-word='required'>required</span>.</p>
+          <p class='cn-text'>【译】他说，人们可以在AI模型中构建参数或护栏来帮助AI代理做出道德决策，但仍然需要人类的参与。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='it'>It</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='very'>very</span> <span class='word' data-word='hard'>hard</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='design'>design</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='model'>model</span> <span class='word' data-word='that'>that</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='ethical'>ethical</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='everything'>everything</span>. <span class='word' data-word='it'>It</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='much'>much</span> <span class='word' data-word='better'>better</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='build'>build</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='around'>around</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='specific'>specific</span> <span class='word' data-word='use'>use</span> <span class='word' data-word='case'>case</span>. <span class='word' data-word='say'>Say</span> <span class='word' data-word='hiring'>hiring</span>," <span class='word' data-word='iansiti'>Iansiti</span> <span class='word' data-word='said'>said</span>.</p>
+          <p class='cn-text'>【译】"设计一个在所有事情上都合乎道德的模型非常困难。更好的做法是针对特定用例来构建——比如说招聘，"伊安西蒂说。</p>
+        </div>
+
+  <div class='section-title'>JUDGEMENT CALLS</div>
+  <div class='section-title-cn'>判断决策</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='ethical'>Ethical</span> <span class='word' data-word='questions'>questions</span> <span class='word' data-word='aren'>aren</span>'<span class='word' data-word='t'>t</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='only'>only</span> <span class='word' data-word='ones'>ones</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='less'>less</span> <span class='word' data-word='equipped'>equipped</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='handle'>handle</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='now'>now</span>. <span class='word' data-word='the'>The</span> <span class='word' data-word='capacity'>capacity</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='come'>come</span> <span class='word' data-word='up'>up</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='creative'>creative</span> <span class='word' data-word='ideas'>ideas</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='make'>make</span> <span class='word' data-word='decisions'>decisions</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='ambiguous'>ambiguous</span> <span class='word' data-word='situations'>situations</span> — <span class='word' data-word='while'>while</span> <span class='word' data-word='mapping'>mapping</span> <span class='word' data-word='out'>out</span> <span class='word' data-word='strategies'>strategies</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='developing'>developing</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='brand'>brand</span> <span class='word' data-word='identity'>identity</span>, <span class='word' data-word='for'>for</span> <span class='word' data-word='example'>example</span> — <span class='word' data-word='is'>is</span> <span class='word' data-word='another'>another</span> <span class='word' data-word='important'>important</span> <span class='word' data-word='human'>human</span> <span class='word' data-word='skill'>skill</span>, <span class='word' data-word='experts'>experts</span> <span class='word' data-word='said'>said</span>.</p>
+          <p class='cn-text'>【译】道德问题并不是AI目前不太擅长处理的唯一问题。专家们说，在模糊情境中提出创造性想法并做出决策的能力——例如在制定战略或开发品牌形象时——是另一项重要的人类技能。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='we'>We</span> <span class='word' data-word='don'>don</span>'<span class='word' data-word='t'>t</span> <span class='word' data-word='believe'>believe</span> <span class='word' data-word='that'>that</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='something'>something</span> <span class='word' data-word='that'>that</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='going'>going</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='replicated'>replicated</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span>," <span class='word' data-word='said'>said</span> <span class='word' data-word='heather'>Heather</span> <span class='word' data-word='stefanski'>Stefanski</span>, <span class='word' data-word='chief'>chief</span> <span class='word' data-word='learning'>learning</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='development'>development</span> <span class='word' data-word='officer'>officer</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='management'>management</span> <span class='word' data-word='consulting'>consulting</span> <span class='word' data-word='firm'>firm</span> <span class='word' data-word='mckinsey'>McKinsey</span>. "<span class='word' data-word='if'>If</span> <span class='word' data-word='we'>we</span>'<span class='word' data-word='re'>re</span> <span class='word' data-word='all'>all</span> <span class='word' data-word='just'>just</span> <span class='word' data-word='using'>using</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='answer'>answer</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='problem'>problem</span>-<span class='word' data-word='solve'>solve</span>, <span class='word' data-word='how'>how</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='really'>really</span> <span class='word' data-word='going'>going</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='distinctive'>distinctive</span>?"</p>
+          <p class='cn-text'>【译】"我们不认为这是人工智能能够复制的东西，"管理咨询公司麦肯锡的首席学习与发展官希瑟·斯特凡斯基（Heather Stefanski）说。"如果我们都只是用AI的答案来解决问题，你如何真正脱颖而出？"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='humans'>Humans</span> <span class='word' data-word='make'>make</span> <span class='word' data-word='judgment'>judgment</span> <span class='word' data-word='calls'>calls</span> <span class='word' data-word='based'>based</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='constellation'>constellation</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='knowledge'>knowledge</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='lived'>lived</span> <span class='word' data-word='experiences'>experiences</span>, <span class='word' data-word='flynn'>Flynn</span> <span class='word' data-word='said'>said</span>. <span class='word' data-word='artificial'>Artificial</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='draws'>draws</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='lot'>lot</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='data'>data</span> <span class='word' data-word='but'>but</span> <span class='word' data-word='doesn'>doesn</span>'<span class='word' data-word='t'>t</span> <span class='word' data-word='necessarily'>necessarily</span> <span class='word' data-word='work'>work</span> <span class='word' data-word='well'>well</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='gray'>gray</span> <span class='word' data-word='areas'>areas</span>, <span class='word' data-word='flynn'>Flynn</span> <span class='word' data-word='said'>said</span>. <span class='word' data-word='for'>For</span> <span class='word' data-word='now'>now</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='ability'>ability</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='see'>see</span> <span class='word' data-word='all'>all</span> <span class='word' data-word='angles'>angles</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='issue'>issue</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='add'>add</span> <span class='word' data-word='context'>context</span> <span class='word' data-word='remains'>remains</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='form'>form</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='possess'>possess</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='greater'>greater</span> <span class='word' data-word='extent'>extent</span> <span class='word' data-word='than'>than</span> <span class='word' data-word='ai'>AI</span>, <span class='word' data-word='she'>she</span> <span class='word' data-word='said'>said</span>.</p>
+          <p class='cn-text'>【译】弗林说，人类基于一系列知识和生活经验做出判断。AI从大量数据中提取信息，但在灰色地带并不一定运作良好。弗林说，就目前而言，能够看到问题的各个方面并加入背景信息，仍然是一种人类比AI更擅长的智能形式。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='the'>The</span> <span class='word' data-word='things'>things</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='make'>make</span> <span class='word' data-word='us'>us</span> <span class='word' data-word='uniquely'>uniquely</span> <span class='word' data-word='human'>human</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='me'>me</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='going'>going</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='continue'>continue</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='things'>things</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='our'>our</span> <span class='word' data-word='society'>society</span> <span class='word' data-word='thrive'>thrive</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='productive'>productive</span> <span class='word' data-word='ways'>ways</span>," <span class='word' data-word='flynn'>Flynn</span> <span class='word' data-word='said'>said</span>. "<span class='word' data-word='and'>And</span> <span class='word' data-word='making'>making</span> <span class='word' data-word='sure'>sure</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='we'>we</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='calling'>calling</span> <span class='word' data-word='those'>those</span> <span class='word' data-word='things'>things</span> <span class='word' data-word='out'>out</span>, <span class='word' data-word='paying'>paying</span> <span class='word' data-word='attention'>attention</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='them'>them</span>, <span class='word' data-word='making'>making</span> <span class='word' data-word='sure'>sure</span> <span class='word' data-word='those'>those</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='attributes'>attributes</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='folks'>folks</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='name'>name</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='articulate'>articulate</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='feel'>feel</span> <span class='word' data-word='good'>good</span> <span class='word' data-word='about'>about</span>, <span class='word' data-word='is'>is</span> <span class='word' data-word='going'>going</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='key'>key</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='we'>we</span> <span class='word' data-word='all'>all</span> <span class='word' data-word='navigate'>navigate</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='rapidly'>rapidly</span> <span class='word' data-word='changing'>changing</span> <span class='word' data-word='future'>future</span>."</p>
+          <p class='cn-text'>【译】"在我看来，那些让我们成为独特人类的东西，将继续是帮助我们的社会以富有成效的方式繁荣发展的东西，"弗林说。"确保我们把这些东西点出来、重视它们，让人们能够命名、阐述并为之感到自豪——这在我们所有人共同应对一个快速变化的未来时将是关键。"</p>
+        </div>
+
+  <a class='original-link' href='https://apnews.com/article/artificial-intelligence-jobs-soft-skills-human-0ce88d448f0b7a87c72b6241305a61f2' target='_blank'>Read Original (AP News)</a>
+  <div class='tip'>Click any English word for definition and pronunciation | 点击任意英文单词查看读音和释义</div>
+</div>
+
+<div class='lookup-panel' id='lookupPanel'>
+  <div class='handle'></div>
+  <div id='lookupContent'>
+    <div class='loading'>Loading...</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const panel = document.getElementById('lookupPanel');
+  const content = document.getElementById('lookupContent');
+  let currentWord = '';
+  const cache = {};
+
+  // Click word
+  document.addEventListener('click', function(e) {
+    const wordEl = e.target.closest('.word');
+    if (!wordEl) {
+      // Close panel when clicking outside
+      if (!e.target.closest('.lookup-panel')) {
+        panel.classList.remove('show');
+        document.querySelectorAll('.word.active').forEach(w => w.classList.remove('active'));
+      }
+      return;
+    }
+
+    const word = wordEl.dataset.word;
+    if (!word) return;
+
+    // Highlight current word
+    document.querySelectorAll('.word.active').forEach(w => w.classList.remove('active'));
+    wordEl.classList.add('active');
+
+    currentWord = word;
+    showPanel(word);
+  });
+
+  function showPanel(word) {
+    panel.classList.add('show');
+    if (cache[word]) {
+      renderResult(word, cache[word]);
+      return;
+    }
+    content.innerHTML = '<div class="loading">Looking up...</div>';
+    fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(word))
+      .then(r => r.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          cache[word] = data[0];
+          if (currentWord === word) renderResult(word, data[0]);
+        } else {
+          if (currentWord === word) {
+            content.innerHTML = '<div class="word-title">' + esc(word) + '</div><div class="error-msg">Definition not found</div>';
+          }
+        }
+      })
+      .catch(() => {
+        if (currentWord === word) {
+          content.innerHTML = '<div class="word-title">' + esc(word) + '</div><div class="error-msg">Lookup failed, please try again later</div>';
+        }
+      });
+  }
+
+  function renderResult(word, data) {
+    let html = '<div class="word-title">' + esc(word);
+    // Phonetic
+    let phonetic = '';
+    let audioUrl = '';
+    if (data.phonetic) phonetic = data.phonetic;
+    if (data.phonetics) {
+      for (const p of data.phonetics) {
+        if (!phonetic && p.text) phonetic = p.text;
+        if (!audioUrl && p.audio) audioUrl = p.audio;
+      }
+    }
+    if (phonetic) html += '<span class="phonetic">' + esc(phonetic) + '</span>';
+    html += '</div>';
+
+    // Play button - use audio file, not browser TTS
+    if (audioUrl) {
+      html += '<button class="play-btn" onclick="playAudio(\'' + audioUrl + '\')">Play</button>';
+    } else {
+      var gtUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(word) + '&tl=en&client=tw-ob';
+      html += '<button class="play-btn" onclick="playAudio(\'' + esc(gtUrl) + '\')">Play</button>';
+    }
+
+    // Definitions
+    if (data.meanings && data.meanings.length > 0) {
+      html += '<div class="definitions">';
+      for (const m of data.meanings) {
+        html += '<div class="pos">' + esc(m.partOfSpeech) + '</div>';
+        const defs = m.definitions.slice(0, 3);
+        for (let i = 0; i < defs.length; i++) {
+          html += '<div class="def-item">' + (i+1) + '. ' + esc(defs[i].definition) + '</div>';
+        }
+      }
+      html += '</div>';
+    }
+
+    content.innerHTML = html;
+  }
+
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  // Play audio (unified entry)
+  window.playAudio = function(url) {
+    var a = new Audio(url);
+    a.onerror = function() {
+      // Fallback to Google Translate TTS on audio load failure
+      var word = currentWord;
+      if (word) {
+        var gtUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(word) + '&tl=en&client=tw-ob';
+        var b = new Audio(gtUrl);
+        b.onerror = function() {
+          alert('Audio playback failed, please try again later');
+        };
+        b.play();
+      }
+    };
+    a.play();
+  };
+
+  // Swipe down to close panel
+  let startY = 0;
+  panel.addEventListener('touchstart', function(e) {
+    startY = e.touches[0].clientY;
+  });
+  panel.addEventListener('touchend', function(e) {
+    const diff = e.changedTouches[0].clientY - startY;
+    if (diff > 60) {
+      panel.classList.remove('show');
+      document.querySelectorAll('.word.active').forEach(w => w.classList.remove('active'));
+    }
+  });
+})();
+</script>
+</body>
+</html>
