@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Anthropic launches 'Claude Corps' to teach nonprofits to use AI</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    padding: 0;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 16px 120px;
+    background: #fff;
+    min-height: 100vh;
+  }
+  .article-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e8e8e8;
+  }
+  .article-header h1 {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+  }
+  .article-header .title-cn {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .article-header .meta {
+    font-size: 13px;
+    color: #999;
+  }
+  .article-header .meta span {
+    margin-right: 12px;
+  }
+  .section-title {
+    font-size: 17px;
+    color: #1a1a1a;
+    margin: 24px 0 4px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .section-title-cn {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .para-group {
+    margin-bottom: 20px;
+  }
+  .en-text {
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 6px;
+    color: #222;
+  }
+  .cn-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #888;
+    padding-left: 12px;
+    border-left: 3px solid #e0e0e0;
+    margin-bottom: 4px;
+  }
+  .word {
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.15s;
+    display: inline;
+  }
+  .word:hover {
+    background: #e3f2fd;
+  }
+  .word.active {
+    background: #bbdefb;
+  }
+
+  /* Bottom lookup panel */
+  .lookup-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0 20px 24px;
+  }
+  .lookup-panel.show {
+    transform: translateY(0);
+  }
+  .lookup-panel .handle {
+    width: 36px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 2px;
+    margin: 10px auto 16px;
+  }
+  .lookup-panel .word-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lookup-panel .phonetic {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .lookup-panel .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lookup-panel .play-btn:hover {
+    background: #1565c0;
+  }
+  .lookup-panel .definitions {
+    margin-top: 12px;
+  }
+  .lookup-panel .pos {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .lookup-panel .def-item {
+    font-size: 14px;
+    color: #444;
+    padding: 4px 0 4px 12px;
+    line-height: 1.6;
+  }
+  .lookup-panel .error-msg {
+    color: #e53935;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+  .lookup-panel .loading {
+    color: #999;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  .original-link {
+    display: block;
+    text-align: center;
+    margin-top: 32px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .original-link:hover {
+    background: #e8e8e8;
+  }
+
+  .tip {
+    text-align: center;
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+<div class='container'>
+  <div class='article-header'>
+    <h1>Anthropic announces 'Claude Corps' to teach nonprofits to use AI more effectively</h1>
+    <div class='title-cn'>Anthropic 宣布推出"Claude Corps"项目，教非营利组织更有效使用 AI</div>
+    <div class='meta'>
+      <span>Associated Press (AP News)</span>
+      <span>Glenn Gamboa</span>
+      <span>June 12, 2026</span>
+    </div>
+  </div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='san'>SAN</span> <span class='word' data-word='francisco'>FRANCISCO</span> (<span class='word' data-word='ap'>AP</span>) — <span class='word' data-word='anthropic'>Anthropic</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='donate'>donate</span> $150 <span class='word' data-word='million'>million</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='launch'>launch</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='fellowship'>fellowship</span> <span class='word' data-word='program'>program</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='places'>places</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='early'>early</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='careers'>careers</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='nonprofits'>nonprofits</span> <span class='word' data-word='around'>around</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='country'>country</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='them'>them</span> <span class='word' data-word='use'>use</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='effectively'>effectively</span>.</p>
+          <p class='cn-text'>【译】旧金山（美联社）——Anthropic 将捐赠 1.5 亿美元推出一项奖学金项目，将职业生涯早期的从业者派驻到全国各地的非营利组织，帮助他们更有效地在工作中使用人工智能。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='claude'>Claude</span> <span class='word' data-word='corps'>Corps</span>, <span class='word' data-word='named'>named</span> <span class='word' data-word='after'>after</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='popular'>popular</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='chatbot'>chatbot</span>, <span class='word' data-word='will'>will</span> <span class='word' data-word='recruit'>recruit</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='place'>place</span> 1,000 <span class='word' data-word='members'>members</span> <span class='word' data-word='trained'>trained</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='using'>using</span> <span class='word' data-word='claude'>Claude</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='one'>one</span>-<span class='word' data-word='year'>year</span> <span class='word' data-word='stints'>stints</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='various'>various</span> <span class='word' data-word='organizations'>organizations</span>. <span class='word' data-word='anthropic'>Anthropic</span> <span class='word' data-word='president'>President</span> <span class='word' data-word='daniela'>Daniela</span> <span class='word' data-word='amodei'>Amodei</span> <span class='word' data-word='told'>told</span> <span class='word' data-word='the'>The</span> <span class='word' data-word='associated'>Associated</span> <span class='word' data-word='press'>Press</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='interview'>interview</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='hopes'>hopes</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='expand'>expand</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='become'>become</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='major'>major</span> <span class='word' data-word='pillar'>pillar</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='strategy'>strategy</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='humanity'>humanity</span> <span class='word' data-word='reap'>reap</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='benefits'>benefits</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='while'>while</span> <span class='word' data-word='managing'>managing</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='risks'>risks</span>.</p>
+          <p class='cn-text'>【译】"Claude Corps"以该公司热门 AI 聊天机器人 Claude 命名，将招聘并派驻 1000 名接受过 Claude 使用培训的成员，到各类组织开展为期一年的工作。Anthropic 总裁丹妮拉·阿莫代伊（Daniela Amodei）在接受美联社采访时表示，公司希望该项目能够扩展，成为其帮助人类在享受 AI 益处的同时管控相关风险这一战略的重要支柱。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='we'>We</span> <span class='word' data-word='hope'>hope</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='good'>good</span> <span class='word' data-word='idea'>idea</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='take'>take</span> <span class='word' data-word='root'>root</span>, <span class='word' data-word='that'>that</span> <span class='word' data-word='others'>others</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='build'>build</span> <span class='word' data-word='off'>off</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='learn'>learn</span> <span class='word' data-word='from'>from</span>, <span class='word' data-word='whether'>whether</span> <span class='word' data-word='it'>it</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='sector'>sector</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='private'>private</span> <span class='word' data-word='sector'>sector</span>," <span class='word' data-word='amodei'>Amodei</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='interview'>interview</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='anthropic'>Anthropic</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='headquarters'>headquarters</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='san'>San</span> <span class='word' data-word='francisco'>Francisco</span>. "<span class='word' data-word='but'>But</span> <span class='word' data-word='i'>I</span> <span class='word' data-word='think'>think</span> <span class='word' data-word='my'>my</span> <span class='word' data-word='expectation'>expectation</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='we'>we</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='learn'>learn</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='it'>it</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='who'>who</span> <span class='word' data-word='participate'>participate</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='learn'>learn</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='it'>it</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='we'>we</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='come'>come</span> <span class='word' data-word='back'>back</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='do'>do</span> <span class='word' data-word='better'>better</span> <span class='word' data-word='next'>next</span> <span class='word' data-word='time'>time</span>."</p>
+          <p class='cn-text'>【译】"我们希望这是一个可以扎根的好想法，其他人可以据此构建并从中学习，无论是公共部门还是私营部门，"阿莫代伊在旧金山的 Anthropic 总部接受采访时说，"但我想我的期望是，我们会从中学习，参与这个项目的人也会学习，我们下次可以回来做得更好。"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='anthropic'>Anthropic</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='commitment'>commitment</span> <span class='word' data-word='includes'>includes</span> <span class='word' data-word='paying'>paying</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='claude'>Claude</span> <span class='word' data-word='corps'>Corps</span> <span class='word' data-word='members'>members</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='salary'>salary</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='providing'>providing</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='least'>least</span> 400 <span class='word' data-word='partner'>partner</span> <span class='word' data-word='organizations'>organizations</span> <span class='word' data-word='with'>with</span> $10,000 <span class='word' data-word='grants'>grants</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='credits'>credits</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='use'>use</span> <span class='word' data-word='claude'>Claude</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='free'>free</span>.</p>
+          <p class='cn-text'>【译】Anthropic 的承诺包括向 Claude Corps 成员支付薪酬，并且向至少 400 家合作机构提供 1 万美元的资助以及免费使用 Claude 的额度。</p>
+        </div>
+
+  <div class='section-title'>BALANCING PROFIT AND SOCIAL IMPACT</div>
+  <div class='section-title-cn'>平衡利润与社会影响</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='amodei'>Amodei</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='philanthropy'>philanthropy</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='been'>been</span> <span class='word' data-word='woven'>woven</span> <span class='word' data-word='into'>into</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='way'>way</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='co'>co</span>-<span class='word' data-word='founders'>founders</span> <span class='word' data-word='run'>run</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span>. <span class='word' data-word='she'>She</span>, <span class='word' data-word='her'>her</span> <span class='word' data-word='brother'>brother</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='anthropic'>Anthropic</span> <span class='word' data-word='ceo'>CEO</span> <span class='word' data-word='dario'>Dario</span> <span class='word' data-word='amodei'>Amodei</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='five'>five</span> <span class='word' data-word='other'>other</span> <span class='word' data-word='co'>co</span>-<span class='word' data-word='founders'>founders</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='already'>already</span> <span class='word' data-word='pledged'>pledged</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='give'>give</span> <span class='word' data-word='away'>away</span> 80% <span class='word' data-word='of'>of</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='wealth'>wealth</span>. <span class='word' data-word='they'>They</span> <span class='word' data-word='set'>set</span> <span class='word' data-word='up'>up</span> <span class='word' data-word='anthropic'>Anthropic</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='benefit'>benefit</span> <span class='word' data-word='corporation'>corporation</span>, <span class='word' data-word='a'>a</span> <span class='word' data-word='designation'>designation</span> <span class='word' data-word='available'>available</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='for'>for</span>-<span class='word' data-word='profit'>profit</span> <span class='word' data-word='companies'>companies</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='choose'>choose</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='balance'>balance</span> <span class='word' data-word='financial'>financial</span> <span class='word' data-word='goals'>goals</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='social'>social</span> <span class='word' data-word='impact'>impact</span>.</p>
+          <p class='cn-text'>【译】阿莫代伊表示，慈善理念已经融入 Anthropic 联合创始人运营公司的思路中。阿莫代伊、她的哥哥、Anthropic 首席执行官达里奥·阿莫代伊（Dario Amodei）以及公司的另外五位联合创始人已经承诺，将捐赠他们 80% 的财富。他们将 Anthropic 设立为公益公司，这是一种营利性公司可以选择的法律形式，用来平衡财务目标和社会影响。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='anthropic'>Anthropic</span>, <span class='word' data-word='currently'>currently</span> <span class='word' data-word='valued'>valued</span> <span class='word' data-word='at'>at</span> $965 <span class='word' data-word='billion'>billion</span>, <span class='word' data-word='is'>is</span> <span class='word' data-word='preparing'>preparing</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='go'>go</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='wall'>Wall</span> <span class='word' data-word='street'>Street</span>, <span class='word' data-word='announcing'>announcing</span> <span class='word' data-word='earlier'>earlier</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='month'>month</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='had'>had</span> <span class='word' data-word='filed'>filed</span> <span class='word' data-word='confidential'>confidential</span> <span class='word' data-word='paperwork'>paperwork</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='initial'>initial</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='offering'>offering</span>.</p>
+          <p class='cn-text'>【译】Anthropic 目前的估值为 9650 亿美元，正准备在华尔街上市，本月早些时候宣布已提交首次公开募股（IPO）的保密申请文件。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='we'>We</span> <span class='word' data-word='may'>may</span> <span class='word' data-word='make'>make</span> <span class='word' data-word='some'>some</span> <span class='word' data-word='decisions'>decisions</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='choices'>choices</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='could'>could</span> <span class='word' data-word='come'>come</span> <span class='word' data-word='into'>into</span> <span class='word' data-word='conflict'>conflict</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='what'>what</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='pure'>pure</span> <span class='word' data-word='commercial'>commercial</span> <span class='word' data-word='interest'>interest</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='business'>business</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='we'>we</span>'<span class='word' data-word='ll'>ll</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='very'>very</span> <span class='word' data-word='open'>open</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='that'>that</span>," <span class='word' data-word='she'>she</span> <span class='word' data-word='said'>said</span>. "<span class='word' data-word='i'>I</span> <span class='word' data-word='think'>think</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='serves'>serves</span> <span class='word' data-word='us'>us</span> <span class='word' data-word='well'>well</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='very'>very</span> <span class='word' data-word='honest'>honest</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='who'>who</span> <span class='word' data-word='we'>we</span> <span class='word' data-word='are'>are</span>."</p>
+          <p class='cn-text'>【译】"我们可能会做出一些决策和选择，这些决策和选择可能与企业的纯商业利益相冲突，我们会非常坦诚地对待这一点，"她说，"我认为，对我们来说，非常诚实地展示我们的身份对我们很有利。"</p>
+        </div>
+
+  <div class='section-title'>RISKS AND REGULATION</div>
+  <div class='section-title-cn'>风险与监管</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='anthropic'>Anthropic</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='been'>been</span> <span class='word' data-word='vocal'>vocal</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='risks'>risks</span> <span class='word' data-word='inherent'>inherent</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='groundbreaking'>groundbreaking</span> <span class='word' data-word='technology'>technology</span>. <span class='word' data-word='the'>The</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='warned'>warned</span> <span class='word' data-word='last'>last</span> <span class='word' data-word='week'>week</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='companies'>companies</span> <span class='word' data-word='should'>should</span> <span class='word' data-word='coordinate'>coordinate</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='pause'>pause</span> <span class='word' data-word='advanced'>advanced</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='development'>development</span> <span class='word' data-word='if'>if</span> <span class='word' data-word='humanity'>humanity</span> <span class='word' data-word='faces'>faces</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='risk'>risk</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='losing'>losing</span> <span class='word' data-word='control'>control</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='self'>self</span>-<span class='word' data-word='improving'>improving</span> <span class='word' data-word='technology'>technology</span>.</p>
+          <p class='cn-text'>【译】Anthropic 一直直言不讳地指出这项突破性技术固有的风险。该公司上周警告称，如果人类面临失去对自我改进技术控制的风险，各公司应该协调暂停先进 AI 系统的开发。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='it'>It</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='partnered'>partnered</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='pope'>Pope</span> <span class='word' data-word='leo'>Leo</span> <span class='word' data-word='xiv'>XIV</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='draft'>draft</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='encyclical'>encyclical</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='need'>need</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='greater'>greater</span> <span class='word' data-word='regulation'>regulation</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='had'>had</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='high'>high</span>-<span class='word' data-word='profile'>profile</span> <span class='word' data-word='clash'>clash</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='trump'>Trump</span> <span class='word' data-word='administration'>administration</span> <span class='word' data-word='over'>over</span> <span class='word' data-word='anthropic'>Anthropic</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='refusal'>refusal</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='give'>give</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='u'>U.S.</span> <span class='word' data-word='military'>military</span> <span class='word' data-word='unfettered'>unfettered</span> <span class='word' data-word='access'>access</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='technology'>technology</span>.</p>
+          <p class='cn-text'>【译】该公司还与教皇良十四世合作，协助后者制定关于 AI 以及加强监管必要性的通谕。此外，Anthropic 还曾与特朗普政府发生备受关注的冲突，原因是 Anthropic 拒绝允许美国军方不受限制地使用其 AI 技术。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='bella'>Bella</span> <span class='word' data-word='devaan'>DeVaan</span>, <span class='word' data-word='director'>director</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='charitable'>charitable</span> <span class='word' data-word='reform'>reform</span> <span class='word' data-word='initiative'>initiative</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='institute'>Institute</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='policy'>Policy</span> <span class='word' data-word='studies'>Studies</span>, <span class='word' data-word='a'>a</span> <span class='word' data-word='progressive'>progressive</span> <span class='word' data-word='research'>research</span> <span class='word' data-word='group'>group</span>, <span class='word' data-word='said'>said</span> <span class='word' data-word='she'>she</span> <span class='word' data-word='doubted'>doubted</span> <span class='word' data-word='any'>any</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='would'>would</span> <span class='word' data-word='voluntarily'>voluntarily</span> <span class='word' data-word='set'>set</span> <span class='word' data-word='aside'>aside</span> <span class='word' data-word='enough'>enough</span> <span class='word' data-word='profits'>profits</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='support'>support</span> <span class='word' data-word='all'>all</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='affected'>affected</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='proliferation'>proliferation</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='ai'>AI</span>.</p>
+          <p class='cn-text'>【译】进步研究组织政策研究所慈善改革倡议主任贝拉·德瓦安（Bella DeVaan）表示，她怀疑任何 AI 公司都不会自愿拨出足够的利润，来支持所有受 AI 普及影响的人。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='the'>The</span> <span class='word' data-word='fox'>fox</span> <span class='word' data-word='cannot'>cannot</span> <span class='word' data-word='guard'>guard</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='henhouse'>henhouse</span>," <span class='word' data-word='said'>said</span> <span class='word' data-word='devaan'>DeVaan</span>, <span class='word' data-word='who'>who</span> <span class='word' data-word='studies'>studies</span> <span class='word' data-word='giving'>giving</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='super'>super</span>-<span class='word' data-word='wealthy'>wealthy</span>. "<span class='word' data-word='they'>They</span> <span class='word' data-word='cannot'>cannot</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='charge'>charge</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='own'>own</span> <span class='word' data-word='regulation'>regulation</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='they'>they</span> <span class='word' data-word='cannot'>cannot</span> <span class='word' data-word='define'>define</span> <span class='word' data-word='what'>what</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='philanthropic'>philanthropic</span> <span class='word' data-word='mission'>mission</span> <span class='word' data-word='is'>is</span>. <span class='word' data-word='that'>That</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='decided'>decided</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='public'>public</span>."</p>
+          <p class='cn-text'>【译】"狐狸不能看守鸡舍，"研究超级富豪捐赠的德瓦安说，"他们不能负责自己的监管，也不能自己定义他们的慈善使命是什么。这必须由公众来决定。"</p>
+        </div>
+
+  <div class='section-title'>HOW CLAUDE CORPS WILL WORK</div>
+  <div class='section-title-cn'>Claude Corps 如何运作</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='to'>To</span> <span class='word' data-word='create'>create</span> <span class='word' data-word='claude'>Claude</span> <span class='word' data-word='corps'>Corps</span>, <span class='word' data-word='anthropic'>Anthropic</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='partnering'>partnering</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='codepath'>CodePath</span>, <span class='word' data-word='a'>a</span> <span class='word' data-word='san'>San</span> <span class='word' data-word='francisco'>Francisco</span>-<span class='word' data-word='based'>based</span> <span class='word' data-word='nonprofit'>nonprofit</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='helps'>helps</span> <span class='word' data-word='first'>first</span>-<span class='word' data-word='generation'>generation</span> <span class='word' data-word='college'>college</span> <span class='word' data-word='students'>students</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='low'>low</span>-<span class='word' data-word='income'>income</span> <span class='word' data-word='students'>students</span> <span class='word' data-word='enter'>enter</span> <span class='word' data-word='tech'>tech</span> <span class='word' data-word='careers'>careers</span> <span class='word' data-word='through'>through</span> <span class='word' data-word='higher'>higher</span> <span class='word' data-word='education'>education</span> <span class='word' data-word='courses'>courses</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='career'>career</span> <span class='word' data-word='support'>support</span>.</p>
+          <p class='cn-text'>【译】为了创建 Claude Corps，Anthropic 与 CodePath 合作，后者是总部位于旧金山的非营利组织，旨在通过高等教育课程和职业支持，帮助第一代大学生和低收入学生进入科技行业工作。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='michael'>Michael</span> <span class='word' data-word='ellison'>Ellison</span>, <span class='word' data-word='ceo'>CEO</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='codepath'>CodePath</span>, <span class='word' data-word='said'>said</span> <span class='word' data-word='he'>he</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='long'>long</span> <span class='word' data-word='been'>been</span> <span class='word' data-word='thinking'>thinking</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='reimagining'>reimagining</span> <span class='word' data-word='americorps'>AmeriCorps</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='proliferation'>proliferation</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='ai'>AI</span>. "<span class='word' data-word='i'>I</span> <span class='word' data-word='think'>think</span> <span class='word' data-word='we'>we</span> <span class='word' data-word='need'>need</span> <span class='word' data-word='programs'>programs</span> <span class='word' data-word='like'>like</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='plug'>plug</span> <span class='word' data-word='into'>into</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='populations'>populations</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='traditionally'>traditionally</span> <span class='word' data-word='adopt'>adopt</span> <span class='word' data-word='new'>new</span> <span class='word' data-word='technology'>technology</span> <span class='word' data-word='later'>later</span>," <span class='word' data-word='he'>he</span> <span class='word' data-word='said'>said</span>.</p>
+          <p class='cn-text'>【译】CodePath 首席执行官迈克尔·埃利森（Michael Ellison）表示，他长期以来一直在考虑重新设计美国志愿队（AmeriCorps），以适应 AI 的普及。"我认为我们需要这样的项目，能够对接那些传统上较晚采用新技术的群体，"他说。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='fellowship'>fellowship</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='open'>open</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='broad'>broad</span> <span class='word' data-word='range'>range</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='early'>early</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='careers'>careers</span>. "<span class='word' data-word='we'>We</span>'<span class='word' data-word='re'>re</span> <span class='word' data-word='intentionally'>intentionally</span> <span class='word' data-word='making'>making</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='easy'>easy</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='possible'>possible</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='apply'>apply</span>," <span class='word' data-word='ellison'>Ellison</span> <span class='word' data-word='said'>said</span>. "<span class='word' data-word='we'>We</span> <span class='word' data-word='don'>don</span>'<span class='word' data-word='t'>t</span> <span class='word' data-word='require'>require</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='specific'>specific</span> <span class='word' data-word='degree'>degree</span>. <span class='word' data-word='we'>We</span> <span class='word' data-word='want'>want</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='first'>first</span> <span class='word' data-word='cohort'>cohort</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='representative'>representative</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='broad'>broad</span> <span class='word' data-word='swath'>swath</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='country'>country</span>."</p>
+          <p class='cn-text'>【译】该奖学金将面向广泛的职业生涯早期的年轻人开放。"我们有意让申请尽可能容易，"埃利森说，"我们不要求你必须有特定的学位。我们希望首批奖学金获得者能够代表这个国家广泛的人群。"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='jennifer'>Jennifer</span> <span class='word' data-word='blatz'>Blatz</span>, <span class='word' data-word='ceo'>CEO</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='president'>president</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='strivetogether'>StriveTogether</span>, <span class='word' data-word='a'>a</span> <span class='word' data-word='cincinnati'>Cincinnati</span>-<span class='word' data-word='based'>based</span> <span class='word' data-word='nonprofit'>nonprofit</span> <span class='word' data-word='network'>network</span>, <span class='word' data-word='said'>said</span> <span class='word' data-word='her'>her</span> <span class='word' data-word='organization'>organization</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='honored'>honored</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='selected'>selected</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='receive'>receive</span> <span class='word' data-word='two'>two</span> <span class='word' data-word='claude'>Claude</span> <span class='word' data-word='corps'>Corps</span> <span class='word' data-word='fellows'>fellows</span>.</p>
+          <p class='cn-text'>【译】总部位于辛辛那提的非营利网络 StriveTogether 的首席执行官兼总裁詹妮弗·布拉茨（Jennifer Blatz）表示，她的组织很荣幸被选为 Claude Corps 奖学金的接收方，将接收两名成员。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='ai'>AI</span> <span class='word' data-word='can'>can</span> <span class='word' data-word='help'>help</span> <span class='word' data-word='us'>us</span> <span class='word' data-word='work'>work</span> <span class='word' data-word='smarter'>smarter</span>, <span class='word' data-word='but'>but</span> <span class='word' data-word='building'>building</span> <span class='word' data-word='trust'>trust</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='community'>community</span> <span class='word' data-word='collaboration'>collaboration</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='very'>very</span> <span class='word' data-word='human'>human</span> <span class='word' data-word='part'>part</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='work'>work</span>," <span class='word' data-word='she'>she</span> <span class='word' data-word='said'>said</span>. "<span class='word' data-word='that'>That</span> <span class='word' data-word='doesn'>doesn</span>'<span class='word' data-word='t'>t</span> <span class='word' data-word='go'>go</span> <span class='word' data-word='away'>away</span> <span class='word' data-word='because'>because</span> <span class='word' data-word='we'>we</span>'<span class='word' data-word='re'>re</span> <span class='word' data-word='using'>using</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='tool'>tool</span>."</p>
+          <p class='cn-text'>【译】"AI 可以帮助我们更聪明地工作，但建立信任和社区协作，是工作中非常人性化的一部分，"她说，"这不会因为我们使用这个工具就消失。"</p>
+        </div>
+
+  <a class='original-link' href='https://apnews.com/article/anthropic-ai-claude-corps-daniela-amodei-b1c130a08417d13e1256f8982d233b0e' target='_blank'>Read Original (AP News)</a>
+  <div class='tip'>Click any English word for definition and pronunciation | 点击任意英文单词查看读音和释义</div>
+</div>
+
+<div class='lookup-panel' id='lookupPanel'>
+  <div class='handle'></div>
+  <div id='lookupContent'>
+    <div class='loading'>Loading...</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const panel = document.getElementById('lookupPanel');
+  const content = document.getElementById('lookupContent');
+  let currentWord = '';
+  const cache = {};
+
+  // Click word
+  document.addEventListener('click', function(e) {
+    const wordEl = e.target.closest('.word');
+    if (!wordEl) {
+      // Close panel when clicking outside
+      if (!e.target.closest('.lookup-panel')) {
+        panel.classList.remove('show');
+        document.querySelectorAll('.word.active').forEach(w => w.classList.remove('active'));
+      }
+      return;
+    }
+
+    const word = wordEl.dataset.word;
+    if (!word) return;
+
+    // Highlight current word
+    document.querySelectorAll('.word.active').forEach(w => w.classList.remove('active'));
+    wordEl.classList.add('active');
+
+    currentWord = word;
+    showPanel(word);
+  });
+
+  function showPanel(word) {
+    panel.classList.add('show');
+    if (cache[word]) {
+      renderResult(word, cache[word]);
+      return;
+    }
+    content.innerHTML = '<div class="loading">Looking up...</div>';
+    fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(word))
+      .then(r => r.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          cache[word] = data[0];
+          if (currentWord === word) renderResult(word, data[0]);
+        } else {
+          if (currentWord === word) {
+            content.innerHTML = '<div class="word-title">' + esc(word) + '</div><div class="error-msg">Definition not found</div>';
+          }
+        }
+      })
+      .catch(() => {
+        if (currentWord === word) {
+          content.innerHTML = '<div class="word-title">' + esc(word) + '</div><div class="error-msg">Lookup failed, please try again later</div>';
+        }
+      });
+  }
+
+  function renderResult(word, data) {
+    let html = '<div class="word-title">' + esc(word);
+    // Phonetic
+    let phonetic = '';
+    let audioUrl = '';
+    if (data.phonetic) phonetic = data.phonetic;
+    if (data.phonetics) {
+      for (const p of data.phonetics) {
+        if (!phonetic && p.text) phonetic = p.text;
+        if (!audioUrl && p.audio) audioUrl = p.audio;
+      }
+    }
+    if (phonetic) html += '<span class="phonetic">' + esc(phonetic) + '</span>';
+    html += '</div>';
+
+    // Play button - use audio file, not browser TTS
+    if (audioUrl) {
+      html += '<button class="play-btn" onclick="playAudio(\'' + audioUrl + '\')">Play</button>';
+    } else {
+      var gtUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(word) + '&tl=en&client=tw-ob';
+      html += '<button class="play-btn" onclick="playAudio(\'' + esc(gtUrl) + '\')">Play</button>';
+    }
+
+    // Definitions
+    if (data.meanings && data.meanings.length > 0) {
+      html += '<div class="definitions">';
+      for (const m of data.meanings) {
+        html += '<div class="pos">' + esc(m.partOfSpeech) + '</div>';
+        const defs = m.definitions.slice(0, 3);
+        for (let i = 0; i < defs.length; i++) {
+          html += '<div class="def-item">' + (i+1) + '. ' + esc(defs[i].definition) + '</div>';
+        }
+      }
+      html += '</div>';
+    }
+
+    content.innerHTML = html;
+  }
+
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  // Play audio (unified entry)
+  window.playAudio = function(url) {
+    var a = new Audio(url);
+    a.onerror = function() {
+      // Fallback to Google Translate TTS on audio load failure
+      var word = currentWord;
+      if (word) {
+        var gtUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(word) + '&tl=en&client=tw-ob';
+        var b = new Audio(gtUrl);
+        b.onerror = function() {
+          alert('Audio playback failed, please try again later');
+        };
+        b.play();
+      }
+    };
+    a.play();
+  };
+
+  // Swipe down to close panel
+  let startY = 0;
+  panel.addEventListener('touchstart', function(e) {
+    startY = e.touches[0].clientY;
+  });
+  panel.addEventListener('touchend', function(e) {
+    const diff = e.changedTouches[0].clientY - startY;
+    if (diff > 60) {
+      panel.classList.remove('show');
+      document.querySelectorAll('.word.active').forEach(w => w.classList.remove('active'));
+    }
+  });
+})();
+</script>
+</body>
+</html>
