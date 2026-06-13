@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>SpaceX soars in debut and makes Musk the first trillionaire</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    padding: 0;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 16px 120px;
+    background: #fff;
+    min-height: 100vh;
+  }
+  .article-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e8e8e8;
+  }
+  .article-header h1 {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+  }
+  .article-header .title-cn {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .article-header .meta {
+    font-size: 13px;
+    color: #999;
+  }
+  .article-header .meta span {
+    margin-right: 12px;
+  }
+  .section-title {
+    font-size: 17px;
+    color: #1a1a1a;
+    margin: 24px 0 4px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .section-title-cn {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .para-group {
+    margin-bottom: 20px;
+  }
+  .en-text {
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 6px;
+    color: #222;
+  }
+  .cn-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #888;
+    padding-left: 12px;
+    border-left: 3px solid #e0e0e0;
+    margin-bottom: 4px;
+  }
+  .word {
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.15s;
+    display: inline;
+  }
+  .word:hover {
+    background: #e3f2fd;
+  }
+  .word.active {
+    background: #bbdefb;
+  }
+
+  /* Bottom lookup panel */
+  .lookup-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0 20px 24px;
+  }
+  .lookup-panel.show {
+    transform: translateY(0);
+  }
+  .lookup-panel .handle {
+    width: 36px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 2px;
+    margin: 10px auto 16px;
+  }
+  .lookup-panel .word-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lookup-panel .phonetic {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .lookup-panel .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lookup-panel .play-btn:hover {
+    background: #1565c0;
+  }
+  .lookup-panel .definitions {
+    margin-top: 12px;
+  }
+  .lookup-panel .pos {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .lookup-panel .def-item {
+    font-size: 14px;
+    color: #444;
+    padding: 4px 0 4px 12px;
+    line-height: 1.6;
+  }
+  .lookup-panel .error-msg {
+    color: #e53935;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+  .lookup-panel .loading {
+    color: #999;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  .original-link {
+    display: block;
+    text-align: center;
+    margin-top: 32px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .original-link:hover {
+    background: #e8e8e8;
+  }
+
+  .tip {
+    text-align: center;
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 16px;
+  }
+
+</style>
+</head>
+<body>
+<div class='container'>
+  <div class='article-header'>
+    <h1>SpaceX soars in debut and makes Musk the first trillionaire</h1>
+    <div class='title-cn'>SpaceX 上市首日飙升，马斯克成为全球首位万亿富翁</div>
+    <div class='meta'>
+      <span>Associated Press (AP News)</span>
+      <span>Bernard Condon</span>
+      <span>June 12, 2026</span>
+    </div>
+  </div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='new'>NEW</span> <span class='word' data-word='york'>YORK</span> (<span class='word' data-word='ap'>AP</span>) — <span class='word' data-word='elon'>Elon</span> <span class='word' data-word='musk'>Musk</span> <span class='word' data-word='became'>became</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='world'>world</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='first'>first</span> <span class='word' data-word='trillionaire'>trillionaire</span> <span class='word' data-word='after'>after</span> <span class='word' data-word='shares'>shares</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='rocket'>rocket</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='soared'>soared</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='wall'>Wall</span> <span class='word' data-word='street'>Street</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='biggest'>biggest</span> <span class='word' data-word='initial'>initial</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='offering'>offering</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='stock'>stock</span>.</p>
+          <p class='cn-text'>【译】纽约（美联社）——埃隆·马斯克成为全球首位万亿富翁，其火箭公司 SpaceX 在华尔街最大规模的首次公开募股（IPO）中股价飙升。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='shares'>Shares</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='jumped'>jumped</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='than'>than</span> 19% <span class='word' data-word='after'>after</span> <span class='word' data-word='opening'>opening</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='trading'>trading</span> <span class='word' data-word='friday'>Friday</span>, <span class='word' data-word='a'>a</span> <span class='word' data-word='sign'>sign</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='investors'>investors</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='looking'>looking</span> <span class='word' data-word='past'>past</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='billions'>billions</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='losing'>losing</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='instead'>instead</span> <span class='word' data-word='betting'>betting</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='massive'>massive</span> <span class='word' data-word='investments'>investments</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='satellites'>satellites</span>, <span class='word' data-word='orbital'>orbital</span> <span class='word' data-word='data'>data</span> <span class='word' data-word='centers'>centers</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='pay'>pay</span> <span class='word' data-word='off'>off</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='future'>future</span>.</p>
+          <p class='cn-text'>【译】SpaceX 股价周五开盘后飙升超过 19%，这表明投资者正忽略该公司正在亏损数十亿美元的事实，转而押注其在卫星、轨道数据中心和人工智能领域的大规模投资未来会获得回报。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='opened'>opened</span> <span class='word' data-word='around'>around</span> <span class='word' data-word='midday'>midday</span> <span class='word' data-word='at'>at</span> $150 <span class='word' data-word='a'>a</span> <span class='word' data-word='share'>share</span>, <span class='word' data-word='then'>then</span> <span class='word' data-word='rose'>rose</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='around'>around</span> $168, <span class='word' data-word='before'>before</span> <span class='word' data-word='finishing'>finishing</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='day'>day</span> <span class='word' data-word='just'>just</span> <span class='word' data-word='below'>below</span> $161. <span class='word' data-word='that'>That</span> <span class='word' data-word='price'>price</span> <span class='word' data-word='gave'>gave</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='market'>market</span> <span class='word' data-word='value'>value</span> <span class='word' data-word='of'>of</span> $2.1 <span class='word' data-word='trillion'>trillion</span>, <span class='word' data-word='making'>making</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='sixth'>sixth</span> <span class='word' data-word='largest'>largest</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='u'>U.S.</span> <span class='word' data-word='company'>company</span> — <span class='word' data-word='larger'>larger</span> <span class='word' data-word='even'>even</span> <span class='word' data-word='than'>than</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='founder'>founder</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='ceo'>CEO</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='other'>other</span> <span class='word' data-word='big'>big</span> <span class='word' data-word='business'>business</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='electric'>electric</span> <span class='word' data-word='vehicle'>vehicle</span> <span class='word' data-word='maker'>maker</span> <span class='word' data-word='tesla'>Tesla</span>.</p>
+          <p class='cn-text'>【译】SpaceX 在午间开盘，每股 150 美元，随后涨至约 168 美元，收盘时略低于 161 美元。该价格使公司市值达到 2.1 万亿美元，成为美国第六大上市公司——规模甚至超过了其创始人兼 CEO 旗下的另一大业务、电动汽车制造商特斯拉。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='between'>Between</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='holdings'>holdings</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='tesla'>Tesla</span>, <span class='word' data-word='where'>where</span> <span class='word' data-word='he'>he</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='ceo'>CEO</span>, <span class='word' data-word='musk'>Musk</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='now'>now</span> <span class='word' data-word='worth'>worth</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='estimated'>estimated</span> $1.1 <span class='word' data-word='trillion'>trillion</span>, <span class='word' data-word='according'>according</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='forbes'>Forbes</span>.</p>
+          <p class='cn-text'>【译】根据《福布斯》的估计，马斯克在 SpaceX 以及他同样担任 CEO 的特斯拉中的持股，使他目前的净资产约为 1.1 万亿美元。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='musk'>Musk</span> <span class='word' data-word='says'>says</span> <span class='word' data-word='spacex'>SpaceX</span>, <span class='word' data-word='founded'>founded</span> <span class='word' data-word='in'>in</span> 2002, <span class='word' data-word='is'>is</span> <span class='word' data-word='going'>going</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='now'>now</span> <span class='word' data-word='because'>because</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='needs'>needs</span> <span class='word' data-word='money'>money</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='fund'>fund</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='ambitions'>ambitions</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='putting'>putting</span> <span class='word' data-word='satellites'>satellites</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='data'>data</span> <span class='word' data-word='centers'>centers</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='space'>space</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='eventually'>eventually</span> <span class='word' data-word='establishing'>establishing</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='colony'>colony</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='mars'>Mars</span>.</p>
+          <p class='cn-text'>【译】马斯克表示，SpaceX 成立于 2002 年，公司现在上市是因为需要资金来实现其雄心：将卫星和数据中心送入太空，并最终在火星上建立人类定居点。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='he'>He</span> <span class='word' data-word='marked'>marked</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='opening'>opening</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='trading'>trading</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='nasdaq'>Nasdaq</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='joining'>joining</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='ceremonial'>ceremonial</span> <span class='word' data-word='bell'>bell</span> <span class='word' data-word='ringing'>ringing</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='starbase'>Starbase</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='south'>South</span> <span class='word' data-word='texas'>Texas</span> <span class='word' data-word='home'>home</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='spacex'>SpaceX</span>.</p>
+          <p class='cn-text'>【译】他在 SpaceX 位于德克萨斯南部的星舰基地（Starbase）参加了纳斯达克的上市敲钟仪式。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='he'>He</span> <span class='word' data-word='reiterated'>reiterated</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='lofty'>lofty</span> <span class='word' data-word='goals'>goals</span> "<span class='word' data-word='to'>to</span> <span class='word' data-word='make'>make</span> <span class='word' data-word='life'>life</span> <span class='word' data-word='multiplanetary'>multiplanetary</span>."</p>
+          <p class='cn-text'>【译】他重申了自己"让生命成为多行星物种"的宏大目标。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='not'>Not</span> <span class='word' data-word='just'>just</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='few'>few</span> <span class='word' data-word='astronauts'>astronauts</span>, <span class='word' data-word='i'>I</span> <span class='word' data-word='mean'>mean</span> <span class='word' data-word='literally'>literally</span> <span class='word' data-word='you'>you</span>," <span class='word' data-word='musk'>Musk</span> <span class='word' data-word='said'>said</span>. "<span class='word' data-word='whoever'>Whoever</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='watching'>watching</span> <span class='word' data-word='this'>this</span>, <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='wants'>wants</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='able'>able</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='take'>take</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='moon'>moon</span>, <span class='word' data-word='take'>take</span> <span class='word' data-word='you'>you</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='mars'>Mars</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='ultimately'>ultimately</span> <span class='word' data-word='beyond'>beyond</span>."</p>
+          <p class='cn-text'>【译】"不只是少数宇航员，我说的是字面意义上的你，"马斯克说，"无论你正在观看什么，SpaceX 都希望能够带你去月球、带你去火星，并最终走得更远。"</p>
+        </div>
+
+  <div class='section-title'>A RECORD-SHATTERING IPO</div>
+  <div class='section-title-cn'>破纪录的 IPO</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='known'>Known</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='technological'>technological</span> <span class='word' data-word='breakthroughs'>breakthroughs</span>, <span class='word' data-word='as'>as</span> <span class='word' data-word='well'>well</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='wild'>wild</span> <span class='word' data-word='claims'>claims</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='missed'>missed</span> <span class='word' data-word='deadlines'>deadlines</span>, <span class='word' data-word='musk'>Musk</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='able'>able</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='whip'>whip</span> <span class='word' data-word='up'>up</span> <span class='word' data-word='enthusiasm'>enthusiasm</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='ipo'>IPO</span>. <span class='word' data-word='the'>The</span> <span class='word' data-word='typical'>typical</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='going'>going</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='seen'>seen</span> <span class='word' data-word='a'>a</span> 7% <span class='word' data-word='jump'>jump</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='first'>first</span> <span class='word' data-word='day'>day</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='trading'>trading</span>, <span class='word' data-word='from'>from</span> 1980 <span class='word' data-word='through'>through</span> 2025, <span class='word' data-word='according'>according</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='jay'>Jay</span> <span class='word' data-word='ritter'>Ritter</span>, <span class='word' data-word='a'>a</span> <span class='word' data-word='professor'>professor</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='university'>University</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='florida'>Florida</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='warrington'>Warrington</span> <span class='word' data-word='college'>College</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='business'>Business</span>.</p>
+          <p class='cn-text'>【译】马斯克以技术突破闻名，同时也以夸张的言论和跳票的承诺著称，他成功地为这次 IPO 炒热了气氛。佛罗里达大学沃灵顿商学院的教授杰伊·里特（Jay Ritter）表示，从 1980 年到 2025 年，普通上市公司首日股价平均涨幅为 7%。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='institutional'>Institutional</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='retail'>retail</span> <span class='word' data-word='investors'>investors</span> <span class='word' data-word='alike'>alike</span> <span class='word' data-word='jumped'>jumped</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='opportunity'>opportunity</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='buy'>buy</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='piece'>piece</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='at'>at</span> $135 <span class='word' data-word='per'>per</span> <span class='word' data-word='share'>share</span> <span class='word' data-word='before'>before</span> <span class='word' data-word='trading'>trading</span> <span class='word' data-word='began'>began</span>. <span class='word' data-word='the'>The</span> $75 <span class='word' data-word='billion'>billion</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='proceeds'>proceeds</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='raised'>raised</span> <span class='word' data-word='easily'>easily</span> <span class='word' data-word='topped'>topped</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='previous'>previous</span> <span class='word' data-word='record'>record</span> <span class='word' data-word='ipo'>IPO</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='oil'>oil</span> <span class='word' data-word='giant'>giant</span> <span class='word' data-word='saudi'>Saudi</span> <span class='word' data-word='aramco'>Aramco</span> <span class='word' data-word='in'>in</span> 2019.</p>
+          <p class='cn-text'>【译】机构投资者和散户投资者都争相在交易开始前以每股 135 美元的价格抢购该公司股份。SpaceX 此次筹集的 750 亿美元资金轻松超过了 2019 年石油巨头沙特阿美的 IPO 纪录。</p>
+        </div>
+
+  <div class='section-title'>AMBITION VS. FINANCIAL REALITY</div>
+  <div class='section-title-cn'>雄心与财务现实</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='in'>In</span> <span class='word' data-word='addition'>addition</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='establishing'>establishing</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='one'>one</span>-<span class='word' data-word='million'>million</span> <span class='word' data-word='person'>person</span> <span class='word' data-word='martian'>Martian</span> <span class='word' data-word='colony'>colony</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='promised'>promised</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='save'>save</span> <span class='word' data-word='humanity'>humanity</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='establishing'>establishing</span> <span class='word' data-word='other'>other</span> <span class='word' data-word='outposts'>outposts</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='space'>space</span>, <span class='word' data-word='launch'>launch</span> <span class='word' data-word='data'>data</span> <span class='word' data-word='centers'>centers</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='size'>size</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='football'>football</span> <span class='word' data-word='fields'>fields</span> <span class='word' data-word='into'>into</span> <span class='word' data-word='orbit'>orbit</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='outdo'>outdo</span> <span class='word' data-word='rivals'>rivals</span> <span class='word' data-word='anthropic'>Anthropic</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='openai'>OpenAI</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='race'>race</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='make'>make</span> <span class='word' data-word='money'>money</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span>.</p>
+          <p class='cn-text'>【译】除了建立百万人口的火星殖民地之外，该公司还承诺通过在太空建立其他前哨站、将足球场大小的数据中心送入轨道，以及在人工智能盈利竞赛中击败 Anthropic 和 OpenAI 等对手来"拯救人类"。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='to'>To</span> <span class='word' data-word='reach'>reach</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='goals'>goals</span>, <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='needs'>needs</span> <span class='word' data-word='billions'>billions</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='than'>than</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='currently'>currently</span> <span class='word' data-word='takes'>takes</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='rocket'>rocket</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='satellite'>satellite</span> <span class='word' data-word='business'>business</span>. <span class='word' data-word='between'>Between</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='start'>start</span> <span class='word' data-word='of'>of</span> 2025 <span class='word' data-word='and'>and</span> <span class='word' data-word='march'>March</span> 31, 2026, <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span>, <span class='word' data-word='formally'>formally</span> <span class='word' data-word='known'>known</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='space'>Space</span> <span class='word' data-word='exploration'>Exploration</span> <span class='word' data-word='technologies'>Technologies</span> <span class='word' data-word='corp'>Corp</span>., <span class='word' data-word='lost'>lost</span> $8.7 <span class='word' data-word='billion'>billion</span>.</p>
+          <p class='cn-text'>【译】为了实现这些目标，SpaceX 需要的资金远远超过其目前火箭和卫星业务的收入。在 2025 年初至 2026 年 3 月 31 日期间，该公司的正式名称为太空探索技术公司（Space Exploration Technologies Corp.），亏损达 87 亿美元。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='betting'>Betting</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='many'>many</span> <span class='word' data-word='ways'>ways</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='bet'>bet</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='musk'>Musk</span> <span class='word' data-word='himself'>himself</span>. <span class='word' data-word='in'>In</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='unusual'>unusual</span> <span class='word' data-word='arrangement'>arrangement</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='drawn'>drawn</span> <span class='word' data-word='criticism'>criticism</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='shareholder'>shareholder</span> <span class='word' data-word='watchdogs'>watchdogs</span>, <span class='word' data-word='he'>he</span> <span class='word' data-word='holds'>holds</span> 82% <span class='word' data-word='interest'>interest</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='special'>special</span> <span class='word' data-word='b'>B</span> <span class='word' data-word='class'>class</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='shares'>shares</span>, <span class='word' data-word='giving'>giving</span> <span class='word' data-word='him'>him</span> <span class='word' data-word='sweeping'>sweeping</span> <span class='word' data-word='power'>power</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='control'>control</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='even'>even</span> <span class='word' data-word='though'>though</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='ownership'>ownership</span> <span class='word' data-word='stake'>stake</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='half'>half</span> <span class='word' data-word='that'>that</span>.</p>
+          <p class='cn-text'>【译】押注 SpaceX 在很多方面就是押注马斯克本人。在一项引起股东维权组织批评的不寻常安排中，他持有一类特殊 B 类股 82% 的权益，尽管其所有权比例约为一半，但赋予了他对公司广泛的控制权。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='there'>There's</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='lot'>lot</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='hype'>hype</span>, <span class='word' data-word='but'>but</span> <span class='word' data-word='i'>I</span> <span class='word' data-word='see'>see</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='faith'>faith</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='investors'>investors</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='musk'>Musk</span>," <span class='word' data-word='said'>said</span> <span class='word' data-word='yordys'>Yordys</span> <span class='word' data-word='coro'>Coro</span>, <span class='word' data-word='an'>an</span> <span class='word' data-word='it'>IT</span> <span class='word' data-word='support'>support</span> <span class='word' data-word='contractor'>contractor</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='miami'>Miami</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='he'>he</span> <span class='word' data-word='watched'>watched</span> <span class='word' data-word='his'>his</span> $14,000 <span class='word' data-word='investment'>investment</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='shoot'>shoot</span> <span class='word' data-word='up'>up</span> <span class='word' data-word='to'>to</span> $17,000 <span class='word' data-word='in'>in</span> <span class='word' data-word='just'>just</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='few'>few</span> <span class='word' data-word='hours'>hours</span>. "<span class='word' data-word='i'>I'm</span> <span class='word' data-word='going'>going</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='hold'>hold</span> <span class='word' data-word='on'>on</span>."</p>
+          <p class='cn-text'>【译】"炒作确实很多，但我看到投资者对马斯克的信任，"迈阿密的 IT 支持承包商约尔迪斯·科罗（Yordys Coro）说，他看着自己在 SpaceX 的 14000 美元投资在短短几小时内飙升到 17000 美元。"我会继续持有。"</p>
+        </div>
+
+  <div class='section-title'>SKEPTICS AND HEADWINDS</div>
+  <div class='section-title-cn'>怀疑论者与逆风</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='wall'>Wall</span> <span class='word' data-word='street'>Street</span> <span class='word' data-word='bankers'>bankers</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='helped'>helped</span> <span class='word' data-word='take'>take</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='enthusiastic'>enthusiastic</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> — <span class='word' data-word='and'>and</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='big'>big</span> <span class='word' data-word='fees'>fees</span> <span class='word' data-word='they'>they</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='earn'>earn</span> — <span class='word' data-word='but'>but</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='everyone'>everyone</span> <span class='word' data-word='thinks'>thinks</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='stock'>stock</span> <span class='word' data-word='price'>price</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='justified'>justified</span>.</p>
+          <p class='cn-text'>【译】帮助 SpaceX 上市的华尔街银行家们也对这家公司充满热情——以及他们将赚到的高额手续费——但并非所有人都认为这一股价是合理的。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='analysts'>Analysts</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='research'>research</span> <span class='word' data-word='firm'>firm</span> <span class='word' data-word='morningstar'>Morningstar</span>, <span class='word' data-word='which'>which</span> <span class='word' data-word='doesn'>doesn</span>'<span class='word' data-word='t'>t</span> <span class='word' data-word='earn'>earn</span> <span class='word' data-word='any'>any</span> <span class='word' data-word='investment'>investment</span> <span class='word' data-word='banking'>banking</span> <span class='word' data-word='fees'>fees</span>, <span class='word' data-word='wrote'>wrote</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='ipo'>IPO</span> <span class='word' data-word='is'>is</span> "<span class='word' data-word='significantly'>significantly</span> <span class='word' data-word='overvalued'>overvalued</span>."</p>
+          <p class='cn-text'>【译】不收取任何投行费用的研究公司晨星（Morningstar）的分析师写道，此次 IPO"显著高估"。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='citing'>Citing</span> <span class='word' data-word='spacex'>SpaceX</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='technology'>technology</span> <span class='word' data-word='challenges'>challenges</span>, <span class='word' data-word='including'>including</span> <span class='word' data-word='shielding'>shielding</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='orbiting'>orbiting</span> <span class='word' data-word='datacenters'>datacenters</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='radiation'>radiation</span> <span class='word' data-word='damage'>damage</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='catching'>catching</span> <span class='word' data-word='up'>up</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='leaders'>leaders</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='such'>such</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='anthropic'>Anthropic</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='openai'>OpenAI</span>, <span class='word' data-word='they'>they</span> <span class='word' data-word='estimated'>estimated</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='only'>only</span> <span class='word' data-word='worth'>worth</span> $780 <span class='word' data-word='billion'>billion</span> — <span class='word' data-word='less'>less</span> <span class='word' data-word='than'>than</span> <span class='word' data-word='half'>half</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='ipo'>IPO</span> <span class='word' data-word='value'>value</span>.</p>
+          <p class='cn-text'>【译】他们列举了 SpaceX 面临的技术挑战，包括保护其轨道数据中心免受辐射损伤，以及追赶 Anthropic 和 OpenAI 等 AI 领域的领导者，据此估计该公司仅值 7800 亿美元——不到其 IPO 估值的一半。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='itself'>itself</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='hinted'>hinted</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='challenges'>challenges</span>, <span class='word' data-word='conceding'>conceding</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='regulatory'>regulatory</span> <span class='word' data-word='documents'>documents</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='some'>some</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='business'>business</span> <span class='word' data-word='plans'>plans</span> <span class='word' data-word='rest'>rest</span> <span class='word' data-word='on'>on</span> "<span class='word' data-word='unproven'>unproven</span> <span class='word' data-word='technologies'>technologies</span>." <span class='word' data-word='it'>It</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='indicated'>indicated</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='another'>another</span> <span class='word' data-word='part'>part</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span>, <span class='word' data-word='its'>its</span> <span class='word' data-word='artificial'>artificial</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='business'>business</span> <span class='word' data-word='called'>called</span> <span class='word' data-word='xai'>xAI</span>, <span class='word' data-word='has'>has</span> <span class='word' data-word='no'>no</span> <span class='word' data-word='clear'>clear</span> <span class='word' data-word='path'>path</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='profitability'>profitability</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='burning'>burning</span> <span class='word' data-word='cash'>cash</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='catch'>catch</span> <span class='word' data-word='up'>up</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='rivals'>rivals</span>.</p>
+          <p class='cn-text'>【译】SpaceX 自身也暗示了这些挑战，在监管文件中承认其部分商业计划依赖于"未经证实的技术"。公司还表示，其另一部分业务——名为 xAI 的人工智能业务——尚无明确的盈利路径，并且正在烧钱追赶竞争对手。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='on'>On</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='livestreamed'>livestreamed</span> <span class='word' data-word='conference'>conference</span> <span class='word' data-word='thursday'>Thursday</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='ceo'>CEO</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='jpmorgan'>JPMorgan</span> <span class='word' data-word='chase'>Chase</span>, <span class='word' data-word='one'>one</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='investment'>investment</span> <span class='word' data-word='banks'>banks</span> <span class='word' data-word='making'>making</span> <span class='word' data-word='big'>big</span> <span class='word' data-word='money'>money</span> <span class='word' data-word='off'>off</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='ipo'>IPO</span>, <span class='word' data-word='musk'>Musk</span> <span class='word' data-word='offered'>offered</span> <span class='word' data-word='few'>few</span> <span class='word' data-word='details'>details</span>.</p>
+          <p class='cn-text'>【译】在周四与摩根大通（JPMorgan Chase）首席执行官——摩根大通是此次 IPO 大赚一笔的投资银行之一——进行的一场直播会议上，马斯克几乎没有透露具体细节。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='he'>He</span> <span class='word' data-word='entertained'>entertained</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='crowd'>crowd</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='talk'>talk</span> <span class='word' data-word='of'>of</span> "<span class='word' data-word='moon'>moon</span> <span class='word' data-word='hotels'>hotels</span>," <span class='word' data-word='a'>a</span> <span class='word' data-word='future'>future</span> <span class='word' data-word='martian'>Martian</span> <span class='word' data-word='colony'>colony</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='network'>network</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='earth'>Earth</span>-<span class='word' data-word='orbiting'>orbiting</span> <span class='word' data-word='data'>data</span> <span class='word' data-word='centers'>centers</span> <span class='word' data-word='powered'>powered</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='sun'>sun</span>. <span class='word' data-word='but'>But</span> <span class='word' data-word='when'>when</span> <span class='word' data-word='asked'>asked</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='plans'>plans</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='flagship'>flagship</span> <span class='word' data-word='chatbot'>chatbot</span> <span class='word' data-word='offering'>offering</span> <span class='word' data-word='grok'>Grok</span>, <span class='word' data-word='he'>he</span> <span class='word' data-word='pivoted'>pivoted</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='talking'>talking</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='satellites'>satellites</span>.</p>
+          <p class='cn-text'>【译】他用"月球酒店"、未来火星殖民地以及由太阳能驱动的地球轨道数据中心网络等话题来娱乐听众。但当被问及他的旗舰聊天机器人产品 Grok 的计划时，他却把话题转向了卫星。</p>
+        </div>
+
+  <div class='section-title'>A REPEAT OFFENDER</div>
+  <div class='section-title-cn'>惯于创造奇迹的人</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='still'>Still</span>, <span class='word' data-word='musk'>Musk</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='pulled'>pulled</span> <span class='word' data-word='off'>off</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='seemingly'>seemingly</span> <span class='word' data-word='impossible'>impossible</span> <span class='word' data-word='before'>before</span>.</p>
+          <p class='cn-text'>【译】不过，马斯克此前曾多次完成看似不可能的事情。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='now'>now</span>-<span class='word' data-word='trillionaire'>trillionaire</span> — <span class='word' data-word='on'>on</span> <span class='word' data-word='paper'>paper</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='least'>least</span> — <span class='word' data-word='made'>made</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='initial'>initial</span> <span class='word' data-word='fortune'>fortune</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='creating'>creating</span> <span class='word' data-word='two'>two</span> <span class='word' data-word='companies'>companies</span>, <span class='word' data-word='zip2'>Zip2</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='paypal'>PayPal</span>, <span class='word' data-word='that'>that</span> <span class='word' data-word='netted'>netted</span> <span class='word' data-word='him'>him</span> <span class='word' data-word='about'>about</span> $200 <span class='word' data-word='million'>million</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='sale'>sale</span>. <span class='word' data-word='he'>He</span> <span class='word' data-word='used'>used</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='money'>money</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='start'>start</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='invest'>invest</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='tesla'>Tesla</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='defied'>defied</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='odds'>odds</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='creating'>creating</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='space'>space</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='figured'>figured</span> <span class='word' data-word='out'>out</span> <span class='word' data-word='how'>how</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='reuse'>reuse</span> <span class='word' data-word='rockets'>rockets</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='car'>car</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='made'>made</span> <span class='word' data-word='electric'>electric</span> <span class='word' data-word='vehicles'>vehicles</span> <span class='word' data-word='cool'>cool</span>.</p>
+          <p class='cn-text'>【译】这位如今的万亿富翁——至少在纸面上——最初通过创建 Zip2 和 PayPal 两家公司在出售时获得约 2 亿美元，完成了原始资本积累。他用这笔钱创办了 SpaceX，并投资了特斯拉，奇迹般地创建了一家掌握了火箭回收技术的太空公司，以及一家让电动汽车变得酷炫的汽车公司。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='musk'>Musk</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='realized'>realized</span> <span class='word' data-word='vast'>vast</span> <span class='word' data-word='sums'>sums</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='wealth'>wealth</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='himself'>himself</span>, <span class='word' data-word='much'>much</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='stock'>stock</span> <span class='word' data-word='he'>he</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='yet'>yet</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='cash'>cash</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='grants'>grants</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='shares'>shares</span> <span class='word' data-word='he'>he</span>'<span class='word' data-word='ll'>ll</span> <span class='word' data-word='only'>only</span> <span class='word' data-word='receive'>receive</span> <span class='word' data-word='if'>if</span> <span class='word' data-word='tesla'>Tesla</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='hit'>hit</span> <span class='word' data-word='ambitious'>ambitious</span> <span class='word' data-word='performance'>performance</span> <span class='word' data-word='targets'>targets</span>.</p>
+          <p class='cn-text'>【译】马斯克为自身积累了巨额财富，其中大部分是尚未套现的股票，或是只有当特斯拉或 SpaceX 达成雄心勃勃的业绩目标时才能获得的股权激励。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='his'>His</span> <span class='word' data-word='recent'>recent</span> <span class='word' data-word='pay'>pay</span> <span class='word' data-word='package'>package</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='tesla'>Tesla</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='so'>so</span> <span class='word' data-word='large'>large</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='even'>even</span> <span class='word' data-word='drew'>drew</span> <span class='word' data-word='criticism'>criticism</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='vatican'>Vatican</span>. <span class='word' data-word='at'>At</span> <span class='word' data-word='tesla'>Tesla</span>, <span class='word' data-word='he'>he</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='worried'>worried</span> <span class='word' data-word='shareholders'>shareholders</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='fighting'>fighting</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='regulators'>regulators</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='dividing'>dividing</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='attention'>attention</span> <span class='word' data-word='between'>between</span> <span class='word' data-word='multiple'>multiple</span> <span class='word' data-word='companies'>companies</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='last'>last</span> <span class='word' data-word='year'>year</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='taking'>taking</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='role'>role</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='trump'>Trump</span> <span class='word' data-word='administration'>administration</span>.</p>
+          <p class='cn-text'>【译】他近期从特斯拉获得的薪酬方案数额之大，甚至引发了梵蒂冈的批评。在特斯拉，他因与监管机构发生冲突、或者在多家公司之间分散精力，以及去年加入特朗普政府任职，令股东感到担忧。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='but'>But</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='rising'>rising</span> <span class='word' data-word='stock'>stock</span> <span class='word' data-word='price'>price</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='cured'>cured</span> <span class='word' data-word='all'>all</span> <span class='word' data-word='ills'>ills</span>: <span class='word' data-word='since'>Since</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='went'>went</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='in'>in</span> 2010, <span class='word' data-word='tesla'>Tesla</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='returned'>returned</span> 20,000% <span class='word' data-word='for'>for</span> <span class='word' data-word='shareholders'>shareholders</span>, <span class='word' data-word='or'>or</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='than'>than</span> $1.2 <span class='word' data-word='trillion'>trillion</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='investor'>investor</span> <span class='word' data-word='wealth'>wealth</span>.</p>
+          <p class='cn-text'>【译】但不断上涨的股价治愈了一切"病症"：自 2010 年上市以来，特斯拉已为股东带来了 20000% 的回报，即超过 1.2 万亿美元的投资者财富。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='first'>first</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='three'>three</span> "<span class='word' data-word='megacap'>megacap</span>" <span class='word' data-word='companies'>companies</span> <span class='word' data-word='expected'>expected</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='go'>go</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='year'>year</span>, <span class='word' data-word='with'>with</span> <span class='word' data-word='anthropic'>Anthropic</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='openai'>OpenAI</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='follow'>follow</span>. <span class='word' data-word='nasdaq'>Nasdaq</span> <span class='word' data-word='even'>even</span> <span class='word' data-word='revised'>revised</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='rules'>rules</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='allow'>allow</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='gain'>gain</span> <span class='word' data-word='entry'>entry</span> <span class='word' data-word='into'>into</span> <span class='word' data-word='funds'>funds</span> <span class='word' data-word='tied'>tied</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='indexes'>indexes</span> <span class='word' data-word='in'>in</span> 15 <span class='word' data-word='days'>days</span>, <span class='word' data-word='which'>which</span> <span class='word' data-word='means'>means</span> <span class='word' data-word='investors'>investors</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='end'>end</span> <span class='word' data-word='up'>up</span> <span class='word' data-word='buying'>buying</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='rocket'>rocket</span> <span class='word' data-word='maker'>maker</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='shares'>shares</span> <span class='word' data-word='much'>much</span> <span class='word' data-word='earlier'>earlier</span>.</p>
+          <p class='cn-text'>【译】SpaceX 是今年预计上市的三大"超级巨头"公司中的第一家，紧随其后的是 Anthropic 和 OpenAI。纳斯达克甚至修改了规则，允许 SpaceX 在 15 天内被纳入与该交易所指数挂钩的基金，这意味着投资者将更早地买入这家火箭制造商的股票。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='not'>Not</span> <span class='word' data-word='all'>all</span> <span class='word' data-word='investors'>investors</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='thrilled'>thrilled</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='potentially'>potentially</span> <span class='word' data-word='showing'>showing</span> <span class='word' data-word='up'>up</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='holdings'>holdings</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='index'>index</span> <span class='word' data-word='funds'>funds</span>.</p>
+          <p class='cn-text'>【译】并非所有投资者都对 SpaceX 可能出现在他们所持有的指数基金中感到兴奋。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='officials'>Officials</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='pension'>pension</span> <span class='word' data-word='funds'>funds</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='firefighters'>firefighters</span>, <span class='word' data-word='teachers'>teachers</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='other'>other</span> <span class='word' data-word='workers'>workers</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='california'>California</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='new'>New</span> <span class='word' data-word='york'>York</span> <span class='word' data-word='sent'>sent</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='letter'>letter</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='last'>last</span> <span class='word' data-word='month'>month</span> <span class='word' data-word='decrying'>decrying</span> <span class='word' data-word='some'>some</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='provisions'>provisions</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='ipo'>IPO</span>, <span class='word' data-word='including'>including</span> <span class='word' data-word='mandatory'>mandatory</span> <span class='word' data-word='arbitration'>arbitration</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='shareholder'>shareholder</span> <span class='word' data-word='claims'>claims</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='how'>how</span> <span class='word' data-word='much'>much</span> <span class='word' data-word='power'>power</span> <span class='word' data-word='musk'>Musk</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='hold'>hold</span> <span class='word' data-word='over'>over</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span>.</p>
+          <p class='cn-text'>【译】加州和纽约消防员、教师及其他工作人员的养老金官员上个月向 SpaceX 致信，谴责其 IPO 的一些条款，包括股东索赔的强制性仲裁以及马斯克将拥有多大的公司控制权。</p>
+        </div>
+
+  <a class='original-link' href='https://apnews.com/article/musk-spacex-tesla-ipo-trillionaire-billionaire-worth-rockets-7723f82b6063a9a17c194e25982cd66d' target='_blank'>Read Original (AP News)</a>
+  <div class='tip'>Click any English word for definition and pronunciation | 点击任意英文单词查看读音和释义</div>
+</div>
+
+<div class='lookup-panel' id='lookupPanel'>
+  <div class='handle'></div>
+  <div id='lookupContent'>
+    <div class='loading'>Loading...</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var panel = document.getElementById('lookupPanel');
+  var content = document.getElementById('lookupContent');
+  var currentAudio = null;
+  var API_BASE = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
+
+  function normalize(word) {
+    return word.toLowerCase().replace(/[^a-z'\-]/g, '');
+  }
+
+  function hidePanel() {
+    panel.classList.remove('show');
+  }
+
+  function showPanel() {
+    panel.classList.add('show');
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, function(c) {
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+    });
+  }
+
+  function renderWord(data) {
+    var entry = Array.isArray(data) ? data[0] : data;
+    var phonetic = '';
+    var audioUrl = '';
+    if (entry.phonetic) phonetic = entry.phonetic;
+    if (entry.phonetics && entry.phonetics.length) {
+      for (var i = 0; i < entry.phonetics.length; i++) {
+        var ph = entry.phonetics[i];
+        if (ph.text && !phonetic) phonetic = ph.text;
+        if (ph.audio && !audioUrl) audioUrl = ph.audio;
+      }
+    }
+    var meaningsHtml = '';
+    if (entry.meanings && entry.meanings.length) {
+      for (var m = 0; m < entry.meanings.length; m++) {
+        var meaning = entry.meanings[m];
+        meaningsHtml += '<div class="pos">' + escapeHtml(meaning.partOfSpeech || '') + '</div>';
+        if (meaning.definitions && meaning.definitions.length) {
+          for (var d = 0; d < Math.min(meaning.definitions.length, 3); d++) {
+            var def = meaning.definitions[d];
+            meaningsHtml += '<div class="def-item">' + (d + 1) + '. ' + escapeHtml(def.definition || '') + '</div>';
+            if (def.example) {
+              meaningsHtml += '<div class="def-item" style="color:#888;font-style:italic;">&nbsp;&nbsp;&nbsp;&nbsp;e.g. ' + escapeHtml(def.example) + '</div>';
+            }
+          }
+        }
+      }
+    }
+    var html = '<div class="word-title">' + escapeHtml(entry.word || '') + '</div>';
+    if (phonetic) html += '<div class="phonetic">' + escapeHtml(phonetic) + '</div>';
+    if (audioUrl) {
+      html += '<button class="play-btn" data-audio="' + escapeHtml(audioUrl) + '">▶ Play pronunciation</button>';
+    } else {
+      html += '<div style="color:#999;font-size:13px;margin-bottom:8px;">No pronunciation audio available</div>';
+    }
+    html += '<div class="definitions">' + meaningsHtml + '</div>';
+    content.innerHTML = html;
+
+    var playBtn = content.querySelector('.play-btn');
+    if (playBtn) {
+      playBtn.addEventListener('click', function() {
+        var url = this.getAttribute('data-audio');
+        if (currentAudio) { try { currentAudio.pause(); } catch(e){} }
+        currentAudio = new Audio(url);
+        currentAudio.play().catch(function(){});
+      });
+    }
+  }
+
+  function lookupWord(rawWord) {
+    var word = normalize(rawWord);
+    if (!word) return;
+    showPanel();
+    content.innerHTML = '<div class="loading">Looking up "<b>' + escapeHtml(word) + '</b>"...</div>';
+
+    var cacheKey = 'dict_' + word;
+    try {
+      var cached = sessionStorage.getItem(cacheKey);
+      if (cached) {
+        renderWord(JSON.parse(cached));
+        return;
+      }
+    } catch(e) {}
+
+    fetch(API_BASE + encodeURIComponent(word))
+      .then(function(r) {
+        if (!r.ok) throw new Error('Not found');
+        return r.json();
+      })
+      .then(function(data) {
+        try { sessionStorage.setItem(cacheKey, JSON.stringify(data)); } catch(e) {}
+        renderWord(data);
+      })
+      .catch(function() {
+        content.innerHTML = '<div class="error-msg">No definition found for "<b>' + escapeHtml(word) + '</b>".</div>';
+      });
+  }
+
+  document.querySelectorAll('.word').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var w = this.getAttribute('data-word');
+      document.querySelectorAll('.word.active').forEach(function(a){a.classList.remove('active');});
+      this.classList.add('active');
+      lookupWord(w);
+    });
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!panel.contains(e.target) && !e.target.classList.contains('word')) {
+      hidePanel();
+      document.querySelectorAll('.word.active').forEach(function(a){a.classList.remove('active');});
+    }
+  });
+})();
+</script>
+</body>
+</html>
