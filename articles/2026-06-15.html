@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>OpenAI hit with multistate probe into possible user harm as its IPO looms</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    padding: 0;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 16px 120px;
+    background: #fff;
+    min-height: 100vh;
+  }
+  .article-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e8e8e8;
+  }
+  .article-header h1 {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+  }
+  .article-header .title-cn {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .article-header .meta {
+    font-size: 13px;
+    color: #999;
+  }
+  .article-header .meta span {
+    margin-right: 12px;
+  }
+  .section-title {
+    font-size: 17px;
+    color: #1a1a1a;
+    margin: 24px 0 4px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .section-title-cn {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .para-group {
+    margin-bottom: 20px;
+  }
+  .en-text {
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 6px;
+    color: #222;
+  }
+  .cn-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #888;
+    padding-left: 12px;
+    border-left: 3px solid #e0e0e0;
+    margin-bottom: 4px;
+  }
+  .word {
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.15s;
+    display: inline;
+  }
+  .word:hover {
+    background: #e3f2fd;
+  }
+  .word.active {
+    background: #bbdefb;
+  }
+
+  /* Bottom lookup panel */
+  .lookup-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0 20px 24px;
+  }
+  .lookup-panel.show {
+    transform: translateY(0);
+  }
+  .lookup-panel .handle {
+    width: 36px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 2px;
+    margin: 10px auto 16px;
+  }
+  .lookup-panel .word-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lookup-panel .phonetic {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .lookup-panel .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lookup-panel .play-btn:hover {
+    background: #1565c0;
+  }
+  .lookup-panel .definitions {
+    margin-top: 12px;
+  }
+  .lookup-panel .pos {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .lookup-panel .def-item {
+    font-size: 14px;
+    color: #444;
+    padding: 4px 0 4px 12px;
+    line-height: 1.6;
+  }
+  .lookup-panel .error-msg {
+    color: #e53935;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+  .lookup-panel .loading {
+    color: #999;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  .original-link {
+    display: block;
+    text-align: center;
+    margin-top: 32px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .original-link:hover {
+    background: #e8e8e8;
+  }
+
+  .tip {
+    text-align: center;
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 16px;
+  }
+
+</style>
+</head>
+<body>
+<div class='container'>
+  <div class='article-header'>
+    <h1>OpenAI hit with multistate probe into possible user harm as its IPO looms</h1>
+    <div class='title-cn'>OpenAI 面临多州调查：IPO 在即，用户安全遭质疑</div>
+    <div class='meta'>
+      <span>Associated Press (AP News)</span>
+      <span>Bernard Condon</span>
+      <span>June 14, 2026</span>
+    </div>
+  </div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='new'>NEW</span> <span class='word' data-word='york'>YORK</span> (<span class='word' data-word='ap'>AP</span>) — <span class='word' data-word='openai'>OpenAI</span> <span class='word' data-word='received'>received</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='subpoena'>subpoena</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='several'>several</span> <span class='word' data-word='states'>states</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='part'>part</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='probe'>probe</span> <span class='word' data-word='into'>into</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='safety'>safety</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='users'>users</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='chatbot'>chatbot</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='prepares'>prepares</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='offer'>offer</span> <span class='word' data-word='stock'>stock</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='first'>first</span> <span class='word' data-word='time'>time</span>.</p>
+          <p class='cn-text'>【译】纽约（美联社）——OpenAI 收到了来自多个州的传票，这是对其聊天机器人用户安全性调查的一部分，而该公司正准备首次向公众发行股票。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='behind'>behind</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='popular'>popular</span> <span class='word' data-word='chatbot'>chatbot</span>, <span class='word' data-word='chatgpt'>ChatGPT</span>, <span class='word' data-word='said'>said</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='respond'>respond</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='inquiry'>inquiry</span> "<span class='word' data-word='constructively'>constructively</span>" <span class='word' data-word='and'>and</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='already'>already</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='place'>place</span> <span class='word' data-word='measures'>measures</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='protect'>protect</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='customers'>customers</span>.</p>
+          <p class='cn-text'>【译】这家热门聊天机器人 ChatGPT 背后的公司表示，将"建设性地"回应此次调查，并且已经制定了保护客户的措施。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='ai'>AI</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='new'>new</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='powerful'>powerful</span> <span class='word' data-word='technology'>technology</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='we'>we</span> <span class='word' data-word='work'>work</span> <span class='word' data-word='every'>every</span> <span class='word' data-word='day'>day</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='safely'>safely</span> <span class='word' data-word='bring'>bring</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='benefits'>benefits</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='responsible'>responsible</span> <span class='word' data-word='way'>way</span>," <span class='word' data-word='an'>an</span> <span class='word' data-word='emailed'>emailed</span> <span class='word' data-word='statement'>statement</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='spokesperson'>spokesperson</span> <span class='word' data-word='said'>said</span>. "<span class='word' data-word='we'>We</span> <span class='word' data-word='take'>take</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='concerns'>concerns</span> <span class='word' data-word='raised'>raised</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='state'>state</span> <span class='word' data-word='attorneys'>attorneys</span> <span class='word' data-word='general'>general</span> <span class='word' data-word='seriously'>seriously</span>."</p>
+          <p class='cn-text'>【译】"人工智能是一项全新且强大的技术，我们每天都在努力以负责任的方式安全地将它的益处带给人们，"该公司发言人在一份电子邮件声明中表示，"我们非常重视州总检察长提出的担忧。"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='openai'>OpenAI</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='drawn'>drawn</span> <span class='word' data-word='criticism'>criticism</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='chatgpt'>ChatGPT</span> <span class='word' data-word='allegedly'>allegedly</span> <span class='word' data-word='offering'>offering</span> <span class='word' data-word='encouraging'>encouraging</span> <span class='word' data-word='words'>words</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='users'>users</span> <span class='word' data-word='thinking'>thinking</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='killing'>killing</span> <span class='word' data-word='themselves'>themselves</span> <span class='word' data-word='or'>or</span> <span class='word' data-word='engaging'>engaging</span> <span class='word' data-word='criminal'>criminal</span> <span class='word' data-word='acts'>acts</span>. <span class='word' data-word='it'>It</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='come'>come</span> <span class='word' data-word='under'>under</span> <span class='word' data-word='scrutiny'>scrutiny</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='how'>how</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='uses'>uses</span> <span class='word' data-word='health'>health</span> <span class='word' data-word='data'>data</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='other'>other</span> <span class='word' data-word='personal'>personal</span> <span class='word' data-word='information'>information</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='customers'>customers</span>.</p>
+          <p class='cn-text'>【译】OpenAI 一直受到批评，原因是 ChatGPT 据称会向有自杀念头或打算实施犯罪行为的用户提供鼓励性话语。此外，该公司如何使用客户的健康数据和其他个人信息也受到审查。</p>
+        </div>
+
+  <div class='section-title'>LAWSUITS AND SHOOTINGS</div>
+  <div class='section-title-cn'>诉讼与枪击事件</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='on'>On</span> <span class='word' data-word='thursday'>Thursday</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='sued'>sued</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='canadian'>Canadian</span> <span class='word' data-word='blaming'>blaming</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='chatbot'>chatbot</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='her'>her</span> <span class='word' data-word='daughter'>daughter</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='decision'>decision</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='hang'>hang</span> <span class='word' data-word='herself'>herself</span>. <span class='word' data-word='earlier'>Earlier</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='june'>June</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='florida'>Florida</span> <span class='word' data-word='attorney'>attorney</span> <span class='word' data-word='general'>general</span> <span class='word' data-word='sued'>sued</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='after'>after</span> <span class='word' data-word='two'>two</span> <span class='word' data-word='separate'>separate</span> <span class='word' data-word='shootings'>shootings</span> <span class='word' data-word='where'>where</span> <span class='word' data-word='alleged'>alleged</span> <span class='word' data-word='gunmen'>gunmen</span> <span class='word' data-word='were'>were</span> <span class='word' data-word='reported'>reported</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='asked'>asked</span> <span class='word' data-word='chatgpt'>ChatGPT</span> <span class='word' data-word='questions'>questions</span> <span class='word' data-word='while'>while</span> <span class='word' data-word='planning'>planning</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='crimes'>crimes</span>.</p>
+          <p class='cn-text'>【译】周四，一名加拿大女子起诉该公司，称聊天机器人导致其女儿决定上吊自杀。6 月早些时候，佛罗里达州总检察长起诉了该公司，原因是两起独立的枪击事件中，据称枪手在策划犯罪时曾向 ChatGPT 提问。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='openai'>OpenAI</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='statement'>statement</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='models'>models</span> <span class='word' data-word='repeatedly'>repeatedly</span> <span class='word' data-word='encouraged'>encouraged</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='individuals'>individuals</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='seek'>seek</span> <span class='word' data-word='real'>real</span>-<span class='word' data-word='world'>world</span> <span class='word' data-word='support'>support</span>, <span class='word' data-word='including'>including</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='mental'>mental</span> <span class='word' data-word='health'>health</span> <span class='word' data-word='professionals'>professionals</span>. <span class='word' data-word='the'>The</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='cooperated'>cooperated</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='law'>law</span> <span class='word' data-word='enforcement'>enforcement</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='both'>both</span> <span class='word' data-word='shooting'>shooting</span> <span class='word' data-word='cases'>cases</span>.</p>
+          <p class='cn-text'>【译】OpenAI 在一份声明中表示，其模型反复鼓励相关人员寻求现实世界的支持，包括心理健康专业人士的帮助。该公司还表示，在这两起枪击案中，它已经与执法部门进行了合作。</p>
+        </div>
+
+  <div class='section-title'>IPO CONTEXT: AI RIVALS IN THE SPOTLIGHT</div>
+  <div class='section-title-cn'>IPO 背景：AI 竞争对手备受关注</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='new'>new</span> <span class='word' data-word='probe'>probe</span> <span class='word' data-word='comes'>comes</span> <span class='word' data-word='just'>just</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='few'>few</span> <span class='word' data-word='days'>days</span> <span class='word' data-word='after'>after</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='filed'>filed</span> <span class='word' data-word='documents'>documents</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='u'>U.S.</span> <span class='word' data-word='security'>security</span> <span class='word' data-word='regulators'>regulators</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='highly'>highly</span> <span class='word' data-word='anticipated'>anticipated</span> <span class='word' data-word='initial'>initial</span> <span class='word' data-word='public'>public</span> <span class='word' data-word='offering'>offering</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='stock'>stock</span>. <span class='word' data-word='artificial'>Artificial</span> <span class='word' data-word='intelligence'>intelligence</span> <span class='word' data-word='rival'>rival</span> <span class='word' data-word='spacex'>SpaceX</span> <span class='word' data-word='celebrated'>celebrated</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='own'>own</span> <span class='word' data-word='ipo'>IPO</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='friday'>Friday</span>. <span class='word' data-word='the'>The</span> <span class='word' data-word='rocket'>rocket</span> <span class='word' data-word='maker'>maker</span> <span class='word' data-word='founded'>founded</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='elon'>Elon</span> <span class='word' data-word='musk'>Musk</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='runs'>runs</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='business'>business</span> <span class='word' data-word='responsible'>responsible</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='rival'>rival</span> <span class='word' data-word='chatbot'>chatbot</span> <span class='word' data-word='called'>called</span> <span class='word' data-word='grok'>Grok</span>.</p>
+          <p class='cn-text'>【译】这项新调查是在该公司向美国证券监管机构提交备受期待的首次公开募股（IPO）文件几天后启动的。人工智能竞争对手 SpaceX 周五庆祝了自己的 IPO。这家由埃隆·马斯克创立的火箭制造商还经营着人工智能业务，负责开发名为 Grok 的竞争聊天机器人。</p>
+        </div>
+
+  <div class='section-title'>GLOBAL REGULATORY CRACKDOWN</div>
+  <div class='section-title-cn'>全球监管风暴</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='how'>How</span> <span class='word' data-word='governments'>governments</span> <span class='word' data-word='should'>should</span> <span class='word' data-word='respond'>respond</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='potential'>potential</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='good'>good</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='possible'>possible</span> <span class='word' data-word='dangerous'>dangerous</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='ai'>AI</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='becoming'>becoming</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='big'>big</span> <span class='word' data-word='political'>political</span> <span class='word' data-word='issue'>issue</span>.</p>
+          <p class='cn-text'>【译】政府应该如何应对人工智能的潜在益处和可能的危险，正成为一个重大的政治议题。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='regulators'>Regulators</span> <span class='word' data-word='europe'>Europe</span> <span class='word' data-word='opened'>opened</span> <span class='word' data-word='investigations'>investigations</span> <span class='word' data-word='into'>into</span> <span class='word' data-word='musk'>Musk</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='grok'>Grok</span> <span class='word' data-word='over'>over</span> <span class='word' data-word='antisemitic'>antisemitic</span> <span class='word' data-word='content'>content</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='sexualized'>sexualized</span> <span class='word' data-word='material'>material</span>, <span class='word' data-word='include'>include</span> <span class='word' data-word='deepfake'>deepfake</span> <span class='word' data-word='nudes'>nudes</span>. <span class='word' data-word='and'>And</span> <span class='word' data-word='another'>another</span> <span class='word' data-word='chatbot'>chatbot</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='preparing'>preparing</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='ipo'>IPO</span>, <span class='word' data-word='anthropic'>Anthropic</span>, <span class='word' data-word='was'>was</span> <span class='word' data-word='directed'>directed</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='trump'>Trump</span> <span class='word' data-word='administration'>administration</span> <span class='word' data-word='friday'>Friday</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='shut'>shut</span> <span class='word' data-word='down'>down</span> <span class='word' data-word='two'>two</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='online'>online</span> <span class='word' data-word='models'>models</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='users'>users</span> <span class='word' data-word='abroad'>abroad</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='national'>national</span> <span class='word' data-word='security'>security</span> <span class='word' data-word='reasons'>reasons</span>.</p>
+          <p class='cn-text'>【译】欧洲监管机构对马斯克的 Grok 展开调查，原因是其存在反犹太内容和性化材料，包括深度伪造的裸照。另一家准备 IPO 的聊天机器人公司 Anthropic，周五被特朗普政府要求出于国家安全原因，关闭面向国外用户的两个在线模型。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='openai'>OpenAI</span> <span class='word' data-word='subpoena'>subpoena</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='earlier'>earlier</span> <span class='word' data-word='reported'>reported</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='the'>The</span> <span class='word' data-word='wall'>Wall</span> <span class='word' data-word='street'>Street</span> <span class='word' data-word='journal'>Journal</span>.</p>
+          <p class='cn-text'>【译】《华尔街日报》早些时候报道了 OpenAI 收到传票的消息。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='associated'>Associated</span> <span class='word' data-word='press'>Press</span> <span class='word' data-word='sent'>sent</span> <span class='word' data-word='emails'>emails</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='dozen'>dozen</span> <span class='word' data-word='state'>state</span> <span class='word' data-word='attorneys'>attorneys</span> <span class='word' data-word='general'>general</span> <span class='word' data-word='saturday'>Saturday</span> <span class='word' data-word='asking'>asking</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='details'>details</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='probe'>probe</span> <span class='word' data-word='but'>but</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='received'>received</span> <span class='word' data-word='any'>any</span> <span class='word' data-word='responses'>responses</span>.</p>
+          <p class='cn-text'>【译】美联社周六向十几位州总检察长发送电子邮件，询问调查的细节，但尚未收到任何回复。</p>
+        </div>
+
+  <div class='section-title'>OPENAI'S SAFETY MEASURES</div>
+  <div class='section-title-cn'>OpenAI 的安全措施</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='in'>In</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='statement'>statement</span>, <span class='word' data-word='openai'>OpenAI</span> <span class='word' data-word='highlighted'>highlighted</span> <span class='word' data-word='measures'>measures</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='taken'>taken</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='keep'>keep</span> <span class='word' data-word='children'>children</span> <span class='word' data-word='using'>using</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='chatbot'>chatbot</span> <span class='word' data-word='safe'>safe</span>.</p>
+          <p class='cn-text'>【译】OpenAI 在声明中强调了其为保障使用聊天机器人的儿童安全而采取的措施。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='today'>Today</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='chatgpt'>ChatGPT</span> <span class='word' data-word='includes'>includes</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='protective'>protective</span> <span class='word' data-word='experience'>experience</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='minors'>minors</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='experiencing'>experiencing</span> <span class='word' data-word='difficult'>difficult</span> <span class='word' data-word='situations'>situations</span>, <span class='word' data-word='with'>with</span> <span class='word' data-word='safeguards'>safeguards</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='direct'>direct</span> <span class='word' data-word='them'>them</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='real'>real</span>-<span class='word' data-word='world'>world</span> <span class='word' data-word='resources'>resources</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='trusted'>trusted</span> <span class='word' data-word='human'>human</span> <span class='word' data-word='contacts'>contacts</span>," <span class='word' data-word='the'>the</span> <span class='word' data-word='statement'>statement</span> <span class='word' data-word='read'>read</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='part'>part</span>. "<span class='word' data-word='we'>We</span> <span class='word' data-word='believe'>believe</span> <span class='word' data-word='kids'>kids</span> <span class='word' data-word='should'>should</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='treated'>treated</span> <span class='word' data-word='like'>like</span> <span class='word' data-word='kids'>kids</span>, <span class='word' data-word='which'>which</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='why'>why</span> <span class='word' data-word='we'>we</span> <span class='word' data-word='built'>built</span> <span class='word' data-word='age'>age</span> <span class='word' data-word='prediction'>prediction</span>, <span class='word' data-word='released'>released</span> <span class='word' data-word='parental'>parental</span> <span class='word' data-word='tools'>tools</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='guide'>guide</span> <span class='word' data-word='their'>their</span> <span class='word' data-word='children'>children</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='use'>use</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='ai'>AI</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='disallowed'>disallowed</span> <span class='word' data-word='advertising'>advertising</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='targets'>targets</span> <span class='word' data-word='kids'>kids</span>."</p>
+          <p class='cn-text'>【译】"如今的 ChatGPT 为未成年人和处于困境的人提供了更具保护性的体验，相关保障措施会引导他们获取现实世界的资源和可信的人类联系人，"声明部分内容称，"我们认为孩子就应该被当作孩子对待，因此我们开发了年龄预测功能，发布了家长工具来指导孩子使用人工智能，并且禁止针对儿童的广告。"</p>
+        </div>
+
+  <a class='original-link' href='https://apnews.com/article/openai-chatgpt-subpoena-attorneys-general-probe-a95894407773307fae8ae3ce9742b586' target='_blank'>Read Original (AP News)</a>
+  <div class='tip'>Click any English word for definition and pronunciation | 点击任意英文单词查看读音和释义</div>
+</div>
+
+<div class='lookup-panel' id='lookupPanel'>
+  <div class='handle'></div>
+  <div id='lookupContent'>
+    <div class='loading'>Loading...</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var panel = document.getElementById('lookupPanel');
+  var content = document.getElementById('lookupContent');
+  var currentAudio = null;
+  var API_BASE = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
+
+  function normalize(word) {
+    return word.toLowerCase().replace(/[^a-z'\-]/g, '');
+  }
+
+  function hidePanel() {
+    panel.classList.remove('show');
+  }
+
+  function showPanel() {
+    panel.classList.add('show');
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, function(c) {
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+    });
+  }
+
+  function renderWord(data) {
+    var entry = Array.isArray(data) ? data[0] : data;
+    var phonetic = '';
+    var audioUrl = '';
+    if (entry.phonetic) phonetic = entry.phonetic;
+    if (entry.phonetics && entry.phonetics.length) {
+      for (var i = 0; i < entry.phonetics.length; i++) {
+        var ph = entry.phonetics[i];
+        if (ph.text && !phonetic) phonetic = ph.text;
+        if (ph.audio && !audioUrl) audioUrl = ph.audio;
+      }
+    }
+    var meaningsHtml = '';
+    if (entry.meanings && entry.meanings.length) {
+      for (var m = 0; m < entry.meanings.length; m++) {
+        var meaning = entry.meanings[m];
+        meaningsHtml += '<div class="pos">' + escapeHtml(meaning.partOfSpeech || '') + '</div>';
+        if (meaning.definitions && meaning.definitions.length) {
+          for (var d = 0; d < Math.min(meaning.definitions.length, 3); d++) {
+            var def = meaning.definitions[d];
+            meaningsHtml += '<div class="def-item">' + (d + 1) + '. ' + escapeHtml(def.definition || '') + '</div>';
+            if (def.example) {
+              meaningsHtml += '<div class="def-item" style="color:#888;font-style:italic;">&nbsp;&nbsp;&nbsp;&nbsp;e.g. ' + escapeHtml(def.example) + '</div>';
+            }
+          }
+        }
+      }
+    }
+    var html = '<div class="word-title">' + escapeHtml(entry.word || '') + '</div>';
+    if (phonetic) html += '<div class="phonetic">' + escapeHtml(phonetic) + '</div>';
+    if (audioUrl) {
+      html += '<button class="play-btn" data-audio="' + escapeHtml(audioUrl) + '">&#9654; Play pronunciation</button>';
+    } else {
+      html += '<div style="color:#999;font-size:13px;margin-bottom:8px;">No pronunciation audio available</div>';
+    }
+    html += '<div class="definitions">' + meaningsHtml + '</div>';
+    content.innerHTML = html;
+
+    var playBtn = content.querySelector('.play-btn');
+    if (playBtn) {
+      playBtn.addEventListener('click', function() {
+        var url = this.getAttribute('data-audio');
+        if (currentAudio) { try { currentAudio.pause(); } catch(e){} }
+        currentAudio = new Audio(url);
+        currentAudio.play().catch(function(){});
+      });
+    }
+  }
+
+  function lookupWord(rawWord) {
+    var word = normalize(rawWord);
+    if (!word) return;
+    showPanel();
+    content.innerHTML = '<div class="loading">Looking up "<b>' + escapeHtml(word) + '</b>"...</div>';
+
+    var cacheKey = 'dict_' + word;
+    try {
+      var cached = sessionStorage.getItem(cacheKey);
+      if (cached) {
+        renderWord(JSON.parse(cached));
+        return;
+      }
+    } catch(e) {}
+
+    fetch(API_BASE + encodeURIComponent(word))
+      .then(function(r) {
+        if (!r.ok) throw new Error('Not found');
+        return r.json();
+      })
+      .then(function(data) {
+        try { sessionStorage.setItem(cacheKey, JSON.stringify(data)); } catch(e) {}
+        renderWord(data);
+      })
+      .catch(function() {
+        content.innerHTML = '<div class="error-msg">No definition found for "<b>' + escapeHtml(word) + '</b>".</div>';
+      });
+  }
+
+  document.querySelectorAll('.word').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var w = this.getAttribute('data-word');
+      document.querySelectorAll('.word.active').forEach(function(a){a.classList.remove('active');});
+      this.classList.add('active');
+      lookupWord(w);
+    });
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!panel.contains(e.target) && !e.target.classList.contains('word')) {
+      hidePanel();
+      document.querySelectorAll('.word.active').forEach(function(a){a.classList.remove('active');});
+    }
+  });
+})();
+</script>
+</body>
+</html>
