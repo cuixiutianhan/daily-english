@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Fox to buy streaming pioneer Roku in a $22 billion deal</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    padding: 0;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 16px 120px;
+    background: #fff;
+    min-height: 100vh;
+  }
+  .article-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e8e8e8;
+  }
+  .article-header h1 {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+  }
+  .article-header .title-cn {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .article-header .meta {
+    font-size: 13px;
+    color: #999;
+  }
+  .article-header .meta span {
+    margin-right: 12px;
+  }
+  .section-title {
+    font-size: 17px;
+    color: #1a1a1a;
+    margin: 24px 0 4px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .section-title-cn {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .para-group {
+    margin-bottom: 20px;
+  }
+  .en-text {
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 6px;
+    color: #222;
+  }
+  .cn-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #888;
+    padding-left: 12px;
+    border-left: 3px solid #e0e0e0;
+    margin-bottom: 4px;
+  }
+  .word {
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.15s;
+    display: inline;
+  }
+  .word:hover {
+    background: #e3f2fd;
+  }
+  .word.active {
+    background: #bbdefb;
+  }
+
+  /* Bottom lookup panel */
+  .lookup-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0 20px 24px;
+  }
+  .lookup-panel.show {
+    transform: translateY(0);
+  }
+  .lookup-panel .handle {
+    width: 36px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 2px;
+    margin: 10px auto 16px;
+  }
+  .lookup-panel .word-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lookup-panel .phonetic {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .lookup-panel .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lookup-panel .play-btn:hover {
+    background: #1565c0;
+  }
+  .lookup-panel .definitions {
+    margin-top: 12px;
+  }
+  .lookup-panel .pos {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .lookup-panel .def-item {
+    font-size: 14px;
+    color: #444;
+    padding: 4px 0 4px 12px;
+    line-height: 1.6;
+  }
+  .lookup-panel .error-msg {
+    color: #e53935;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+  .lookup-panel .loading {
+    color: #999;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  .original-link {
+    display: block;
+    text-align: center;
+    margin-top: 32px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .original-link:hover {
+    background: #e8e8e8;
+  }
+
+  .tip {
+    text-align: center;
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 16px;
+  }
+
+</style>
+</head>
+<body>
+<div class='container'>
+  <div class='article-header'>
+    <h1>Fox to buy streaming pioneer Roku in a $22 billion deal</h1>
+    <div class='title-cn'>福克斯将以220亿美元收购流媒体先驱Roku</div>
+    <div class='meta'>
+      <span>Associated Press (AP News)</span>
+      <span>Michelle Chapman</span>
+      <span>June 15, 2026</span>
+    </div>
+  </div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='fox'>Fox</span> <span class='word' data-word='corp'>Corp.</span> <span class='word' data-word='has'>has</span> <span class='word' data-word='agreed'>agreed</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='buy'>buy</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='streaming'>streaming</span> <span class='word' data-word='pioneer'>pioneer</span> <span class='word' data-word='roku'>Roku</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='cash'>cash</span>-<span class='word' data-word='and'>and</span>-<span class='word' data-word='stock'>stock</span> <span class='word' data-word='deal'>deal</span> <span class='word' data-word='valued'>valued</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='approximately'>approximately</span> <span class='word' data-word='$22'>$22</span> <span class='word' data-word='billion'>billion</span>, <span class='word' data-word='including'>including</span> <span class='word' data-word='debt'>debt</span>.</p>
+          <p class='cn-text'>【译】福克斯公司（Fox Corp.）已同意以约220亿美元（含债务）的现金加股票交易，收购流媒体先驱Roku。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='roku'>Roku</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='continue'>continue</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='run'>run</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='open'>open</span>, <span class='word' data-word='partner'>partner</span>-<span class='word' data-word='friendly'>friendly</span> <span class='word' data-word='platform'>platform</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='companies'>companies</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='monday'>Monday</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='there'>there</span> <span class='word' data-word='appears'>appears</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='no'>no</span> <span class='word' data-word='immediate'>immediate</span> <span class='word' data-word='changes'>changes</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='customers'>customers</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='see'>see</span>. <span class='word' data-word='fox'>Fox</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='roku'>Roku</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='combined'>combined</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='become'>become</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='third'>third</span>-<span class='word' data-word='largest'>largest</span> <span class='word' data-word='player'>player</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='u'>U.S.</span> <span class='word' data-word='television'>television</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='share'>share</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='viewing'>viewing</span>.</p>
+          <p class='cn-text'>【译】两家公司周一表示，Roku将继续作为一个开放、对合作伙伴友好的平台运营，消费者目前预计不会看到任何即时变化。福克斯和Roku还表示，合并后的公司将成为美国电视收视份额第三大的参与者。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='media'>Media</span> <span class='word' data-word='reports'>reports</span> <span class='word' data-word='had'>had</span> <span class='word' data-word='surfaced'>surfaced</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='friday'>Friday</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='roku'>Roku</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='looking'>looking</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='strategic'>strategic</span> <span class='word' data-word='options'>options</span>, <span class='word' data-word='including'>including</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='possible'>possible</span> <span class='word' data-word='sale'>sale</span>. <span class='word' data-word='speculation'>Speculation</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='rampant'>rampant</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='which'>which</span> <span class='word' data-word='companies'>companies</span> <span class='word' data-word='might'>might</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='interested'>interested</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='acquisition'>acquisition</span>. <span class='word' data-word='aside'>Aside</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='fox'>Fox</span>, <span class='word' data-word='names'>names</span> <span class='word' data-word='being'>being</span> <span class='word' data-word='tossed'>tossed</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='potential'>potential</span> <span class='word' data-word='buyers'>buyers</span> <span class='word' data-word='included'>included</span> <span class='word' data-word='netflix'>Netflix</span>, <span class='word' data-word='amazon'>Amazon</span>, <span class='word' data-word='comcast'>Comcast</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='disney'>Disney</span>.</p>
+          <p class='cn-text'>【译】上周五，媒体报道称Roku正在研究其战略选择，包括可能的出售。关于哪些公司可能有兴趣收购的猜测层出不穷——除了福克斯，被认为可能的买家还包括Netflix、亚马逊、康卡斯特和迪士尼。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='deal'>deal</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='give'>give</span> <span class='word' data-word='fox'>Fox</span> <span class='word' data-word='access'>access</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='than'>than</span> <span class='word' data-word='100'>100</span> <span class='word' data-word='million'>million</span> <span class='word' data-word='global'>global</span> <span class='word' data-word='households'>households</span>, <span class='word' data-word='along'>along</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='roku'>Roku</span> <span class='word' data-word='channel'>channel</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='first'>first</span>-<span class='word' data-word='party'>party</span> <span class='word' data-word='data'>data</span>. <span class='word' data-word='fox'>Fox</span> <span class='word' data-word='oversees'>oversees</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='massive'>massive</span> <span class='word' data-word='sports'>sports</span>, <span class='word' data-word='news'>news</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='entertainment'>entertainment</span> <span class='word' data-word='network'>network</span>, <span class='word' data-word='as'>as</span> <span class='word' data-word='well'>well</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='tubi'>Tubi</span>, <span class='word' data-word='which'>which</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='acquired'>acquired</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='2020'>2020</span>.</p>
+          <p class='cn-text'>【译】这笔交易将使福克斯获得超过1亿全球家庭的用户触达，以及Roku频道和其第一方数据。福克斯拥有庞大的体育、新闻和娱乐网络，以及其2020年收购的流媒体平台Tubi。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='roku'>Roku</span> <span class='word' data-word='founder'>founder</span> <span class='word' data-word='anthony'>Anthony</span> <span class='word' data-word='wood'>Wood</span> <span class='word' data-word='had'>had</span> <span class='word' data-word='initially'>initially</span> <span class='word' data-word='worked'>worked</span> <span class='word' data-word='within'>within</span> <span class='word' data-word='netflix'>Netflix</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='early'>early</span> <span class='word' data-word='2000s'>2000s</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='attempted'>attempted</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='make'>make</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='seismic'>seismic</span> <span class='word' data-word='shift'>shift</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='renting'>renting</span> <span class='word' data-word='dvds'>DVDs</span>, <span class='word' data-word='to'>to</span> <span class='word' data-word='streaming'>streaming</span>.</p>
+          <p class='cn-text'>【译】Roku创始人安东尼·伍德（Anthony Wood）最初于21世纪初在Netflix任职，当时该公司正试图完成从DVD租赁到流媒体的重大转型。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='roku'>Roku</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='spun'>spun</span> <span class='word' data-word='off'>off</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='netflix'>Netflix</span>, <span class='word' data-word='however'>however</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='released'>released</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='first'>first</span> <span class='word' data-word='set'>set</span>-<span class='word' data-word='top'>top</span> <span class='word' data-word='box'>box</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='2008'>2008</span>.</p>
+          <p class='cn-text'>【译】不过，Roku后来从Netflix分拆出来，并于2008年发布了第一款机顶盒。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='wood'>Wood</span>, <span class='word' data-word='who'>who</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='roku'>Roku</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='chairman'>chairman</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='ceo'>CEO</span>, <span class='word' data-word='said'>said</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='motivation'>motivation</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='pursuing'>pursuing</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='technology'>technology</span> <span class='word' data-word='was'>was</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='desire'>desire</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='record'>record</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='play'>play</span> <span class='word' data-word='his'>his</span> <span class='word' data-word='favorite'>favorite</span> <span class='word' data-word='show'>show</span>, "<span class='word' data-word='star'>Star</span> <span class='word' data-word='trek'>Trek</span>."</p>
+          <p class='cn-text'>【译】Roku董事长兼首席执行官伍德表示，他研发这项技术的初衷是想录制和播放自己最喜欢的剧集《星际迷航》（Star Trek）。</p>
+        </div>
+
+  <div class='section-title'>THE STRATEGIC VISION</div>
+  <div class='section-title-cn'>战略愿景</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='fox'>Fox</span> <span class='word' data-word='corp'>Corp.</span> <span class='word' data-word='ceo'>CEO</span> <span class='word' data-word='lachlan'>Lachlan</span> <span class='word' data-word='murdoch'>Murdoch</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='statement'>statement</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='combining'>combining</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='businesses'>businesses</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='bring'>bring</span> <span class='word' data-word='together'>together</span> <span class='word' data-word='fox'>Fox</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='live'>live</span> <span class='word' data-word='news'>news</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='sports'>sports</span> <span class='word' data-word='content'>content</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='streaming'>streaming</span> <span class='word' data-word='platform'>platform</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='large'>large</span> <span class='word' data-word='viewership'>viewership</span>. <span class='word' data-word='it'>It</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='give'>give</span> <span class='word' data-word='fox'>Fox</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='exposure'>exposure</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='advertising'>advertising</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='streaming'>streaming</span> <span class='word' data-word='subscriptions'>subscriptions</span>.</p>
+          <p class='cn-text'>【译】福克斯公司首席执行官拉克兰·默多克（Lachlan Murdoch）在声明中表示，合并两家企业将把福克斯的直播新闻和体育内容与拥有大量用户的流媒体平台结合在一起，还将让福克斯在广告和流媒体订阅收入方面获得更多机会。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='the'>The</span> <span class='word' data-word='combination'>combination</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='fox'>FOX</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='extraordinary'>extraordinary</span> <span class='word' data-word='opportunity'>opportunity</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='accelerate'>accelerate</span> <span class='word' data-word='our'>our</span> <span class='word' data-word='vision'>vision</span>, <span class='word' data-word='scale'>scale</span> <span class='word' data-word='faster'>faster</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='innovate'>innovate</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='aggressively'>aggressively</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='viewers'>viewers</span>, <span class='word' data-word='partners'>partners</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='advertisers'>advertisers</span>," <span class='word' data-word='wood'>Wood</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='prepared'>prepared</span> <span class='word' data-word='remarks'>remarks</span>.</p>
+          <p class='cn-text'>【译】"与福克斯的合并是一个非凡的机遇，能让我们加速实现愿景、更快规模化，并为观众、合作伙伴和广告商进行更积极的创新。"伍德在准备好的发言中表示。</p>
+        </div>
+
+  <div class='section-title'>THE ADVERTISING PLAY</div>
+  <div class='section-title-cn'>广告收入：交易的核心</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='mike'>Mike</span> <span class='word' data-word='proulx'>Proulx</span>, <span class='word' data-word='research'>research</span> <span class='word' data-word='director'>director</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='forrester'>Forrester</span>, <span class='word' data-word='said'>said</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='emailed'>emailed</span> <span class='word' data-word='statement'>statement</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='advertising'>advertising</span> <span class='word' data-word='revenue'>revenue</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='critical'>critical</span> <span class='word' data-word='component'>component</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='deal'>deal</span>.</p>
+          <p class='cn-text'>【译】Forrester研究总监迈克·普劳克斯（Mike Proulx）在电子邮件声明中表示，广告收入是这笔交易的核心组成部分。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='the'>The</span> <span class='word' data-word='bigger'>bigger</span> <span class='word' data-word='play'>play</span> <span class='word' data-word='here'>here</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='advertising'>advertising</span> <span class='word' data-word='revenue'>revenue</span>, <span class='word' data-word='something'>something</span> <span class='word' data-word='all'>all</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='major'>major</span> <span class='word' data-word='streamers'>streamers</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='now'>now</span> <span class='word' data-word='jockeying'>jockeying</span> <span class='word' data-word='for'>for</span>," <span class='word' data-word='he'>he</span> <span class='word' data-word='said'>said</span>. "<span class='word' data-word='this'>This</span> <span class='word' data-word='deal'>deal</span> <span class='word' data-word='accelerates'>accelerates</span> <span class='word' data-word='fox'>Fox</span> <span class='word' data-word='into'>into</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='shift'>shift</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='built'>built</span>-<span class='word' data-word='in'>in</span> <span class='word' data-word='audience'>audience</span> <span class='word' data-word='scale'>scale</span>. <span class='word' data-word='with'>With</span> <span class='word' data-word='2026'>2026</span> <span class='word' data-word='shaping'>shaping</span> <span class='word' data-word='up'>up</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='defining'>defining</span> <span class='word' data-word='year'>year</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='streaming'>streaming</span> <span class='word' data-word='consolidation'>consolidation</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='market'>market</span> <span class='word' data-word='shift'>shift</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='streaming'>streaming</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='no'>no</span> <span class='word' data-word='longer'>longer</span> <span class='word' data-word='just'>just</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='quality'>quality</span> <span class='word' data-word='content'>content</span> <span class='word' data-word='slates'>slates</span>. <span class='word' data-word='it'>It</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='controlling'>controlling</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='full'>full</span> <span class='word' data-word='stack'>stack</span>. <span class='word' data-word='if'>If</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='deal'>deal</span> <span class='word' data-word='closes'>closes</span>, <span class='word' data-word='fox'>Fox</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='control'>control</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='what'>what</span> <span class='word' data-word='viewers'>viewers</span> <span class='word' data-word='watch'>watch</span>, <span class='word' data-word='how'>how</span> <span class='word' data-word='they'>they</span> <span class='word' data-word='discover'>discover</span> <span class='word' data-word='it'>it</span>, <span class='word' data-word='and'>and</span> <span class='word' data-word='how'>how</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='gets'>gets</span> <span class='word' data-word='monetized'>monetized</span>."</p>
+          <p class='cn-text'>【译】"更大的策略在于广告收入——这也是所有主要流媒体平台目前都在争夺的领域，"他说，"这笔交易让福克斯凭借内置的受众规模加速向这一方向转型。2026年正在成为流媒体整合的决定性一年，市场的转变在于：流媒体不再仅仅关乎优质内容库，而是关乎控制全栈能力。如果这笔交易完成，福克斯将更多地控制观众观看的内容、内容的发现方式以及变现方式。"</p>
+        </div>
+
+  <div class='section-title'>DEAL STRUCTURE AND REACTION</div>
+  <div class='section-title-cn'>交易结构与市场反应</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='wood'>Wood</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='an'>an</span> <span class='word' data-word='ongoing'>ongoing</span> <span class='word' data-word='role'>role</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='join'>join</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='fox'>Fox</span> <span class='word' data-word='board'>board</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='directors'>directors</span> <span class='word' data-word='after'>after</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='transaction'>transaction</span> <span class='word' data-word='closes'>closes</span>.</p>
+          <p class='cn-text'>【译】交易完成后，伍德将继续在公司任职，并加入福克斯董事会。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='murdoch'>Murdoch</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='during'>during</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='conference'>conference</span> <span class='word' data-word='call'>call</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='combined'>combined</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='better'>better</span> <span class='word' data-word='positioned'>positioned</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='next'>next</span> <span class='word' data-word='decade'>decade</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='video'>video</span> <span class='word' data-word='than'>than</span> <span class='word' data-word='either'>either</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='would'>would</span>'<span class='word' data-word='ve'>ve</span> <span class='word' data-word='been'>been</span> <span class='word' data-word='alone'>alone</span>.</p>
+          <p class='cn-text'>【译】默多克在电话会议上表示，合并后的公司将比任何一家公司单独运营时都更能适应未来十年的视频行业发展。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='we'>We</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='confident'>confident</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='right'>right</span> <span class='word' data-word='transaction'>transaction</span>, <span class='word' data-word='at'>at</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='right'>right</span> <span class='word' data-word='moment'>moment</span>, <span class='word' data-word='for'>for</span> <span class='word' data-word='all'>all</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='right'>right</span> <span class='word' data-word='reasons'>reasons</span>," <span class='word' data-word='he'>he</span> <span class='word' data-word='said'>said</span>.</p>
+          <p class='cn-text'>【译】"我们确信，这是一笔在正确的时间、出于所有正确原因达成的正确交易。"他说。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='fox'>Fox</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='pay'>pay</span> <span class='word' data-word='$96'>$96</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='cash'>cash</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='0.9693'>0.9693</span> <span class='word' data-word='shares'>shares</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='class'>Class</span> <span class='word' data-word='a'>A</span> <span class='word' data-word='common'>common</span> <span class='word' data-word='stock'>stock</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='each'>each</span> <span class='word' data-word='roku'>Roku</span> <span class='word' data-word='class'>Class</span> <span class='word' data-word='a'>A</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='class'>Class</span> <span class='word' data-word='b'>B</span> <span class='word' data-word='share'>share</span> <span class='word' data-word='outstanding'>outstanding</span>. <span class='word' data-word='the'>The</span> <span class='word' data-word='transaction'>transaction</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='valued'>valued</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='$160'>$160</span> <span class='word' data-word='per'>per</span> <span class='word' data-word='roku'>Roku</span> <span class='word' data-word='share'>share</span>.</p>
+          <p class='cn-text'>【译】福克斯将为每股已发行的Roku A类股和B类股支付96美元现金及0.9693股福克斯A类普通股，该交易对Roku每股的估值为160美元。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='existing'>Existing</span> <span class='word' data-word='fox'>Fox</span> <span class='word' data-word='shareholders'>shareholders</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='expected'>expected</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='own'>own</span> <span class='word' data-word='approximately'>approximately</span> <span class='word' data-word='73%'>73%</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='combined'>combined</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='roku'>Roku</span> <span class='word' data-word='shareholders'>shareholders</span> <span class='word' data-word='will'>will</span> <span class='word' data-word='own'>own</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='27%'>27%</span>, <span class='word' data-word='once'>once</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='deal'>deal</span> <span class='word' data-word='closes'>closes</span>.</p>
+          <p class='cn-text'>【译】交易完成后，现有福克斯股东预计将拥有合并后公司约73%的股份，Roku股东将拥有约27%的股份。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='deal'>deal</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='expected'>expected</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='close'>close</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='first'>first</span> <span class='word' data-word='half'>half</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='next'>next</span> <span class='word' data-word='year'>year</span>. <span class='word' data-word='it'>It</span> <span class='word' data-word='still'>still</span> <span class='word' data-word='needs'>needs</span> <span class='word' data-word='approval'>approval</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='fox'>Fox</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='roku'>Roku</span> <span class='word' data-word='shareholders'>shareholders</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='regulatory'>regulatory</span> <span class='word' data-word='approval'>approval</span>.</p>
+          <p class='cn-text'>【译】该交易预计将于明年上半年完成，目前仍需获得福克斯和Roku股东的批准以及监管部门的批准。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='fox'>Fox</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='shares'>shares</span> <span class='word' data-word='tumbled'>tumbled</span> <span class='word' data-word='15%'>15%</span> <span class='word' data-word='on'>on</span> <span class='word' data-word='monday'>Monday</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='roku'>Roku</span> <span class='word' data-word='declined'>declined</span> <span class='word' data-word='nearly'>nearly</span> <span class='word' data-word='2%'>2%</span>.</p>
+          <p class='cn-text'>【译】周一，福克斯股价暴跌15%，Roku股价下跌近2%。</p>
+        </div>
+
+  <a class='original-link' href='https://apnews.com/article/fox-roku-tubi-streaming-824089dbe16631fade634becdb164c94' target='_blank'>Read Original (AP News)</a>
+  <div class='tip'>Click any English word for definition and pronunciation | 点击任意英文单词查看读音和释义</div>
+</div>
+
+<div class='lookup-panel' id='lookupPanel'>
+  <div class='handle'></div>
+  <div id='lookupContent'>
+    <div class='loading'>Loading...</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var panel = document.getElementById('lookupPanel');
+  var content = document.getElementById('lookupContent');
+  var currentAudio = null;
+  var API_BASE = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
+
+  function normalize(word) {
+    return word.toLowerCase().replace(/[^a-z'\-]/g, '');
+  }
+
+  function hidePanel() {
+    panel.classList.remove('show');
+  }
+
+  function showPanel() {
+    panel.classList.add('show');
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, function(c) {
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+    });
+  }
+
+  function renderWord(data) {
+    var entry = Array.isArray(data) ? data[0] : data;
+    var phonetic = '';
+    var audioUrl = '';
+    if (entry.phonetic) phonetic = entry.phonetic;
+    if (entry.phonetics && entry.phonetics.length) {
+      for (var i = 0; i < entry.phonetics.length; i++) {
+        var ph = entry.phonetics[i];
+        if (ph.text && !phonetic) phonetic = ph.text;
+        if (ph.audio && !audioUrl) audioUrl = ph.audio;
+      }
+    }
+    var meaningsHtml = '';
+    if (entry.meanings && entry.meanings.length) {
+      for (var m = 0; m < entry.meanings.length; m++) {
+        var meaning = entry.meanings[m];
+        meaningsHtml += '<div class="pos">' + escapeHtml(meaning.partOfSpeech || '') + '</div>';
+        if (meaning.definitions && meaning.definitions.length) {
+          for (var d = 0; d < Math.min(meaning.definitions.length, 3); d++) {
+            var def = meaning.definitions[d];
+            meaningsHtml += '<div class="def-item">' + (d + 1) + '. ' + escapeHtml(def.definition || '') + '</div>';
+            if (def.example) {
+              meaningsHtml += '<div class="def-item" style="color:#888;font-style:italic;">&nbsp;&nbsp;&nbsp;&nbsp;e.g. ' + escapeHtml(def.example) + '</div>';
+            }
+          }
+        }
+      }
+    }
+    var html = '<div class="word-title">' + escapeHtml(entry.word || '') + '</div>';
+    if (phonetic) html += '<div class="phonetic">' + escapeHtml(phonetic) + '</div>';
+    if (audioUrl) {
+      html += '<button class="play-btn" data-audio="' + escapeHtml(audioUrl) + '">&#9654; Play pronunciation</button>';
+    } else {
+      html += '<div style="color:#999;font-size:13px;margin-bottom:8px;">No pronunciation audio available</div>';
+    }
+    html += '<div class="definitions">' + meaningsHtml + '</div>';
+    content.innerHTML = html;
+
+    var playBtn = content.querySelector('.play-btn');
+    if (playBtn) {
+      playBtn.addEventListener('click', function() {
+        var url = this.getAttribute('data-audio');
+        if (currentAudio) { try { currentAudio.pause(); } catch(e){} }
+        currentAudio = new Audio(url);
+        currentAudio.play().catch(function(){});
+      });
+    }
+  }
+
+  function lookupWord(rawWord) {
+    var word = normalize(rawWord);
+    if (!word) return;
+    showPanel();
+    content.innerHTML = '<div class="loading">Looking up "<b>' + escapeHtml(word) + '</b>"...</div>';
+
+    var cacheKey = 'dict_' + word;
+    try {
+      var cached = sessionStorage.getItem(cacheKey);
+      if (cached) {
+        renderWord(JSON.parse(cached));
+        return;
+      }
+    } catch(e) {}
+
+    fetch(API_BASE + encodeURIComponent(word))
+      .then(function(r) {
+        if (!r.ok) throw new Error('Not found');
+        return r.json();
+      })
+      .then(function(data) {
+        try { sessionStorage.setItem(cacheKey, JSON.stringify(data)); } catch(e) {}
+        renderWord(data);
+      })
+      .catch(function() {
+        content.innerHTML = '<div class="error-msg">No definition found for "<b>' + escapeHtml(word) + '</b>".</div>';
+      });
+  }
+
+  document.querySelectorAll('.word').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var w = this.getAttribute('data-word');
+      document.querySelectorAll('.word.active').forEach(function(a){a.classList.remove('active');});
+      this.classList.add('active');
+      lookupWord(w);
+    });
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!panel.contains(e.target) && !e.target.classList.contains('word')) {
+      hidePanel();
+      document.querySelectorAll('.word.active').forEach(function(a){a.classList.remove('active');});
+    }
+  });
+})();
+</script>
+</body>
+</html>
