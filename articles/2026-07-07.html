@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Microsoft cuts 4,800 jobs, including many at Xbox in a 'reset' of its gaming division</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.8;
+    padding: 0;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 16px 120px;
+    background: #fff;
+    min-height: 100vh;
+  }
+  .article-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e8e8e8;
+  }
+  .article-header h1 {
+    font-size: 22px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+  }
+  .article-header .title-cn {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .article-header .meta {
+    font-size: 13px;
+    color: #999;
+  }
+  .article-header .meta span {
+    margin-right: 12px;
+  }
+  .section-title {
+    font-size: 17px;
+    color: #1a1a1a;
+    margin: 24px 0 4px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .section-title-cn {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .para-group {
+    margin-bottom: 20px;
+  }
+  .en-text {
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 6px;
+    color: #222;
+  }
+  .cn-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #888;
+    padding-left: 12px;
+    border-left: 3px solid #e0e0e0;
+    margin-bottom: 4px;
+  }
+  .word {
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.15s;
+    display: inline;
+  }
+  .word:hover {
+    background: #e3f2fd;
+  }
+  .word.active {
+    background: #bbdefb;
+  }
+
+  /* Bottom lookup panel */
+  .lookup-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0 20px 24px;
+  }
+  .lookup-panel.show {
+    transform: translateY(0);
+  }
+  .lookup-panel .handle {
+    width: 36px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 2px;
+    margin: 10px auto 16px;
+  }
+  .lookup-panel .word-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lookup-panel .phonetic {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .lookup-panel .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lookup-panel .play-btn:hover {
+    background: #1565c0;
+  }
+  .lookup-panel .definitions {
+    margin-top: 12px;
+  }
+  .lookup-panel .pos {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .lookup-panel .def-item {
+    font-size: 14px;
+    color: #444;
+    padding: 4px 0 4px 12px;
+    line-height: 1.6;
+  }
+  .lookup-panel .error-msg {
+    color: #e53935;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+  .lookup-panel .loading {
+    color: #999;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  .original-link {
+    display: block;
+    text-align: center;
+    margin-top: 32px;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .original-link:hover {
+    background: #e8e8e8;
+  }
+
+  .tip {
+    text-align: center;
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 16px;
+  }
+
+</style>
+</head>
+<body>
+<div class='container'>
+  <div class='article-header'>
+    <h1>Microsoft cuts 4,800 jobs, including many at Xbox in a 'reset' of its gaming division</h1>
+    <div class='title-cn'>微软裁员4800人，包括大量Xbox员工，对其游戏部门进行"重置"</div>
+    <div class='meta'>
+      <span>Associated Press (AP News)</span>
+      <span>July 6, 2026</span>
+    </div>
+  </div>
+
+  <div class='section-title'>THE LAYOFFS</div>
+  <div class='section-title-cn'>裁员情况</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='redmond'>REDMOND</span>, <span class='word' data-word='wash'>Wash</span>. (<span class='word' data-word='ap'>AP</span>) — <span class='word' data-word='microsoft'>Microsoft</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='cutting'>cutting</span> <span class='word' data-word='4800'>4,800</span> <span class='word' data-word='jobs'>jobs</span>, <span class='word' data-word='about'>about</span> <span class='word' data-word='2.1'>2.1</span>% <span class='word' data-word='of'>of</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='global'>global</span> <span class='word' data-word='workforce'>workforce</span>, <span class='word' data-word='including'>including</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='large'>large</span> <span class='word' data-word='number'>number</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='workers'>workers</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='xbox'>Xbox</span> <span class='word' data-word='video'>video</span> <span class='word' data-word='game'>game</span> <span class='word' data-word='business'>business</span>.</p>
+          <p class='cn-text'>【译】雷德蒙德，华盛顿州（美联社）——微软正在裁员4800人，约占其全球员工的2.1%，其中包括大量Xbox视频游戏业务的员工。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='layoffs'>layoffs</span> <span class='word' data-word='included'>included</span> <span class='word' data-word='1600'>1,600</span> <span class='word' data-word='xbox'>Xbox</span> <span class='word' data-word='workers'>workers</span>, <span class='word' data-word='with'>with</span> <span class='word' data-word='more'>more</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='come'>come</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='year'>year</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='broader'>broader</span> <span class='word' data-word='reorganization'>reorganization</span> <span class='word' data-word='designed'>designed</span> <span class='word' data-word='to'>to</span> "<span class='word' data-word='reset'>reset</span>" <span class='word' data-word='xbox'>Xbox</span> <span class='word' data-word='as'>as</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='faces'>faces</span> <span class='word' data-word='heightened'>heightened</span> <span class='word' data-word='competition'>competition</span>, <span class='word' data-word='the'>the</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='monday'>Monday</span>.</p>
+          <p class='cn-text'>【译】此次裁员包括1600名Xbox员工，且今年还会有更多裁员——这是旨在"重置"Xbox以应对日益激烈竞争的更大规模重组的一部分，该公司周一表示。</p>
+        </div>
+
+  <div class='section-title'>XBOX CEO'S MEMO</div>
+  <div class='section-title-cn'>Xbox CEO的内部备忘录</div>
+
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='our'>Our</span> <span class='word' data-word='business'>business</span> <span class='word' data-word='today'>today</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='healthy'>healthy</span>," <span class='word' data-word='said'>said</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='memo'>memo</span> <span class='word' data-word='from'>from</span> <span class='word' data-word='xbox'>Xbox</span> <span class='word' data-word='ceo'>CEO</span> <span class='word' data-word='asha'>Asha</span> <span class='word' data-word='sharma'>Sharma</span>, <span class='word' data-word='who'>who</span> <span class='word' data-word='took'>took</span> <span class='word' data-word='over'>over</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='gaming'>gaming</span> <span class='word' data-word='division'>division</span> <span class='word' data-word='earlier'>earlier</span> <span class='word' data-word='this'>this</span> <span class='word' data-word='year'>year</span>. "<span class='word' data-word='we'>We</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='operating'>operating</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='margins'>margins</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='3'>3</span>-<span class='word' data-word='10'>10</span>x <span class='word' data-word='lower'>lower</span> <span class='word' data-word='than'>than</span> <span class='word' data-word='comparable'>comparable</span> <span class='word' data-word='platform'>platform</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='publishing'>publishing</span> <span class='word' data-word='businesses'>businesses</span>."</p>
+          <p class='cn-text'>【译】今年早些时候接管游戏部门的Xbox首席执行官阿莎·夏尔马（Asha Sharma）在一份内部备忘录中表示："我们目前的业务并不健康。我们的利润率比同类平台和出版业务低了3到10倍。"</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='sharma'>Sharma</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='industry'>industry</span>, <span class='word' data-word='in'>in</span> <span class='word' data-word='which'>which</span> <span class='word' data-word='xbox'>Xbox</span> <span class='word' data-word='competes'>competes</span> <span class='word' data-word='with'>with</span> <span class='word' data-word='sony'>Sony</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='playstation'>PlayStation</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='nintendo'>Nintendo</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='switch'>Switch</span>, <span class='word' data-word='is'>is</span> <span class='word' data-word='facing'>facing</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='severe'>severe</span> "<span class='word' data-word='hardware'>hardware</span> <span class='word' data-word='crisis'>crisis</span>" <span class='word' data-word='as'>as</span> <span class='word' data-word='costs'>costs</span> <span class='word' data-word='soar'>soar</span> <span class='word' data-word='for'>for</span> <span class='word' data-word='console'>console</span> <span class='word' data-word='components'>components</span>.</p>
+          <p class='cn-text'>【译】夏尔马表示，Xbox与索尼的PlayStation和任天堂的Switch竞争的游戏行业正面临严重的"硬件危机"，因为游戏机组件的成本大幅飙升。</p>
+        </div>
+
+  <div class='section-title'>FURTHER CUTS AND DIVESTITURES</div>
+  <div class='section-title-cn'>进一步裁员与剥离工作室</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='beyond'>Beyond</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='layoffs'>layoffs</span> <span class='word' data-word='announced'>announced</span> <span class='word' data-word='monday'>Monday</span>, <span class='word' data-word='sharma'>Sharma</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='xbox'>Xbox</span> <span class='word' data-word='expects'>expects</span> <span class='word' data-word='another'>another</span> <span class='word' data-word='1600'>1,600</span> <span class='word' data-word='job'>job</span> <span class='word' data-word='cuts'>cuts</span> <span class='word' data-word='over'>over</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='course'>course</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='fiscal'>fiscal</span> <span class='word' data-word='year'>year</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='began'>began</span> <span class='word' data-word='last'>last</span> <span class='word' data-word='week'>week</span>. <span class='word' data-word='the'>The</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='is'>is</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='spinning'>spinning</span> <span class='word' data-word='off'>off</span> <span class='word' data-word='four'>four</span> <span class='word' data-word='video'>video</span> <span class='word' data-word='game'>game</span> <span class='word' data-word='development'>development</span> <span class='word' data-word='studios'>studios</span> <span class='word' data-word='previously'>previously</span> <span class='word' data-word='acquired'>acquired</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='microsoft'>Microsoft</span>.</p>
+          <p class='cn-text'>【译】除了周一宣布的裁员之外，夏尔马表示Xbox预计在上周开始的这个财年内还将再裁员1600人。公司还将剥离此前由微软收购的四家视频游戏开发工作室。</p>
+        </div>
+
+  <div class='section-title'>THE ACTIVISION DEAL</div>
+  <div class='section-title-cn">收购动视暴雪的交易</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='nearly'>Nearly</span> <span class='word' data-word='three'>three</span> <span class='word' data-word='years'>years</span> <span class='word' data-word='ago'>ago</span>, <span class='word' data-word='microsoft'>Microsoft</span> <span class='word' data-word='closed'>closed</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='$69'>$69</span> <span class='word' data-word='billion'>billion</span> <span class='word' data-word='deal'>deal</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='acquire'>acquire</span> <span class='word' data-word='gaming'>gaming</span> <span class='word' data-word='giant'>giant</span> <span class='word' data-word='activision'>Activision</span> <span class='word' data-word='blizzard'>Blizzard</span>, <span class='word' data-word='maker'>maker</span> <span class='word' data-word='of'>of</span> "<span class='word' data-word='call'>Call</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='duty'>Duty</span>" <span class='word' data-word='and'>and</span> <span class='word' data-word='other'>other</span> <span class='word' data-word='blockbuster'>blockbuster</span> <span class='word' data-word='franchises'>franchises</span>. <span class='word' data-word='the'>The</span> <span class='word' data-word='company'>company</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='time'>time</span> <span class='word' data-word='it'>it</span> <span class='word' data-word='wanted'>wanted</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='broaden'>broaden</span> <span class='word' data-word='its'>its</span> <span class='word' data-word='game'>game</span> <span class='word' data-word='development'>development</span> <span class='word' data-word='portfolio'>portfolio</span> <span class='word' data-word='and'>and</span> <span class='word' data-word='offer'>offer</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='netflix'>Netflix</span>-<span class='word' data-word='like'>like</span> <span class='word' data-word='streaming'>streaming</span> <span class='word' data-word='subscription'>subscription</span> <span class='word' data-word='service'>service</span>, <span class='word' data-word='but'>but</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='strategy'>strategy</span> <span class='word' data-word='does'>does</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='appear'>appear</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='been'>been</span> <span class='word' data-word='enough'>enough</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='get'>get</span> <span class='word' data-word='ahead'>ahead</span> <span class='word' data-word='of'>of</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='competition'>competition</span>.</p>
+          <p class='cn-text'>【译】近三年前，微软完成了以690亿美元收购游戏巨头动视暴雪（Activision Blizzard）的交易——动视暴雪是《使命召唤》（Call of Duty）及其他重量级游戏系列的开发商。微软当时表示，希望扩大其游戏开发组合，并提供类似Netflix的流媒体订阅服务，但这一战略似乎不足以让微软在竞争中取得领先。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='while'>While</span> <span class='word' data-word='those'>those</span> <span class='word' data-word='businesses'>businesses</span> <span class='word' data-word='have'>have</span> <span class='word' data-word='created'>created</span> <span class='word' data-word='meaningful'>meaningful</span> <span class='word' data-word='value'>value</span>, <span class='word' data-word='they'>they</span> <span class='word' data-word='did'>did</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='grow'>grow</span> <span class='word' data-word='at'>at</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='pace'>pace</span> <span class='word' data-word='we'>we</span> <span class='word' data-word='expected'>expected</span>," <span class='word' data-word='sharma'>Sharma</span> <span class='word' data-word='said'>said</span>.</p>
+          <p class='cn-text'>【译】"虽然这些业务创造了有意义的价值，但它们并没有以我们预期的速度增长。"夏尔马说。</p>
+        </div>
+
+  <div class='section-title'>BROADER MICROSOFT LAYOFFS</div>
+  <div class='section-title-cn'>微软整体裁员</div>
+
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='xbox'>Xbox</span> <span class='word' data-word='cuts'>cuts</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='addition'>addition</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='broader'>broader</span> <span class='word' data-word='microsoft'>Microsoft</span> <span class='word' data-word='layoffs'>layoffs</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='software'>software</span> <span class='word' data-word='giant'>giant</span>'<span class='word' data-word='s'>s</span> <span class='word' data-word='chief'>chief</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='officer'>officer</span> <span class='word' data-word='amy'>Amy</span> <span class='word' data-word='coleman'>Coleman</span> <span class='word' data-word='tied'>tied</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='unspecified'>unspecified</span> <span class='word' data-word='changes'>changes</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='customer'>customer</span> <span class='word' data-word='needs'>needs</span>.</p>
+          <p class='cn-text'>【译】Xbox的裁员是在微软更广泛的裁员基础上进行的——这家软件巨头的人力总监艾米·科尔曼（Amy Coleman）将裁员与客户需求的不明确变化联系在一起。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'>"<span class='word' data-word='i'>I</span> <span class='word' data-word='also'>also</span> <span class='word' data-word='want'>want</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='be'>be</span> <span class='word' data-word='direct'>direct</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='the'>the</span> <span class='word' data-word='roles'>roles</span> <span class='word' data-word='eliminated'>eliminated</span> <span class='word' data-word='today'>today</span> <span class='word' data-word='are'>are</span> <span class='word' data-word='not'>not</span> <span class='word' data-word='being'>being</span> <span class='word' data-word='replaced'>replaced</span> <span class='word' data-word='by'>by</span> <span class='word' data-word='ai'>AI</span>," <span class='word' data-word='coleman'>Coleman</span> <span class='word' data-word='wrote'>wrote</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='a'>a</span> <span class='word' data-word='blog'>blog</span> <span class='word' data-word='post'>post</span>.</p>
+          <p class='cn-text'>【译】"我也要直接说明：今天被裁掉的岗位并不是被AI取代的。"科尔曼在一篇博客文章中写道。</p>
+        </div>
+        <div class='para-group'>
+          <p class='en-text'><span class='word' data-word='the'>The</span> <span class='word' data-word='layoffs'>layoffs</span> <span class='word' data-word='followed'>followed</span> <span class='word' data-word='voluntary'>voluntary</span> <span class='word' data-word='buyouts'>buyouts</span> <span class='word' data-word='that'>that</span> <span class='word' data-word='microsoft'>Microsoft</span> <span class='word' data-word='began'>began</span> <span class='word' data-word='offering'>offering</span> <span class='word' data-word='to'>to</span> <span class='word' data-word='about'>about</span> <span class='word' data-word='8750'>8,750</span> <span class='word' data-word='people'>people</span> <span class='word' data-word='in'>in</span> <span class='word' data-word='may'>May</span>. <span class='word' data-word='more'>More</span> <span class='word' data-word='than'>than</span> <span class='word' data-word='30'>30</span>% <span class='word' data-word='of'>of</span> <span class='word' data-word='eligible'>eligible</span> <span class='word' data-word='workers'>workers</span> <span class='word' data-word='accepted'>accepted</span> <span class='word' data-word='those'>those</span> <span class='word' data-word='voluntary'>voluntary</span> <span class='word' data-word='retirement'>retirement</span> <span class='word' data-word='offers'>offers</span>, <span class='word' data-word='coleman'>Coleman</span> <span class='word' data-word='said'>said</span> <span class='word' data-word='monday'>Monday</span>.</p>
+          <p class='cn-text'>【译】此次裁员之前，微软已于5月开始向约8750名员工提供自愿离职补偿方案。科尔曼周一表示，超过30%的符合条件的员工接受了自愿退休提议。</p>
+        </div>
+
+  <a class='original-link' href='https://apnews.com/article/xbox-layoffs-microsoft-sharma-5a8f712c531911089dee008b3bbb33c4' target='_blank'>Read Original (AP News)</a>
+  <div class='tip'>Click any English word for definition and pronunciation | 点击任意英文单词查看读音和释义</div>
+</div>
+
+<div class='lookup-panel' id='lookupPanel'>
+  <div class='handle'></div>
+  <div id='lookupContent'>
+    <div class='loading'>Loading...</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var panel = document.getElementById('lookupPanel');
+  var content = document.getElementById('lookupContent');
+  var currentAudio = null;
+  var API_BASE = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
+
+  function normalize(word) {
+    return word.toLowerCase().replace(/[^a-z'\-]/g, '');
+  }
+
+  function hidePanel() {
+    panel.classList.remove('show');
+  }
+
+  function showPanel() {
+    panel.classList.add('show');
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, function(c) {
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+    });
+  }
+
+  function renderWord(data) {
+    var entry = Array.isArray(data) ? data[0] : data;
+    var phonetic = '';
+    var audioUrl = '';
+    if (entry.phonetic) phonetic = entry.phonetic;
+    if (entry.phonetics && entry.phonetics.length) {
+      for (var i = 0; i < entry.phonetics.length; i++) {
+        var ph = entry.phonetics[i];
+        if (ph.text && !phonetic) phonetic = ph.text;
+        if (ph.audio && !audioUrl) audioUrl = ph.audio;
+      }
+    }
+    var meaningsHtml = '';
+    if (entry.meanings && entry.meanings.length) {
+      for (var m = 0; m < entry.meanings.length; m++) {
+        var meaning = entry.meanings[m];
+        meaningsHtml += '<div class="pos">' + escapeHtml(meaning.partOfSpeech || '') + '</div>';
+        if (meaning.definitions && meaning.definitions.length) {
+          for (var d = 0; d < Math.min(meaning.definitions.length, 3); d++) {
+            var def = meaning.definitions[d];
+            meaningsHtml += '<div class="def-item">' + (d + 1) + '. ' + escapeHtml(def.definition || '') + '</div>';
+            if (def.example) {
+              meaningsHtml += '<div class="def-item" style="color:#888;font-style:italic;">&nbsp;&nbsp;&nbsp;&nbsp;e.g. ' + escapeHtml(def.example) + '</div>';
+            }
+          }
+        }
+      }
+    }
+    var html = '<div class="word-title">' + escapeHtml(entry.word || '') + '</div>';
+    if (phonetic) html += '<div class="phonetic">' + escapeHtml(phonetic) + '</div>';
+    if (audioUrl) {
+      html += '<button class="play-btn" data-audio="' + escapeHtml(audioUrl) + '">&#9654; Play pronunciation</button>';
+    } else {
+      html += '<div style="color:#999;font-size:13px;margin-bottom:8px;">No pronunciation audio available</div>';
+    }
+    html += '<div class="definitions">' + meaningsHtml + '</div>';
+    content.innerHTML = html;
+
+    var playBtn = content.querySelector('.play-btn');
+    if (playBtn) {
+      playBtn.addEventListener('click', function() {
+        var url = this.getAttribute('data-audio');
+        if (currentAudio) { try { currentAudio.pause(); } catch(e){} }
+        currentAudio = new Audio(url);
+        currentAudio.play().catch(function(){});
+      });
+    }
+  }
+
+  function lookupWord(rawWord) {
+    var word = normalize(rawWord);
+    if (!word) return;
+    showPanel();
+    content.innerHTML = '<div class="loading">Looking up "<b>' + escapeHtml(word) + '</b>"...</div>';
+
+    var cacheKey = 'dict_' + word;
+    try {
+      var cached = sessionStorage.getItem(cacheKey);
+      if (cached) {
+        renderWord(JSON.parse(cached));
+        return;
+      }
+    } catch(e) {}
+
+    fetch(API_BASE + encodeURIComponent(word))
+      .then(function(r) {
+        if (!r.ok) throw new Error('Not found');
+        return r.json();
+      })
+      .then(function(data) {
+        try { sessionStorage.setItem(cacheKey, JSON.stringify(data)); } catch(e) {}
+        renderWord(data);
+      })
+      .catch(function() {
+        content.innerHTML = '<div class="error-msg">No definition found for "<b>' + escapeHtml(word) + '</b>".</div>';
+      });
+  }
+
+  document.querySelectorAll('.word').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var w = this.getAttribute('data-word');
+      document.querySelectorAll('.word.active').forEach(function(a){a.classList.remove('active');});
+      this.classList.add('active');
+      lookupWord(w);
+    });
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!panel.contains(e.target) && !e.target.classList.contains('word')) {
+      hidePanel();
+      document.querySelectorAll('.word.active').forEach(function(a){a.classList.remove('active');});
+    }
+  });
+})();
+</script>
+</body>
+</html>
